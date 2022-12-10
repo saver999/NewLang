@@ -16,19 +16,121 @@
 //  java -jar ../CUP/java-cup-11b.jar -dump -destdir src srcjflexcup/newLang.cup 2> dumpfile
 // Ian Stark
 // Declare terminals and nonterminals in the grammar
-terminal SEQ, PAR, END ;
-terminal String RESISTOR;
-nonterminal Double Circuit, Series, Parallel;
+terminal MAIN, SEMI, COMMA, PIPE, VAR, INT, FLOAT, STRING, BOOL, CHAR, VOID, DEF, OUT, FOR, IF, ELSE, WHILE, TO, LOOP, READ, WRITE, WRITLN, LPAR, RPAR, LBRAC, RBRAC, COLON, ASSIGN, RETURN, ID, INTEGER_CONST, REAL_CONST, CHAR_CONST, TRUE, FALSE, PLUS, MINUS, TIMES, DIV, POW, STR_CONCAT, EQ, NE, LT, LE, GT, GE, AND, OR, NOT ;
+terminal String STRING_CONST;
+terminal Integer INTEGER_CONST;
+
+nonterminal Double Circuit, Series, Parallel, Program, DeclList, MainFunDecl,
+ VarDecl,FunDecl, Type, IdInitList,IdInitObblList,Expr,Const, FunDecl, ParamDeclList,TypeOrVoid, Body,
+ VarDeclList, StatList,NonEmptyParamDeclList,ParDecl, IdList,VardDecl, Stat, IfStat,ForStat,ReadStat,WriteStat,AssignStat,
+ WhileStat,FunCall,Else,ExprList;
 // The value associated to a Circuit1 and a Series block is the resistance; for
 // a Parallel block it is the conductance.
 // Now the grammar itself
-Circuit ::=  SEQ Series:s END {: RESULT = s; :}
-            | PAR Parallel:p END {: RESULT = new Double(1/p.doubleValue()); :}
-            | RESISTOR:r {: RESULT = new Double(r); :}
-;
-Series ::= Circuit:c Series:s   {: RESULT = new Double(c.doubleValue()+s.doubleValue()); :}
-            | /* empty */ {: RESULT = 0.0; :}
-;
-Parallel ::= Circuit:c Parallel:p {: RESULT = new Double(1/c.doubleValue()+p.doubleValue()); :}
-            | /* empty */ {: RESULT = 0.0; :}
-;
+
+Program ::= DeclList MainFunDecl DeclList;
+
+DeclList ::= VarDecl DeclList | FunDecl DeclList | /* empty */;
+
+MainFunDecl ::= MAIN FunDecl;
+
+VarDecl ::= Type IdInitList SEMI
+	| VAR IdInitObblList SEMI;
+
+Type ::= INTEGER | BOOL | REAL | STRING | CHAR;
+
+IdInitList ::= ID
+	| IdInitList COMMA ID
+	| ID ASSIGN Expr
+	| IdInitList COMMA ID ASSIGN Expr;
+
+IdInitObblList ::= ID ASSIGN Const
+	| IdInitObblList COMMA ID ASSIGN Const;
+
+Const ::= INTEGER_CONST | REAL_CONST | TRUE | FALSE | STRING_CONST | CHAR_CONST;
+
+FunDecl ::= DEF ID LPAR ParamDeclList RPAR COLON TypeOrVoid Body;
+
+Body ::= LBRACK VarDeclList StatList RBRACK;
+
+ParamDeclList ::= /*empty */
+	| NonEmptyParamDeclList;
+
+NonEmptyParamDeclList ::= ParDecl
+	| NonEmptyParamDeclList PIPE ParDecl;
+
+ParDecl ::= Type IdList
+	| OUT Type IdList;
+
+TypeOrVoid ::= Type | VOID;
+
+VarDeclList ::=/* empty */
+	| VardDecl VarDeclList;
+
+StatList ::= Stat
+	 | Stat StatList;
+
+
+Stat ::= IfStat
+	| ForStat
+	| ReadStat SEMI
+	| WriteStat SEMI
+	| AssignStat SEMI
+        | WhileStat
+	| FunCall SEMI
+	| RETURN Expr SEMI
+	| RETURN SEMI
+	| /* empty */;
+
+IfStat ::= IF Expr THEN Body Else;
+
+Else ::= /* empty */
+	| ELSE Body;
+
+WhileStat ::= WHILE Expr LOOP Body;
+
+ForStat ::= FOR ID ASSIGN INTEGER_CONST TO INTEGER_CONST LOOP Body;
+
+ReadStat ::= IdList READ STRING_CONST
+	|  IdList READ;
+
+IdList ::= ID
+	| IdList COMMA ID;
+
+WriteStat ::= ExprList WRITE
+	   | ExprList WRITELN;
+
+
+AssignStat ::=  IdList ASSIGN ExprList;
+
+FunCall ::= ID LPAR ExprList RPAR
+	| ID LPAR RPAR;
+
+ExprList ::= Expr
+	| Expr COMMA ExprList;
+
+Expr ::= TRUE
+	| FALSE
+	| INTEGER_CONST
+	| REAL_CONST
+	| STRING_CONST
+	| CHAR_CONST
+	| ID
+	| FunCall
+	| Expr  PLUS Expr
+	| Expr  MINUS Expr
+	| Expr  TIMES Expr
+	| Expr  DIV Expr
+	| Expr  AND Expr
+	| Expr POW Expr
+	| Expr STR_CONCAT Expr
+	| Expr  OR Expr
+	| Expr  GT Expr
+	| Expr  GE Expr
+	| Expr  LT Expr
+	| Expr  LE Expr
+	| Expr  EQ Expr
+	| Expr  NE Expr
+	| MINUS Expr
+	| NOT Expr
+	| LPAR Expr RPAR;
