@@ -1,10 +1,4 @@
-// Circuit1.flex
-//         ../jflex-1.8.2/bin/jflex -d src srcjflexcup/newLang.flex
-// CS2A Language Processing
-//
-// Description of lexer for circuit description language.
-//
-// Ian Stark
+
 package esercitazione4;
 import java_cup.runtime.Symbol; //This is how we pass tokens to the parser
 
