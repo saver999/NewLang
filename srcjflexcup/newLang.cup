@@ -16,12 +16,13 @@
 //  java -jar ../CUP/java-cup-11b.jar -dump -destdir src srcjflexcup/newLang.cup 2> dumpfile
 // Ian Stark
 // Declare terminals and nonterminals in the grammar
-terminal MAIN, SEMI, COMMA, PIPE, VAR, INT, FLOAT, STRING, BOOL, CHAR, VOID, DEF, OUT, FOR, IF, ELSE, WHILE, TO, LOOP, READ, WRITE, WRITLN, LPAR, RPAR, LBRAC, RBRAC, COLON, ASSIGN, RETURN, ID, INTEGER_CONST, REAL_CONST, CHAR_CONST, TRUE, FALSE, PLUS, MINUS, TIMES, DIV, POW, STR_CONCAT, EQ, NE, LT, LE, GT, GE, AND, OR, NOT ;
+terminal MAIN, SEMI, COMMA, PIPE, VAR, INT, FLOAT, STRING, BOOL,
+CHAR, VOID, DEF, OUT, FOR, IF, ELSE, WHILE, TO, LOOP, READ, WRITE, WRITLN, LPAR, RPAR, LBRAC, RBRAC, COLON, ASSIGN, RETURN, ID,  REAL_CONST, CHAR_CONST, TRUE, FALSE, PLUS, MINUS, TIMES, DIV, POW, STR_CONCAT, EQ, NE, LT, LE, GT, GE, AND, OR, NOT ;
 terminal String STRING_CONST;
 terminal Integer INTEGER_CONST;
 
 nonterminal Double Circuit, Series, Parallel, Program, DeclList, MainFunDecl,
- VarDecl,FunDecl, Type, IdInitList,IdInitObblList,Expr,Const, FunDecl, ParamDeclList,TypeOrVoid, Body,
+ VarDecl,FunDecl, Type, IdInitList,IdInitObblList,Expr,Const,  ParamDeclList,TypeOrVoid, Body,
  VarDeclList, StatList,NonEmptyParamDeclList,ParDecl, IdList,VardDecl, Stat, IfStat,ForStat,ReadStat,WriteStat,AssignStat,
  WhileStat,FunCall,Else,ExprList;
 // The value associated to a Circuit1 and a Series block is the resistance; for
