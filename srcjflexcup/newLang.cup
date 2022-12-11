@@ -1,6 +1,6 @@
 
 terminal MAIN, SEMI, COMMA, PIPE, VAR, STRING, BOOL,INTEGER,REAL,
-CHAR, VOID, DEF, OUT, FOR, IF,THEN, ELSE, WHILE, TO, LOOP, READ, WRITE, WRITELN, LPAR, RPAR, LBRACK, RBRACK, COLON, ASSIGN, RETURN, ID,  REAL_CONST, CHAR_CONST, TRUE, FALSE, PLUS, MINUS, TIMES, DIV, POW, STR_CONCAT, EQ, NE, LT, LE, GT, GE, AND, OR, NOT ;
+CHAR, VOID, DEF, OUT, FOR,END, IF,THEN, ELSE, WHILE, TO, LOOP, READ, WRITE, WRITELN, LPAR, RPAR, LBRACK, RBRACK, COLON, ASSIGN, RETURN, ID,  REAL_CONST, CHAR_CONST, TRUE, FALSE, PLUS, MINUS, TIMES, DIV, POW, STR_CONCAT, EQ, NE, LT, LE, GT, GE, AND, OR, NOT ;
 terminal String STRING_CONST;
 terminal  INTEGER_CONST;
 
@@ -14,107 +14,107 @@ nonterminal Program, DeclList, MainFunDecl,
 
 Program ::= DeclList MainFunDecl DeclList;
 
-DeclList ::= VarDecl DeclList | FunDecl DeclList | /* empty */;
+            DeclList ::= VarDecl DeclList | FunDecl DeclList | /* empty */;
 
-MainFunDecl ::= MAIN FunDecl;
+            MainFunDecl ::= MAIN FunDecl;
 
-VarDecl ::= Type IdInitList SEMI
-	| VAR IdInitObblList SEMI;
+            VarDecl ::= Type IdInitList SEMI
+            	| VAR IdInitObblList SEMI;
 
-Type ::= INTEGER | BOOL | REAL | STRING | CHAR;
+            Type ::= INTEGER | BOOL | REAL | STRING | CHAR;
 
-IdInitList ::= ID
-	| IdInitList COMMA ID
-	| ID ASSIGN Expr
-	| IdInitList COMMA ID ASSIGN Expr;
+            IdInitList ::= ID
+            	| IdInitList COMMA ID
+            	| ID ASSIGN Expr
+            	| IdInitList COMMA ID ASSIGN Expr;
 
-IdInitObblList ::= ID ASSIGN Const
-	| IdInitObblList COMMA ID ASSIGN Const;
+            IdInitObblList ::= ID ASSIGN Const
+            	| IdInitObblList COMMA ID ASSIGN Const;
 
-Const ::= INTEGER_CONST | REAL_CONST | TRUE | FALSE | STRING_CONST | CHAR_CONST;
+            Const ::= INTEGER_CONST | REAL_CONST | TRUE | FALSE | STRING_CONST | CHAR_CONST;
 
-FunDecl ::= DEF ID LPAR ParamDeclList RPAR COLON TypeOrVoid Body;
+            FunDecl ::= DEF ID LPAR ParamDeclList RPAR COLON TypeOrVoid Body;
 
-Body ::= LBRACK VarDeclList StatList RBRACK;
+            Body ::= LBRACK VarDeclList StatList RBRACK;
 
-ParamDeclList ::= /*empty */
-	| NonEmptyParamDeclList;
+            ParamDeclList ::= /*empty */
+            	| NonEmptyParamDeclList;
 
-NonEmptyParamDeclList ::= ParDecl
-	| NonEmptyParamDeclList PIPE ParDecl;
+            NonEmptyParamDeclList ::= ParDecl
+            	| NonEmptyParamDeclList PIPE ParDecl;
 
-ParDecl ::= Type IdList
-	| OUT Type IdList;
+            ParDecl ::= Type IdList
+            	| OUT Type IdList;
 
-TypeOrVoid ::= Type | VOID;
+            TypeOrVoid ::= Type | VOID;
 
-VarDeclList ::=/* empty */
-	| VardDecl VarDeclList;
+            VarDeclList ::=/* empty */
+            	| VarDecl VarDeclList;
 
-StatList ::= Stat
-	 | Stat StatList;
-
-
-Stat ::= IfStat
-	| ForStat
-	| ReadStat SEMI
-	| WriteStat SEMI
-	| AssignStat SEMI
-        | WhileStat
-	| FunCall SEMI
-	| RETURN Expr SEMI
-	| RETURN SEMI
-	| /* empty */;
-
-IfStat ::= IF Expr THEN Body Else;
-
-Else ::= /* empty */
-	| ELSE Body;
-
-WhileStat ::= WHILE Expr LOOP Body;
-
-ForStat ::= FOR ID ASSIGN INTEGER_CONST TO INTEGER_CONST LOOP Body;
-
-ReadStat ::= IdList READ STRING_CONST
-	|  IdList READ;
-
-IdList ::= ID
-	| IdList COMMA ID;
-
-WriteStat ::= ExprList WRITE
-	   | ExprList WRITELN;
+            StatList ::= Stat
+            	 | Stat StatList;
 
 
-AssignStat ::=  IdList ASSIGN ExprList;
+            Stat ::= IfStat
+            	| ForStat
+            	| ReadStat SEMI
+            	| WriteStat SEMI
+            	| AssignStat SEMI
+                    | WhileStat
+            	| FunCall SEMI
+            	| RETURN Expr SEMI
+            	| RETURN SEMI
+            	| /* empty */;
 
-FunCall ::= ID LPAR ExprList RPAR
-	| ID LPAR RPAR;
+            IfStat ::= IF Expr THEN Body Else;
 
-ExprList ::= Expr
-	| Expr COMMA ExprList;
+            Else ::= /* empty */
+            	| ELSE Body;
 
-Expr ::= TRUE
-	| FALSE
-	| INTEGER_CONST
-	| REAL_CONST
-	| STRING_CONST
-	| CHAR_CONST
-	| ID
-	| FunCall
-	| Expr  PLUS Expr
-	| Expr  MINUS Expr
-	| Expr  TIMES Expr
-	| Expr  DIV Expr
-	| Expr  AND Expr
-	| Expr POW Expr
-	| Expr STR_CONCAT Expr
-	| Expr  OR Expr
-	| Expr  GT Expr
-	| Expr  GE Expr
-	| Expr  LT Expr
-	| Expr  LE Expr
-	| Expr  EQ Expr
-	| Expr  NE Expr
-	| MINUS Expr
-	| NOT Expr
-	| LPAR Expr RPAR;
+            WhileStat ::= WHILE Expr LOOP Body;
+
+            ForStat ::= FOR ID ASSIGN INTEGER_CONST TO INTEGER_CONST LOOP Body;
+
+            ReadStat ::= IdList READ STRING_CONST
+            	|  IdList READ;
+
+            IdList ::= ID
+            	| IdList COMMA ID;
+
+            WriteStat ::= ExprList WRITE
+            	   | ExprList WRITELN;
+
+
+            AssignStat ::=  IdList ASSIGN ExprList;
+
+            FunCall ::= ID LPAR ExprList RPAR
+            	| ID LPAR RPAR;
+
+            ExprList ::= Expr
+            	| Expr COMMA ExprList;
+
+            Expr ::= TRUE
+            	| FALSE
+            	| INTEGER_CONST
+            	| REAL_CONST
+            	| STRING_CONST
+            	| CHAR_CONST
+            	| ID
+            	| FunCall
+            	| Expr  PLUS Expr
+            	| Expr  MINUS Expr
+            	| Expr  TIMES Expr
+            	| Expr  DIV Expr
+            	| Expr  AND Expr
+            	| Expr POW Expr
+            	| Expr STR_CONCAT Expr
+            	| Expr  OR Expr
+            	| Expr  GT Expr
+            	| Expr  GE Expr
+            	| Expr  LT Expr
+            	| Expr  LE Expr
+            	| Expr  EQ Expr
+            	| Expr  NE Expr
+            	| MINUS Expr
+            	| NOT Expr
+            	| LPAR Expr RPAR;

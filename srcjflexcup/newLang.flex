@@ -24,13 +24,13 @@ id = {symbol}({all_symbol})*
 ","  { return new Symbol(sym.COMMA); }
 "|"  { return new Symbol(sym.PIPE); }
 "var" { return new Symbol(sym.VAR);}
-"integer" { return new Symbol(sym.INT);}
-"float" { return new Symbol(sym.FLOAT);}
+"integer" { return new Symbol(sym.INTEGER);}
+"real" { return new Symbol(sym.REAL);}
 "string" { return new Symbol(sym.STRING);}
 "boolean" { return new Symbol(sym.BOOL);}
 "char" { return new Symbol(sym.CHAR);}
 "void"  { return new Symbol(sym.VOID);}
-
+"end" { return new Symbol(sym.END);}
 
 "def"  { return new Symbol(sym.DEF);}
 "out"   { return new Symbol(sym.OUT);}
@@ -46,8 +46,8 @@ id = {symbol}({all_symbol})*
 
 "("  { return new Symbol(sym.LPAR);}
 ")"  { return new Symbol(sym.RPAR);}
-"{"  { return new Symbol(sym.LBRAC);}
-"}"  { return new Symbol(sym.RBRAC);}
+"{"  { return new Symbol(sym.LBRACK);}
+"}"  { return new Symbol(sym.RBRACK);}
 ":"  { return new Symbol(sym.COLON);}
 "<<"  { return new Symbol(sym.ASSIGN);}
 "return" { return new Symbol(sym.RETURN);}
