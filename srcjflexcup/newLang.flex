@@ -51,7 +51,7 @@ id = {symbol}({all_symbol})*
 ":"  { return new Symbol(sym.COLON);}
 "<<"  { return new Symbol(sym.ASSIGN);}
 "return" { return new Symbol(sym.RETURN);}
-"end" { return new Symbol(sym.END); }
+
 
 "true" { return new Symbol(sym.TRUE);}
 "false" { return new Symbol(sym.FALSE);}
