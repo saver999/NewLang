@@ -30,7 +30,7 @@ id = {symbol}({all_symbol})*
 "boolean" { return new Symbol(sym.BOOL);}
 "char" { return new Symbol(sym.CHAR);}
 "void"  { return new Symbol(sym.VOID);}
-"end" { return new Symbol(sym.END);}
+
 
 "def"  { return new Symbol(sym.DEF);}
 "out"   { return new Symbol(sym.OUT);}

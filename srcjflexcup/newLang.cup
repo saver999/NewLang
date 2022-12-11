@@ -1,16 +1,28 @@
 
-terminal MAIN, SEMI, COMMA, PIPE, VAR, STRING, BOOL,INTEGER,REAL,
-CHAR, VOID, DEF, OUT, FOR,END, IF,THEN, ELSE, WHILE, TO, LOOP, READ, WRITE, WRITELN, LPAR, RPAR, LBRACK, RBRACK, COLON, ASSIGN, RETURN, ID,  REAL_CONST, CHAR_CONST, TRUE, FALSE, PLUS, MINUS, TIMES, DIV, POW, STR_CONCAT, EQ, NE, LT, LE, GT, GE, AND, OR, NOT ;
+terminal MAIN, SEMI, COMMA, PIPE, VAR, STRING, BOOL,INTEGER,REAL, UMINUS,
+CHAR, VOID, DEF, OUT, FOR, IF,THEN, ELSE, WHILE, TO, LOOP, READ, WRITE, WRITELN, LPAR, RPAR, LBRACK, RBRACK, COLON, ASSIGN, RETURN, ID,  REAL_CONST, CHAR_CONST, TRUE, FALSE, PLUS, MINUS, TIMES, DIV, POW, STR_CONCAT, EQ, NE, LT, LE, GT, GE, AND, OR, NOT ;
 terminal String STRING_CONST;
 terminal  INTEGER_CONST;
 
 nonterminal Program, DeclList, MainFunDecl,
  VarDecl,FunDecl, Type, IdInitList,IdInitObblList,Expr,Const,  ParamDeclList,TypeOrVoid, Body,
- VarDeclList, StatList,NonEmptyParamDeclList,ParDecl, IdList,VardDecl, Stat, IfStat,ForStat,ReadStat,WriteStat,AssignStat,
+ VarDeclList, StatList,NonEmptyParamDeclList,ParDecl, IdList, Stat, IfStat,ForStat,ReadStat,WriteStat,AssignStat,
  WhileStat,FunCall,Else,ExprList;
 // The value associated to a Circuit1 and a Series block is the resistance; for
 // a Parallel block it is the conductance.
 // Now the grammar itself
+
+
+precedence left OR;
+precedence left AND;
+precedence right NOT;
+precedence left GT,GE;
+precedence left  EQ, NE,LT, LE;
+precedence left STR_CONCAT;
+precedence left PLUS,MINUS;
+precedence left DIV, TIMES;
+precedence right POW;
+precedence left UMINUS;
 
 
 Program ::= DeclList MainFunDecl DeclList;
@@ -82,8 +94,7 @@ Program ::= DeclList MainFunDecl DeclList;
             IdList ::= ID
             	| IdList COMMA ID;
 
-            WriteStat ::= ExprList WRITE
-            	   | ExprList WRITELN;
+            WriteStat ::=  LPAR ExprList RPAR WRITE |  LPAR ExprList RPAR WRITELN;
 
 
             AssignStat ::=  IdList ASSIGN ExprList;
@@ -116,6 +127,6 @@ Program ::= DeclList MainFunDecl DeclList;
             	| Expr  LE Expr
             	| Expr  EQ Expr
             	| Expr  NE Expr
-            	| MINUS Expr
+            	| MINUS Expr %prec UMINUS
             	| NOT Expr
             	| LPAR Expr RPAR;
