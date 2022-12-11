@@ -12,6 +12,7 @@ nonterminal Program, DeclList, MainFunDecl,
 // a Parallel block it is the conductance.
 // Now the grammar itself
 
+
 Program ::= DeclList MainFunDecl DeclList;
 
             DeclList ::= VarDecl DeclList | FunDecl DeclList | /* empty */;
@@ -63,8 +64,8 @@ Program ::= DeclList MainFunDecl DeclList;
                     | WhileStat
             	| FunCall SEMI
             	| RETURN Expr SEMI
-            	| RETURN SEMI
-            	| /* empty */;
+            	| RETURN SEMI;
+            	//| /* empty */;
 
             IfStat ::= IF Expr THEN Body Else;
 
