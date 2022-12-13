@@ -8,4 +8,5 @@ public interface Visitatore {
     String visit(RealConst realConst);
     String visit(StringConst stringConst);
     String visit(CharConst charConst);
+    String visit(IdVal idVal);
 }

@@ -20,7 +20,7 @@ public String content;
         return content;
     }
     public String visit(IntegerConst node){
-        content =  "("+node.val+")";
+        content =  "(INTEGER_CONST: "+node.val+")";
         return content;
     }
 
@@ -32,19 +32,24 @@ public String content;
 
     public String visit(RealConst node){
         String content;
-        content = "("+node.val+")";
+        content = "(REAL_CONST: "+node.val+")";
         return content;
     }
 
     public String visit(StringConst node){
         String content;
-        content = "("+ node.val+")";
+        content = "(STRING_CONST: "+ node.val+")";
         return content;
     }
 
     public String visit(CharConst node){
         String content;
-        content = "("+ node.val +")";
+        content = "(CHAR_CONST: "+ node.val +")";
+        return content;
+    }
+    public String visit(IdVal node){
+        String content;
+        content = "(ID: "+ node.val + ")";
         return content;
     }
 }

@@ -44,7 +44,12 @@ Program ::= DeclList MainFunDecl DeclList;
             IdInitObblList ::= ID ASSIGN Const
             	| IdInitObblList COMMA ID ASSIGN Const;
 
-            Const ::= INTEGER_CONST | REAL_CONST | TRUE | FALSE | STRING_CONST | CHAR_CONST;
+            Const ::= INTEGER_CONST
+            | REAL_CONST
+            | TRUE
+            | FALSE
+            | STRING_CONST
+            | CHAR_CONST;
 
             FunDecl ::= DEF ID LPAR ParamDeclList RPAR COLON TypeOrVoid Body;
 
@@ -111,7 +116,7 @@ Program ::= DeclList MainFunDecl DeclList;
             	| REAL_CONST:val               {: RESULT = new ExprNode("REAL_CONST", new RealConst(val)); :}
             	| STRING_CONST:val             {: RESULT = new ExprNode("STRING_CONST", new StringConst(val)); :}
             	| CHAR_CONST:val               {: RESULT = new ExprNode("CHAR_CONST", new CharConst(val)); :}
-            	| ID:val                       {: RESULT = new ExprNode("ID", new); :}
+            	| ID:val                       {: RESULT = new ExprNode("ID", new IdVal(id)); :}
             	| FunCall:val                  {: RESULT = new ExprNode("FuncallOp", new); :}
             	| Expr:e1  PLUS Expr:e2          {: RESULT = new ExprNode("AddOp", (Node)e1); :}
             	| Expr:e1  MINUS Expr:e2         {: RESULT = new ExprNode("MinusOp", (Node)e1); :}
