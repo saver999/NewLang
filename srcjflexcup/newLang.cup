@@ -107,7 +107,7 @@ Program ::= DeclList MainFunDecl DeclList;
 
             Expr ::= TRUE                  {: RESULT = new ExprNode("TRUE", new BoolConst(true)); :}
             	| FALSE                    {: RESULT = new ExprNode("FALSE", new BoolConst(false)); :}
-            	| INTEGER_CONST:val            {: RESULT = new ExprNode("INTEGER_CONST", new); :}
+            	| INTEGER_CONST:val            {: RESULT = new ExprNode("INTEGER_CONST", new IntegerConst(val)); :}
             	| REAL_CONST:val               {: RESULT = new ExprNode("REAL_CONST", new); :}
             	| STRING_CONST:val             {: RESULT = new ExprNode("STRING_CONST", new); :}
             	| CHAR_CONST:val               {: RESULT = new ExprNode("CHAR_CONST", new); :}
