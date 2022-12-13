@@ -5,4 +5,7 @@ public interface Visitatore {
     String visit(BoolConst boolConst);
 
     String visit(IntegerConst integerConst);
+    String visit(RealConst realConst);
+    String visit(StringConst stringConst);
+    String visit(CharConst charConst);
 }

@@ -19,5 +19,32 @@ public String content;
 
         return content;
     }
+    public String visit(IntegerConst node){
+        content =  "("+node.val+")";
+        return content;
+    }
 
+    /*public String visit(Node node){
+        String content;
+        content =
+        return content;
+    }*/
+
+    public String visit(RealConst node){
+        String content;
+        content = "("+node.val+")";
+        return content;
+    }
+
+    public String visit(StringConst node){
+        String content;
+        content = "("+ node.val+")";
+        return content;
+    }
+
+    public String visit(CharConst node){
+        String content;
+        content = "("+ node.val +")";
+        return content;
+    }
 }

@@ -2,10 +2,11 @@ package nodi;
 
 import Visitor.Visitatore;
 
-public class IntegerConst extends Node{
-    public int val;
+public class CharConst extends Node{
 
-    public IntegerConst(int val) {
+    public char val;
+
+    public CharConst(char val) {
         this.val = val;
     }
 
