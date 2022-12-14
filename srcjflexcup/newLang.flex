@@ -18,6 +18,7 @@ integer = {digit}+
 real = {digit}+("."{digit}+)?
 id = {symbol}({all_symbol})*
 %%
+<YYINITIAL>{
 // Now for the actual tokens and assocated actions
 "start:" { return new Symbol(sym.MAIN) ; }
 ";" { return new Symbol(sym.SEMI); }
