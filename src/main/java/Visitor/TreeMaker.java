@@ -6,7 +6,17 @@ public class TreeMaker implements Visitatore{
 public String content;
 
     @Override
+    public String visit(FuncallNode node) {
+
+
+
+        return null;
+    }
+    @Override
     public String visit(ExprNode node) {
+
+
+
         return null;
     }
 

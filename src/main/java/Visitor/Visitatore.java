@@ -9,4 +9,5 @@ public interface Visitatore {
     String visit(StringConst stringConst);
     String visit(CharConst charConst);
     String visit(IdVal idVal);
+    String visit(FuncallNode funcall);
 }
