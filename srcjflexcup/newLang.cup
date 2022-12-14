@@ -104,8 +104,8 @@ Program ::= DeclList MainFunDecl DeclList;
             	|  IdList READ
             	;
 
-            IdList ::= ID:id   {: ArrayList<IdVal> list = new ArrayList<IdVal>(); list.add(new IdVal(id)); RESULT = list;:}
-            	| IdList:idList COMMA ID:id {:((ArrayList<IdVal>)idList).add(new IdVal(id)); RESULT = idList;:};
+      //      IdList ::= ID:id   {: ArrayList<IdVal> list = new ArrayList<IdVal>(); list.add(new IdVal(id)); RESULT = list;:}
+      //      	| IdList:idList COMMA ID:id {:((ArrayList<IdVal>)idList).add(new IdVal(id)); RESULT = idList;:};
 
             WriteStat ::=  LPAR ExprList RPAR WRITE
             |  LPAR ExprList RPAR WRITELN
@@ -113,13 +113,13 @@ Program ::= DeclList MainFunDecl DeclList;
             ;
 
 
-            AssignStat ::=  IdList:idList ASSIGN ExprList:exprList {: RESULT = new AssignStat((ArrayList<IdVal>)idList,(ArrayList<ExprNode>)exprList); :};
+      //      AssignStat ::=  IdList:idList ASSIGN ExprList:exprList {: RESULT = new AssignStat((ArrayList<IdVal>)idList,(ArrayList<ExprNode>)exprList); :};
 
-            FunCall ::= ID:id LPAR ExprList:exprlist RPAR {: RESULT = new FuncallNode("FuncallOp", new IdVal(id), (ArrayList<ExprNode>)exprlist); :}
-            	| ID:id LPAR RPAR               {: RESULT = new FuncallNode("FuncallOp", new IdVal(id)); :}
-            ;
-            ExprList ::= Expr:expr                {: ArrayList<ExprNode> list = new ArrayList<ExprNode>(); list.add(0, (ExprNode)expr); RESULT = list;:}
-            	| Expr:expr COMMA ExprList:exprlist   {:((ArrayList<ExprNode>)exprlist).add(0, (ExprNode)expr); RESULT = exprList;:};
+       //     FunCall ::= ID:id LPAR ExprList:exprlist RPAR {: RESULT = new FuncallNode("FuncallOp", new IdVal(id), (ArrayList<ExprNode>)exprlist); :}
+       //     	| ID:id LPAR RPAR               {: RESULT = new FuncallNode("FuncallOp", new IdVal(id)); :}
+       //     ;
+       //     ExprList ::= Expr:expr                {: ArrayList<ExprNode> list = new ArrayList<ExprNode>(); list.add(0, (ExprNode)expr); RESULT = list;:}
+       //     	| Expr:expr COMMA ExprList:exprlist   {:((ArrayList<ExprNode>)exprlist).add(0, (ExprNode)expr); RESULT = exprList;:};
 
             Expr ::= TRUE                  {: RESULT = new ExprNode("TRUE", new BoolConst(true)); :}
             	| FALSE                    {: RESULT = new ExprNode("FALSE", new BoolConst(false)); :}
@@ -128,22 +128,22 @@ Program ::= DeclList MainFunDecl DeclList;
             	| STRING_CONST:val         {: RESULT = new ExprNode("STRING_CONST", new StringConst(val)); :}
             	| CHAR_CONST:val           {: RESULT = new ExprNode("CHAR_CONST", new CharConst(val)); :}
             	| ID:val                   {: RESULT = new ExprNode("ID", new IdVal(val)); :}
-            	| FunCall:val              {: RESULT = new ExprNode("FuncallOp", new FuncallNode(val)); :}
-            	| Expr:e1  PLUS Expr:e2          {: RESULT = new ExprNode("AddOp", (Node)e1), (Node)e2; :}
-            	| Expr:e1  MINUS Expr:e2         {: RESULT = new ExprNode("MinusOp", (Node)e1), (Node)e2; :}
-            	| Expr:e1  TIMES Expr:e2         {: RESULT = new ExprNode("MulOp", (Node)e1), (Node)e2; :}
-            	| Expr:e1  DIV Expr:e2           {: RESULT = new ExprNode("DivOp", (Node)e1), (Node)e2; :}
-            	| Expr:e1  AND Expr:e2           {: RESULT = new ExprNode("AndOp", (Node)e1), (Node)e2; :}
-            	| Expr:e1 POW Expr:e2            {: RESULT = new ExprNode("PowOp", (Node)e1), (Node)e2; :}
-            	| Expr:e1 STR_CONCAT Expr:e2     {: RESULT = new ExprNode("StrConcatOp", (Node)e1), (Node)e2; :}
-            	| Expr:e1  OR Expr:e2            {: RESULT = new ExprNode("OrOp", (Node)e1), (Node)e2; :}
-            	| Expr:e1  GT Expr:e2            {: RESULT = new ExprNode("GtOp", (Node)e1), (Node)e2; :}
-            	| Expr:e1  GE Expr:e2            {: RESULT = new ExprNode("GeOp", (Node)e1), (Node)e2; :}
-            	| Expr:e1  LT Expr:e2            {: RESULT = new ExprNode("LtOp", (Node)e1), (Node)e2; :}
-            	| Expr:e1  LE Expr:e2            {: RESULT = new ExprNode("LeOp", (Node)e1), (Node)e2; :}
-            	| Expr:e1  EQ Expr:e2            {: RESULT = new ExprNode("EqOp", (Node)e1), (Node)e2; :}
-            	| Expr:e1  NE Expr:e2            {: RESULT = new ExprNode("NeOp", (Node)e1), (Node)e2; :}
-            	| MINUS Expr:e1               {: RESULT = new ExprNode("UminusOp", (Node)e1); :}  %prec UMINUS
-            	| NOT Expr:e1                 {: RESULT = new ExprNode("NotOp", (Node)e1); :}
-            	| LPAR Expr:e1 RPAR           {: RESULT = new ExprNode("InparOp", (Node)e1); :}
+            //	| FunCall:val              {: RESULT = new ExprNode("FuncallOp", new FuncallNode(val)); :}
+            //	| Expr:e1  PLUS Expr:e2          {: RESULT = new ExprNode("AddOp", (Node)e1), (Node)e2; :}
+            //	| Expr:e1  MINUS Expr:e2         {: RESULT = new ExprNode("MinusOp", (Node)e1), (Node)e2; :}
+            //	| Expr:e1  TIMES Expr:e2         {: RESULT = new ExprNode("MulOp", (Node)e1), (Node)e2; :}
+            //	| Expr:e1  DIV Expr:e2           {: RESULT = new ExprNode("DivOp", (Node)e1), (Node)e2; :}
+            //	| Expr:e1  AND Expr:e2           {: RESULT = new ExprNode("AndOp", (Node)e1), (Node)e2; :}
+            //	| Expr:e1 POW Expr:e2            {: RESULT = new ExprNode("PowOp", (Node)e1), (Node)e2; :}
+            //	| Expr:e1 STR_CONCAT Expr:e2     {: RESULT = new ExprNode("StrConcatOp", (Node)e1), (Node)e2; :}
+            //	| Expr:e1  OR Expr:e2            {: RESULT = new ExprNode("OrOp", (Node)e1), (Node)e2; :}
+            //	| Expr:e1  GT Expr:e2            {: RESULT = new ExprNode("GtOp", (Node)e1), (Node)e2; :}
+            //	| Expr:e1  GE Expr:e2            {: RESULT = new ExprNode("GeOp", (Node)e1), (Node)e2; :}
+            //	| Expr:e1  LT Expr:e2            {: RESULT = new ExprNode("LtOp", (Node)e1), (Node)e2; :}
+            //	| Expr:e1  LE Expr:e2            {: RESULT = new ExprNode("LeOp", (Node)e1), (Node)e2; :}
+            //	| Expr:e1  EQ Expr:e2            {: RESULT = new ExprNode("EqOp", (Node)e1), (Node)e2; :}
+            //	| Expr:e1  NE Expr:e2            {: RESULT = new ExprNode("NeOp", (Node)e1), (Node)e2; :}
+            //	| MINUS Expr:e1               {: RESULT = new ExprNode("UminusOp", (Node)e1); :}  %prec UMINUS
+            //	| NOT Expr:e1                 {: RESULT = new ExprNode("NotOp", (Node)e1); :}
+            //	| LPAR Expr:e1 RPAR           {: RESULT = new ExprNode("InparOp", (Node)e1); :}
 ;

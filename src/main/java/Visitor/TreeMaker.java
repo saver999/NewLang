@@ -2,6 +2,8 @@ package Visitor;
 
 import nodi.*;
 
+import java.io.*;
+
 public class TreeMaker implements Visitatore{
 public String content;
 
@@ -72,5 +74,21 @@ public String content;
         String content;
         content = "(ID: "+ node.val + ")";
         return content;
+    }
+    public void saveFileXML(){
+        Writer writer = null;
+
+        try {
+            writer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream("file.xml"), "utf-8"));
+            writer.write(this.content);
+            writer.close();
+        } catch (IOException ex) {
+            System.out.println("Errore nella scrittura del file");
+        } finally {
+            try {writer.close();} catch (Exception ex) {
+                System.out.println("Errore durante la chiusura del file");
+            }
+        }
     }
 }
