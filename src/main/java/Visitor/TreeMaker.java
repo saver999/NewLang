@@ -7,11 +7,22 @@ public String content;
 
     @Override
     public String visit(FuncallNode node) {
+        this.content = String.format("<%s>",node.nomeNodo);
 
+        this.content += node.id.accept(this);
 
+        if(node.listaExprNode != null) {
+            this.content += String.format("<%s>","ParamOp");
+            for(int i = 0; i < node.listaExprNode.size(); i++){
+                this.content += node.listaExprNode.get(i).accept(this);
+            }
+            this.content += String.format("</%s>","ParamOp");
+        }
 
-        return null;
+        this.content += String.format("</%s>",node.nomeNodo);
+        return content;
     }
+
     @Override
     public String visit(ExprNode node) {
 
