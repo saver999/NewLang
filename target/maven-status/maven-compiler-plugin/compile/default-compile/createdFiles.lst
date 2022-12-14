@@ -1,0 +1,11 @@
+nodi\StringConst.class
+Visitor\Visitatore.class
+Visitor\TreeMaker.class
+nodi\ExprNode.class
+nodi\Node.class
+nodi\RealConst.class
+nodi\IntegerConst.class
+nodi\BoolConst.class
+nodi\FuncallNode.class
+nodi\CharConst.class
+nodi\IdVal.class
