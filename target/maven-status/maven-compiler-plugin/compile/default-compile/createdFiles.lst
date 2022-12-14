@@ -5,11 +5,7 @@ nodi\ExprNode.class
 nodi\Node.class
 nodi\RealConst.class
 nodi\IntegerConst.class
-esercitazione4\Main.class
-esercitazione4\parser.class
-esercitazione4\Yylex.class
-esercitazione4\sym.class
 nodi\BoolConst.class
-esercitazione4\parser$CUP$parser$actions.class
+nodi\FuncallNode.class
 nodi\CharConst.class
 nodi\IdVal.class
