@@ -5,7 +5,7 @@ import nodi.*;
 import java.io.*;
 
 public class TreeMaker implements Visitatore{
-public String content;
+public String content= "";
 
     @Override
     public String visit(FuncallNode node) {
@@ -54,27 +54,46 @@ public String content;
     }*/
 
     public String visit(RealConst node){
-        String content;
-        content = "(REAL_CONST: "+node.val+")";
+        this.content += "(REAL_CONST: "+node.val+")";
         return content;
+
     }
 
     public String visit(StringConst node){
-        String content;
-        content = "(STRING_CONST: "+ node.val+")";
+        this.content= "";
+        this.content += "(STRING_CONST: "+ node.val+")";
         return content;
     }
 
     public String visit(CharConst node){
-        String content;
-        content = "(CHAR_CONST: "+ node.val +")";
+        this.content = "";
+        this.content += "(CHAR_CONST: "+ node.val +")";
         return content;
     }
     public String visit(IdVal node){
-        String content;
-        content = "(ID: "+ node.val + ")";
+        this.content= "";
+        this.content += "(ID: "+ node.val + ")";
         return content;
     }
+
+    public String visit(AssignStat node){
+        this.content = String.format("<%s>",node.nomeNodo);
+
+        this.content += String.format("<%s>", "IdList");
+        for(int i = 0; i < node.idList.size(); i++){
+            this.content += node.idList.get(i).accept(this);
+        }
+        this.content += String.format("</%s>", "IdList");
+
+        for(int i = 0; i < node.exprList.size(); i++){
+            this.content += node.exprList.get(i).accept(this);
+        }
+
+        this.content += String.format("</%s>",node.nomeNodo);
+        return content;
+    }
+
+
     public void saveFileXML(){
         Writer writer = null;
 

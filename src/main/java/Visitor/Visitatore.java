@@ -10,4 +10,6 @@ public interface Visitatore {
     String visit(CharConst charConst);
     String visit(IdVal idVal);
     String visit(FuncallNode funcall);
+
+    String visit(AssignStat assignStat);
 }
