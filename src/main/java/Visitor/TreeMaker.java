@@ -54,6 +54,7 @@ public String content= "";
     }*/
 
     public String visit(RealConst node){
+        this.content = "";
         this.content += "(REAL_CONST: "+node.val+")";
         return content;
 
@@ -89,6 +90,15 @@ public String content= "";
             this.content += node.exprList.get(i).accept(this);
         }
 
+        this.content += String.format("</%s>",node.nomeNodo);
+        return content;
+    }
+
+    public String visit(WriteStat node){
+        this.content = String.format("<%s>",node.nomeNodo);
+        for(int i = 0; i < node.listaExpr.size(); i++){
+            this.content += node.listaExpr.get(i).accept(this);
+        }
         this.content += String.format("</%s>",node.nomeNodo);
         return content;
     }

@@ -12,4 +12,5 @@ public interface Visitatore {
     String visit(FuncallNode funcall);
 
     String visit(AssignStat assignStat);
+    String visit(WriteStat writeStat);
 }

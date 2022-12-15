@@ -114,15 +114,15 @@ Program ::= DeclList MainFunDecl DeclList {:RESULT = {new ProgramRoot("Program",
             ForStat ::= FOR ID ASSIGN INTEGER_CONST TO INTEGER_CONST LOOP Body
             ;
 
-            ReadStat ::= IdList READ STRING_CONST
-            	|  IdList READ
+            ReadStat ::= IdList:idList READ STRING_CONST:val  {:RESULT = new ReadStat("ReadOp",(ArrayList<IdVal>) idList, val);:}
+            	|  IdList:idList READ      {:RESULT = new ReadStat("ReadOp",(ArrayList<IdVal>) idList);:}
             	;
 
       //      IdList ::= ID:id   {: ArrayList<IdVal> list = new ArrayList<IdVal>(); list.add(new IdVal(id)); RESULT = list;:}
       //      	| IdList:idList COMMA ID:id {:((ArrayList<IdVal>)idList).add(new IdVal(id)); RESULT = idList;:};
 
-            WriteStat ::=  LPAR ExprList RPAR WRITE {: RESULT = new WriteStat ("WriteOp",(ArrayList<ExprNode>) exprList);:}
-            |  LPAR ExprList RPAR WRITELN {::};
+            WriteStat ::=  LPAR ExprList:exprList RPAR WRITE {: RESULT = new WriteStat ("WriteOp",(ArrayList<ExprNode>) exprList);:}
+            |  LPAR ExprList:exprList RPAR WRITELN {:RESULT = new WriteStat("WritelnOp",(ArrayList<ExprNode>) exprList);:};
 
 
 
