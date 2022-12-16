@@ -7,12 +7,12 @@ import java.util.ArrayList;
 public class ReadStat extends Node{
     public String nomeNodo;
     public ArrayList<IdVal> idList;
-    public String val;
+    public StringConst val;
 
-    public ReadStat(String nomeNodo, ArrayList<IdVal> listaID, String val){
+    public ReadStat(String nomeNodo, ArrayList<IdVal> listaID, StringConst val){
         this.nomeNodo = nomeNodo;
-        if(val != null)
-         this.val= val;
+
+        this.val= val;
         idList = listaID;
     }
 

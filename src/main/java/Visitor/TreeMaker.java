@@ -106,8 +106,18 @@ public String content= "";
     }
 
    public String visit(ReadStat node){
-        this.content = "";
-        return content;
+        this.content = String.format("<%s>",node.nomeNodo);
+        this.content += String.format("<%s>","IdListOp");
+
+        for(int i = 0; i < node.idList.size(); i++){
+           this.content += node.idList.get(i).accept(this);
+        }
+       this.content += String.format("<%s>","IdListOp");
+        if(node.val !=null)
+        this.content += String.format("<%s>",node.val.accept(this));
+
+       this.content += String.format("</%s>",node.nomeNodo);
+       return content;
    }
     public void saveFileXML(){
         Writer writer = null;
