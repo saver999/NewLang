@@ -112,9 +112,9 @@ public String content= "";
         for(int i = 0; i < node.idList.size(); i++){
            this.content += node.idList.get(i).accept(this);
         }
-       this.content += String.format("<%s>","IdListOp");
+       this.content += String.format("</%s>","IdListOp");
         if(node.val !=null)
-        this.content += String.format("<%s>",node.val.accept(this));
+        this.content += String.format((String) node.val.accept(this));
 
        this.content += String.format("</%s>",node.nomeNodo);
        return content;

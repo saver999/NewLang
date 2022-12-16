@@ -5,6 +5,7 @@ import Visitor.TreeMaker;
 import nodi.ExprNode;
 import nodi.IdVal;
 import nodi.ParDecl;
+import nodi.ReadStat;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -22,7 +23,7 @@ public class Main {
         //System.out.println("Nodo radice is "+ p.debug_parse().value); // l'uso di p.debug_parse() al posto di p.parse() produce tutte le azioni del parser durante il riconoscimento
 
 
-        ParDecl pr = (ParDecl) p.parse().value;
+        ReadStat pr = (ReadStat) p.parse().value;
         TreeMaker ev = new TreeMaker();
         String result = (String) pr.accept(ev);
         System.out.println("result: " + result);
