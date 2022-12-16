@@ -1,7 +1,3 @@
- ParDecl ::= Type:type IdList:idList {: RESULT = new ParDecl("ParDeclOP",type,(ArrayList<IdVal>)idList); :}
-                	| OUT Type:type IdList:idList {: RESULT = new ParDecl("ParDeclOutOP",type,(ArrayList<IdVal>)idList); :};
-
-
-
-  IdList ::= ID:id   {: ArrayList<IdVal> list = new ArrayList<IdVal>(); list.add(new IdVal(id)); RESULT = list;:}
-       | IdList:idList COMMA ID:id {:((ArrayList<IdVal>)idList).add(new IdVal(id)); RESULT = idList;:};
+  ReadStat ::= IdList:idList READ STRING_CONST:val  {:RESULT = new ReadStat("ReadOp",(ArrayList<IdVal>) idList, val);:}
+            	|  IdList:idList READ      {:RESULT = new ReadStat("ReadOp",(ArrayList<IdVal>) idList, null);:}
+            	;
