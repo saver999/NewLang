@@ -105,7 +105,10 @@ public String content= "";
         return content;
     }
 
-
+   public String visit(ReadStat node){
+        this.content = "";
+        return content;
+   }
     public void saveFileXML(){
         Writer writer = null;
 
