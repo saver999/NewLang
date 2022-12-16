@@ -1,0 +1,3 @@
+
+            IdList ::= ID:id   {: ArrayList<IdVal> list = new ArrayList<IdVal>(); list.add(new IdVal(id)); RESULT = list;:}
+            	| IdList:idList COMMA ID:id {:((ArrayList<IdVal>)idList).add(new IdVal(id)); RESULT = idList;:};
