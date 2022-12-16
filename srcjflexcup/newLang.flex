@@ -89,8 +89,8 @@ id = {symbol}({all_symbol})*
  \" {string.setLength(0); yybegin(STRING);}
  \' {string.setLength(0); yybegin(CHAR);}
 
- {integer} {return new Symbol(sym.INTEGER_CONST, yytext());}
- {real} {return new Symbol(sym.REAL_CONST, yytext());}
+ {integer} {return new Symbol(sym.INTEGER_CONST, Integer.parseInt(yytext().toString()));}
+ {real} {return new Symbol(sym.REAL_CONST, Float.parseFloat(yytext().toString()));}
 
  {whitespace} { /* ignore */ }
  }
@@ -106,15 +106,17 @@ id = {symbol}({all_symbol})*
         <<EOF>>                         { throw new Error("Stringa non chiusa"); }
 }
 <CHAR> {
-        \' { yybegin(YYINITIAL);
-            return new Symbol( sym.CHAR_CONST,yytext() ); }
+  \' { yybegin(YYINITIAL);
+            return new Symbol( sym.STRING_CONST, string.toString()); }
         [^\n\r\"\\]+ { string.append( yytext() ); }
         \\t { string.append('\t'); }
         \\n { string.append('\n'); }
         \\r { string.append('\r'); }
         \\\" { string.append('\"'); }
         \\ { string.append('\\'); }
-        <<EOF>>                         { throw new Error("char non chiusa"); }
+        <<EOF>>
+
+                               { throw new Error("char non chiusa"); }
 }
 
 

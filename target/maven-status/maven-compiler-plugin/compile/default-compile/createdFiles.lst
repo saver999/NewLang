@@ -1,7 +1,9 @@
 nodi\StringConst.class
+nodi\WriteStat.class
 Visitor\Visitatore.class
 Visitor\TreeMaker.class
 nodi\ExprNode.class
+nodi\AssignStat.class
 nodi\Node.class
 nodi\RealConst.class
 nodi\IntegerConst.class

@@ -27,10 +27,12 @@ public String content= "";
 
     @Override
     public String visit(ExprNode node) {
+        this.content = "";
 
 
-
-        return null;
+        RealConst nodo = (RealConst) node.nodo1;
+        this.content += nodo.accept(this);
+        return content;
     }
 
     public String visit(BoolConst node) {
