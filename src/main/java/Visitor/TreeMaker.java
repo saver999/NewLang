@@ -27,11 +27,76 @@ public String content= "";
 
     @Override
     public String visit(ExprNode node) {
+        int flag = 0;
         this.content = "";
 
+        Class classe = node.nodo1.getClass();
 
-        CharConst nodo = (CharConst) node.nodo1;
-        this.content += nodo.accept(this);
+        if(classe == BoolConst.class){
+            BoolConst nodo = (BoolConst)node.nodo1;
+            this.content += nodo.accept(this);
+        } else if(classe == RealConst.class){
+            RealConst nodo = (RealConst)node.nodo1;
+            this.content += nodo.accept(this);
+        } else if(classe == IdVal.class){
+            IdVal nodo = (IdVal)node.nodo1;
+            this.content += nodo.accept(this);
+        } else if(classe == IntegerConst.class){
+            IntegerConst nodo = (IntegerConst)node.nodo1;
+            this.content += nodo.accept(this);
+        } else if(classe == StringConst.class){
+            StringConst nodo = (StringConst)node.nodo1;
+            this.content += nodo.accept(this);
+        } else if(classe == CharConst.class){
+            CharConst nodo = (CharConst) node.nodo1;
+            this.content += nodo.accept(this);
+        } else if(classe == FuncallNode.class){
+            FuncallNode nodo = (FuncallNode) node.nodo1;
+            this.content += nodo.accept(this);
+        } else if(classe == ExprNode.class){
+            flag = 1;
+            this.content += String.format("<%s>",node.nomeNodo);
+            ExprNode nodo = (ExprNode)node.nodo1;
+            this.content += nodo.accept(this);
+
+        }
+
+        if(node.nodo2 != null){
+            classe = node.nodo2.getClass();
+
+            if(classe == BoolConst.class){
+                BoolConst nodo = (BoolConst)node.nodo2;
+                this.content += nodo.accept(this);
+            } else if(classe == RealConst.class){
+                RealConst nodo = (RealConst)node.nodo2;
+                this.content += nodo.accept(this);
+            } else if(classe == IdVal.class){
+                IdVal nodo = (IdVal)node.nodo2;
+                this.content += nodo.accept(this);
+            } else if(classe == IntegerConst.class){
+                IntegerConst nodo = (IntegerConst)node.nodo2;
+                this.content += nodo.accept(this);
+            } else if(classe == StringConst.class){
+                StringConst nodo = (StringConst)node.nodo2;
+                this.content += nodo.accept(this);
+            } else if(classe == CharConst.class){
+                CharConst nodo = (CharConst) node.nodo2;
+                this.content += nodo.accept(this);
+            }else if(classe == FuncallNode.class){
+                FuncallNode nodo = (FuncallNode) node.nodo2;
+                this.content += nodo.accept(this);
+            } else if(classe == ExprNode.class){
+                flag = 1;
+
+                ExprNode nodo = (ExprNode)node.nodo2;
+                this.content += nodo.accept(this);
+
+            }
+        }
+       if(flag == 1){
+            this.content += String.format("</%s>",node.nomeNodo);
+        }
+
         return content;
     }
 
