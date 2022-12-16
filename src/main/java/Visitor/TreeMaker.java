@@ -30,7 +30,7 @@ public String content= "";
         this.content = "";
 
 
-        RealConst nodo = (RealConst) node.nodo1;
+        CharConst nodo = (CharConst) node.nodo1;
         this.content += nodo.accept(this);
         return content;
     }
@@ -119,6 +119,21 @@ public String content= "";
        this.content += String.format("</%s>",node.nomeNodo);
        return content;
    }
+
+    @Override
+    public String visit(ParDecl node) {
+        this.content = String.format("<%s>", node.nomeNodo);
+
+        this.content += "(" + node.type + ")";
+
+        for(int i = 0; i < node.listaID.size(); i++){
+            this.content += node.listaID.get(i).accept(this);
+        }
+
+        this.content += String.format("</%s>",node.nomeNodo);
+        return content;
+    }
+
     public void saveFileXML(){
         Writer writer = null;
 

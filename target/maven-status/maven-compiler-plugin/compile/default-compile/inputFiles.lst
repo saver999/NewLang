@@ -4,6 +4,8 @@ C:\Users\saver\IdeaProjects\de-stefano-napolitano_es4\src\main\java\esercitazion
 C:\Users\saver\IdeaProjects\de-stefano-napolitano_es4\src\main\java\nodi\IdVal.java
 C:\Users\saver\IdeaProjects\de-stefano-napolitano_es4\src\main\java\esercitazione4\sym.java
 C:\Users\saver\IdeaProjects\de-stefano-napolitano_es4\src\main\java\nodi\BoolConst.java
+C:\Users\saver\IdeaProjects\de-stefano-napolitano_es4\src\main\java\nodi\ReadStat.java
+C:\Users\saver\IdeaProjects\de-stefano-napolitano_es4\src\main\java\nodi\ParDecl.java
 C:\Users\saver\IdeaProjects\de-stefano-napolitano_es4\src\main\java\esercitazione4\Yylex.java
 C:\Users\saver\IdeaProjects\de-stefano-napolitano_es4\src\main\java\nodi\ExprNode.java
 C:\Users\saver\IdeaProjects\de-stefano-napolitano_es4\src\main\java\nodi\IntegerConst.java
@@ -12,5 +14,7 @@ C:\Users\saver\IdeaProjects\de-stefano-napolitano_es4\src\main\java\nodi\RealCon
 C:\Users\saver\IdeaProjects\de-stefano-napolitano_es4\src\main\java\esercitazione4\TesterLexer.java
 C:\Users\saver\IdeaProjects\de-stefano-napolitano_es4\src\main\java\nodi\Node.java
 C:\Users\saver\IdeaProjects\de-stefano-napolitano_es4\src\main\java\Visitor\Visitatore.java
+C:\Users\saver\IdeaProjects\de-stefano-napolitano_es4\src\main\java\nodi\WriteStat.java
+C:\Users\saver\IdeaProjects\de-stefano-napolitano_es4\src\main\java\nodi\AssignStat.java
 C:\Users\saver\IdeaProjects\de-stefano-napolitano_es4\src\main\java\nodi\CharConst.java
 C:\Users\saver\IdeaProjects\de-stefano-napolitano_es4\src\main\java\nodi\FuncallNode.java

@@ -1,6 +1,7 @@
 nodi\StringConst.class
 nodi\WriteStat.class
 Visitor\Visitatore.class
+nodi\ParDecl.class
 Visitor\TreeMaker.class
 nodi\ExprNode.class
 nodi\AssignStat.class
@@ -12,6 +13,7 @@ esercitazione4\parser.class
 esercitazione4\Yylex.class
 esercitazione4\TesterLexer.class
 esercitazione4\sym.class
+nodi\ReadStat.class
 nodi\BoolConst.class
 esercitazione4\parser$CUP$parser$actions.class
 nodi\FuncallNode.class

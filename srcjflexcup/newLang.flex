@@ -107,12 +107,12 @@ id = {symbol}({all_symbol})*
 }
 <CHAR> {
   \' { yybegin(YYINITIAL);
-            return new Symbol( sym.STRING_CONST, string.toString()); }
-        [^\n\r\"\\]+ { string.append( yytext() ); }
+            return new Symbol( sym.CHAR_CONST, string.toString()); }
+        [^\n\r\'\\]+ { string.append( yytext() ); }
         \\t { string.append('\t'); }
         \\n { string.append('\n'); }
         \\r { string.append('\r'); }
-        \\\" { string.append('\"'); }
+        \\\' { string.append('\''); }
         \\ { string.append('\\'); }
         <<EOF>>
 

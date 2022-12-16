@@ -1,11 +1,7 @@
+ ParDecl ::= Type:type IdList:idList {: RESULT = new ParDecl("ParDeclOP",type,(ArrayList<IdVal>)idList); :}
+                	| OUT Type:type IdList:idList {: RESULT = new ParDecl("ParDeclOutOP",type,(ArrayList<IdVal>)idList); :};
 
- Type ::=
-             INTEGER  {:RESULT = "INTEGER";:}
-            | BOOL       {:RESULT = "BOOL";:}
-            | REAL       {:RESULT = "REAL";:}
-            | STRING        {:RESULT = "STRING";:}
-            | CHAR       {:RESULT = "CHAR";:}
-            ;
-    ParDecl ::= Type IdList
-                	| OUT Type IdList;
 
+
+  IdList ::= ID:id   {: ArrayList<IdVal> list = new ArrayList<IdVal>(); list.add(new IdVal(id)); RESULT = list;:}
+       | IdList:idList COMMA ID:id {:((ArrayList<IdVal>)idList).add(new IdVal(id)); RESULT = idList;:};
