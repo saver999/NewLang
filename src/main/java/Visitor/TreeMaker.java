@@ -25,6 +25,34 @@ public String content= "";
         return content;
     }
 
+    public String visit(Const node){
+
+        this.content = "";
+
+        Class classe = node.nodo.getClass();
+
+        if(classe == BoolConst.class){
+            BoolConst nodo = (BoolConst)node.nodo;
+            this.content += nodo.accept(this);
+        } else if(classe == RealConst.class){
+            RealConst nodo = (RealConst)node.nodo;
+            this.content += nodo.accept(this);
+        } else if(classe == IdVal.class){
+            IdVal nodo = (IdVal)node.nodo;
+            this.content += nodo.accept(this);
+        } else if(classe == IntegerConst.class){
+            IntegerConst nodo = (IntegerConst)node.nodo;
+            this.content += nodo.accept(this);
+        } else if(classe == StringConst.class){
+            StringConst nodo = (StringConst)node.nodo;
+            this.content += nodo.accept(this);
+        } else if(classe == CharConst.class) {
+            CharConst nodo = (CharConst) node.nodo;
+            this.content += nodo.accept(this);
+        }
+
+            return content;
+        }
     @Override
     public String visit(ExprNode node) {
         int flag = 0;
@@ -207,6 +235,7 @@ public String content= "";
         if(node.expr != null)
             this.content += node.expr.accept(this);
 
+
         return content;
     }
     public String visit(IDInitObb node) {
@@ -215,7 +244,8 @@ public String content= "";
         this.content += node.id.accept(this);
 
 
-        this.content += node.cost;
+        if(node.cost != null)
+            this.content += node.cost.accept(this);
 
         return content;
     }

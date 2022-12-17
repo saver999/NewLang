@@ -55,20 +55,20 @@ precedence left UMINUS;
             	| ID:id ASSIGN Expr:expr    {: ArrayList<IDInit> idList = new ArrayList<IDInit>(); idList.add(0, new IDInit(new IdVal(id),(ExprNode)expr));RESULT = idList;:}
             	| IdInitList:idList COMMA ID:id ASSIGN Expr:expr  {:((ArrayList<IDInit>)idList).add(0, new IDInit(new IdVal(id),(ExprNode)expr)); RESULT = idList;:};
 
-//            IdInitObblList ::= ID:id ASSIGN Const:cost {:ArrayList<IDInitObb> idListObb = new ArrayList<IDInitObb>(); idListObb.add(0, new IDInit(new IdVal(id),(ExprNode)cost));RESULT = idListObb;:}
-//            	| IdInitObblList:idInitObb COMMA ID:id ASSIGN Const:cost {:((ArrayList<IDInitObb>)idListObb).add(0, new IDInitObb(new IdVal(id),(String)cost)); RESULT = idListObb;:};
+            IdInitObblList ::= ID:id ASSIGN Const:cost {:ArrayList<IDInitObb> idListObb = new ArrayList<IDInitObb>(); idListObb.add(0, new IDInitObb(new IdVal(id),(Const)cost));RESULT = idListObb;:}
+            	| IdInitObblList:idInitObb COMMA ID:id ASSIGN Const:cost {:((ArrayList<IDInitObb>)idInitObb).add(0, new IDInitObb(new IdVal(id),(Const)cost)); RESULT = idInitObb;:};
 
-            Const ::= INTEGER_CONST  {:RESULT = "INTEGER_CONST";:}
-            | REAL_CONST             {:RESULT = "REAL_CONST";:}
-            | TRUE                   {:RESULT = "TRUE";:}
-            | FALSE                  {:RESULT = "FALSE";:}
-            | STRING_CONST           {:RESULT = "STRING_CONST";:}
-            | CHAR_CONST             {:RESULT = "CHAR_CONST";:}
+            Const ::= INTEGER_CONST:val  {: RESULT = new Const("INTEGER_CONST", new IntegerConst(val)); :}
+            | REAL_CONST:val             {: RESULT = new Const("REAL_CONST", new RealConst(val)); :}
+            | TRUE                  {: RESULT = new Const("TRUE", new BoolConst(true)); :}
+            | FALSE                  {: RESULT = new Const("FALSE", new BoolConst(false)); :}
+            | STRING_CONST:val           {: RESULT = new Const("STRING_CONST", new StringConst(val)); :}
+            | CHAR_CONST:val              {: RESULT = new Const("CHAR_CONST", new CharConst(val)); :}
             ;
 
             FunDecl ::= DEF ID LPAR ParamDeclList RPAR COLON TypeOrVoid Body;
-
-            Body ::= LBRACK VarDeclList StatList RBRACK;
+            //da discutere
+            Body ::= LBRACK VarDeclList: varDeclList StatList: statList RBRACK {:RESULT = new Body((ArrayList<VarDecl>)varDeclList, (ArrayList<StatList>)statList);:};
 
             //Da ragionare
             ParamDeclList ::= /*empty */ {: ArrayList<ParDecl> list = new ArrayList<ParDecl>();RESULT = list;:}
@@ -76,7 +76,7 @@ precedence left UMINUS;
 
             NonEmptyParamDeclList ::= ParDecl:parDecl {: ArrayList<ParDecl> list = new ArrayList<ParDecl>(); list.add((ParDecl)parDecl); RESULT = list;:}
             	| NonEmptyParamDeclList:nEmptyparDecl PIPE ParDecl:parDecl {:((ArrayList<ParDecl>)nEmptyparDecl).add((ParDecl)nEmptyparDecl); RESULT = nEmptyparDecl;:};
-
+            //
             ParDecl ::= Type:type IdList:idList {: RESULT = new ParDecl("ParDeclOP",(String)type,(ArrayList<IdVal>)idList); :}
                            	| OUT Type:type IdList:idList {: RESULT = new ParDecl("ParDeclOutOP",(String)type,(ArrayList<IdVal>)idList); :};
 

@@ -21,4 +21,10 @@ public interface Visitatore {
     String visit(IDInitObb idInitObb);
 
     String visit(VarDecl varDecl);
+
+    String visit(Const cost);
+
+    String visit(StatList statList);
+
+    String visit(Body body);
 }

@@ -5,9 +5,9 @@ import Visitor.Visitatore;
 
 public class IDInitObb extends Node{
     public IdVal id;
-    public String cost;
+    public Const cost;
 
-    public IDInitObb(IdVal id, String cost) {
+    public IDInitObb(IdVal id, Const cost) {
         this.id = id;
         this.cost = cost;
     }
