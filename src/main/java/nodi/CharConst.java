@@ -4,9 +4,9 @@ import Visitor.Visitatore;
 
 public class CharConst extends Node{
 
-    public String val;
+    public char val;
 
-    public CharConst(String val) {
+    public CharConst(char val) {
         this.val = val;
     }
 

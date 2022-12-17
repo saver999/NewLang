@@ -1,3 +1,4 @@
+nodi\IDInitObb.class
 nodi\StringConst.class
 nodi\WriteStat.class
 Visitor\Visitatore.class
@@ -7,6 +8,7 @@ nodi\ExprNode.class
 nodi\AssignStat.class
 nodi\Node.class
 nodi\RealConst.class
+nodi\VarDecl.class
 nodi\IntegerConst.class
 esercitazione4\Main.class
 esercitazione4\parser.class
@@ -15,6 +17,7 @@ esercitazione4\TesterLexer.class
 esercitazione4\sym.class
 nodi\ReadStat.class
 nodi\BoolConst.class
+nodi\IDInit.class
 esercitazione4\parser$CUP$parser$actions.class
 nodi\FuncallNode.class
 nodi\CharConst.class
