@@ -199,6 +199,58 @@ public String content= "";
         return content;
     }
 
+    public String visit(IDInit node) {
+        this.content = "";
+
+        this.content += node.id.accept(this);
+
+        if(node.expr != null)
+            this.content += node.expr.accept(this);
+
+        return content;
+    }
+    public String visit(IDInitObb node) {
+        this.content = "";
+
+        this.content += node.id.accept(this);
+
+
+        this.content += node.cost;
+
+        return content;
+    }
+    public String visit(VarDecl node) {
+        this.content = String.format("<%s>",node.nomeNodo);
+
+        if(node.type != null) {
+            this.content += "(" + node.type + ")";
+
+            if (node.listaID.size() >= 1)
+                this.content += String.format("<%s>", "IdListInitOp");
+
+            for (int i = 0; i < node.listaID.size(); i++) {
+                this.content += node.listaID.get(i).accept(this);
+            }
+
+            if (node.listaID.size() >= 1)
+                this.content += String.format("</%s>", "IdListInitOp");
+        }else{
+            if (node.idInitObb.size() >= 1)
+                this.content += String.format("<%s>", "IdListInitObbOp");
+
+            for (int i = 0; i < node.idInitObb.size(); i++) {
+                this.content += node.idInitObb.get(i).accept(this);
+            }
+
+            if (node.idInitObb.size() >= 1)
+                this.content += String.format("</%s>", "IdListInitObbOp");
+        }
+
+        this.content += String.format("</%s>",node.nomeNodo);
+        return content;
+    }
+
+
     public void saveFileXML(){
         Writer writer = null;
 

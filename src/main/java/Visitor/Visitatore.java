@@ -16,4 +16,9 @@ public interface Visitatore {
     String visit(ReadStat readStat);
 
     String visit(ParDecl parDecl);
+    String visit (IDInit idInit);
+
+    String visit(IDInitObb idInitObb);
+
+    String visit(VarDecl varDecl);
 }
