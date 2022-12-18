@@ -23,8 +23,9 @@ public interface Visitatore {
     String visit(VarDecl varDecl);
 
     String visit(Const cost);
+    String visit(Stat stat);
 
-    String visit(StatList statList);
+
 
     String visit(Body body);
 }

@@ -1,1 +1,1 @@
-integer ciao << 3;
+var ciao << 4, ciao << 3, ciao << 3;

@@ -70,7 +70,7 @@ precedence left UMINUS;
 
             FunDecl ::= DEF ID LPAR ParamDeclList RPAR COLON TypeOrVoid Body;
             //da discutere
-            Body ::= LBRACK VarDeclList: varDeclList StatList: statList RBRACK {:RESULT = new Body((ArrayList<VarDecl>)varDeclList, (ArrayList<StatList>)statList);:};
+            Body ::= LBRACK VarDeclList: varDeclList StatList: statList RBRACK {:RESULT = new Body("bodyOp",(ArrayList<VarDecl>)varDeclList, (ArrayList<StatList>)statList);:};
 
             //Da ragionare
             ParamDeclList ::= /*empty */ {: ArrayList<ParDecl> list = new ArrayList<ParDecl>();RESULT = list;:}
@@ -88,24 +88,22 @@ precedence left UMINUS;
             VarDeclList ::=/* empty */ {: ArrayList<VarDecl> list = new ArrayList<VarDecl>();RESULT = list;:}
             	| VarDecl:varDecl VarDeclList:varDeclList {:((ArrayList<VarDecl>)varDeclList).add(0, (VarDecl)varDecl); RESULT = varDeclList;:};
 
-            StatList ::= Stat
-            	 | StatList Stat ;
+            StatList ::= Stat:stat {: ArrayList<Stat> statList = new ArrayList<Stat>(); statList.add(0, (Stat)stat);RESULT = statList;:}
+            	 | StatList:statList Stat:stat {:((ArrayList<Stat>)statList).add(0, (Stat)stat); RESULT = statList;:};
 
 
-            Stat ::= IfStat
-            	| ForStat
-            	| ReadStat SEMI
-            	| WriteStat SEMI
-            	| AssignStat SEMI
-                    | WhileStat
-            	| FunCall SEMI
-            	| RETURN Expr SEMI
-            	| RETURN SEMI
-            	| /* empty */;
+            Stat ::= IfStat:ifVal {:RESULT = new Stat((IfStat)ifVal);:}
+            	| ForStat:forVal {:RESULT = new Stat( (ForStat)forVal);:}
+            	| ReadStat:readVal SEMI {:RESULT = new Stat((ReadStat) readVal);:}
+            	| WriteStat: writeVal  SEMI {:RESULT = new Stat( (WriteStat)writeVal);:}
+            	| AssignStat: assignVal SEMI {:RESULT = new Stat( (AssignStat)assignVal);:}
+                    | WhileStat : whileVal {:RESULT = new Stat( (WhileStat)whileVal);:}
+            	| FunCall: funCallVal SEMI {:RESULT = new Stat( (FuncallNode)funCallVal);:}
+            	| RETURN Expr:exprVal SEMI {:RESULT = new Stat( (ExprNode)exprVAl);:}
+            	| RETURN SEMI {:RESULT = new Stat( null);:}
+            	| /* empty */ {:RESULT = null;:};
 
-            IfStat ::= IF Expr THEN Body Else
-
-            ;
+            IfStat ::= IF Expr THEN Body Else;
 
             Else ::= /* empty */ {:RESULT = null;:}
             	| ELSE Body:body  {:RESULT = body;:}

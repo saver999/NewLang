@@ -53,6 +53,41 @@ public String content= "";
 
             return content;
         }
+
+    @Override
+    public String visit(Stat stat) {
+        return null;
+    }
+
+
+    @Override
+    public String visit(Body node) {
+        this.content = String.format("<%s>",node.nomeNodo);
+
+        if (node.listaVar.size() >= 1)
+            this.content += String.format("<%s>", "varDeclList");
+
+        for(int i = 0; i < node.listaVar.size(); i++){
+            this.content += node.listaVar.get(i).accept(this);
+        }
+
+        if (node.listaVar.size() >= 1)
+            this.content += String.format("</%s>", "varDeclList");
+
+        if (node.listaStat.size() >= 1)
+            this.content += String.format("<%s>", "statList");
+
+        for(int i = 0; i < node.listaStat.size(); i++){
+            this.content += node.listaStat.get(i).accept(this);
+        }
+
+        if (node.listaStat.size() >= 1)
+            this.content += String.format("</%s>", "statList");
+
+        this.content = String.format("</%s>",node.nomeNodo);
+        return content;
+    }
+
     @Override
     public String visit(ExprNode node) {
         int flag = 0;
