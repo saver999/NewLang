@@ -39,6 +39,7 @@ precedence left UMINUS;
 //            MainFunDecl ::= MAIN FunDecl
 //            ;
 
+
             VarDecl ::= Type:type IdInitList:idInit SEMI {:RESULT = new VarDecl("VarDecl",(String)type, (ArrayList<IDInit>)idInit);:}
             	| VAR IdInitObblList:idInitObb SEMI{:RESULT = new VarDecl("VarDeclObb", (ArrayList<IDInitObb>)idInitObb);:};
 
