@@ -35,4 +35,7 @@ public interface Visitatore {
 
     String visit(ForStat forStat);
 
+    String visit(FunDecl funDecl);
+
+    String visit(MainFunDecl mainDunDecl);
 }

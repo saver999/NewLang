@@ -29,54 +29,58 @@ precedence left DIV, TIMES;
 precedence right POW;
 precedence left UMINUS;
 
-
+//
 //Program ::= DeclList MainFunDecl DeclList {:RESULT = {new ProgramRoot("Program", };:};
 //
-//            DeclList ::= VarDecl DeclList
-//            | FunDecl DeclList
-//            | /* empty */;
-//
-//            MainFunDecl ::= MAIN FunDecl:funDecl
-//            ;
+            DeclList ::= VarDecl:varDecl DeclList:declList
+            | FunDecl:funDecl DeclList:declList {:RESULT = new DeclList((ArrayList<FunDecl>)funDecl,(ArrayList<>);:}
+            | /* empty */{: ArrayList<DecList> list = new ArrayList<DecList>();RESULT = list;:};
+
+            MainFunDecl ::= MAIN FunDecl:funDecl {:RESULT = new MainFunDecl("MainFunDecl",(FunDecl)funDecl);:}
+            ;
 
 
-//            VarDecl ::= Type:type IdInitList:idInit SEMI {:RESULT = new VarDecl("VarDecl",(String)type, (ArrayList<IDInit>)idInit);:}
-//            	| VAR IdInitObblList:idInitObb SEMI{:RESULT = new VarDecl("VarDeclObb", (ArrayList<IDInitObb>)idInitObb);:};
-//
-//            Type ::=
-//             INTEGER  {:RESULT = "INTEGER";:}
-//            | BOOL       {:RESULT = "BOOL";:}
-//            | REAL       {:RESULT = "REAL";:}
-//            | STRING        {:RESULT = "STRING";:}
-//            | CHAR       {:RESULT = "CHAR";:}
-//            ;
-//
-//            IdInitList ::= ID:id     {: ArrayList<IDInit> idList = new ArrayList<IDInit>(); idList.add(0, new IDInit(new IdVal(id),null));RESULT = idList;:}
-//            	| IdInitList:idList COMMA ID:id  {:((ArrayList<IDInit>)idList).add(0, new IDInit(new IdVal(id),null)); RESULT = idList;:}
-//            	| ID:id ASSIGN Expr:expr    {: ArrayList<IDInit> idList = new ArrayList<IDInit>(); idList.add(0, new IDInit(new IdVal(id),(ExprNode)expr));RESULT = idList;:}
-//            	| IdInitList:idList COMMA ID:id ASSIGN Expr:expr  {:((ArrayList<IDInit>)idList).add(0, new IDInit(new IdVal(id),(ExprNode)expr)); RESULT = idList;:};
-//
-//            IdInitObblList ::= ID:id ASSIGN Const:cost {:ArrayList<IDInitObb> idListObb = new ArrayList<IDInitObb>(); idListObb.add(0, new IDInitObb(new IdVal(id),(Const)cost));RESULT = idListObb;:}
-//            	| IdInitObblList:idInitObb COMMA ID:id ASSIGN Const:cost {:((ArrayList<IDInitObb>)idInitObb).add(0, new IDInitObb(new IdVal(id),(Const)cost)); RESULT = idInitObb;:};
-//
-//            Const ::= INTEGER_CONST:val  {: RESULT = new Const("INTEGER_CONST", new IntegerConst(val)); :}
-//            | REAL_CONST:val             {: RESULT = new Const("REAL_CONST", new RealConst(val)); :}
-//            | TRUE                  {: RESULT = new Const("TRUE", new BoolConst(true)); :}
-//            | FALSE                  {: RESULT = new Const("FALSE", new BoolConst(false)); :}
-//            | STRING_CONST:val           {: RESULT = new Const("STRING_CONST", new StringConst(val)); :}
-//            | CHAR_CONST:val              {: RESULT = new Const("CHAR_CONST", new CharConst(val)); :}
-//            ;
 
-          //  FunDecl ::= DEF ID:id LPAR ParamDeclList:paramDecl RPAR COLON TypeOrVoid:typeorvoid Body:body{:RESULT = new FunDecl("FunDecl", new IdVal(id),);:};
-            //da discutere
-          Body ::= LBRACK VarDeclList: varDeclList StatList: statList RBRACK {:RESULT = new Body("bodyOp",(ArrayList<VarDecl>)varDeclList, (ArrayList<Stat>)statList);:};
+            VarDecl ::= Type:type IdInitList:idInit SEMI {:RESULT = new VarDecl("VarDecl",(String)type, (ArrayList<IDInit>)idInit);:}
+            	| VAR IdInitObblList:idInitObb SEMI{:RESULT = new VarDecl("VarDeclObb", (ArrayList<IDInitObb>)idInitObb);:};
+
+            Type ::=
+             INTEGER  {:RESULT = "INTEGER";:}
+            | BOOL       {:RESULT = "BOOL";:}
+            | REAL       {:RESULT = "REAL";:}
+            | STRING        {:RESULT = "STRING";:}
+            | CHAR       {:RESULT = "CHAR";:}
+            ;
+
+            IdInitList ::= ID:id     {: ArrayList<IDInit> idList = new ArrayList<IDInit>(); idList.add(0, new IDInit(new IdVal(id),null));RESULT = idList;:}
+            	| IdInitList:idList COMMA ID:id  {:((ArrayList<IDInit>)idList).add(0, new IDInit(new IdVal(id),null)); RESULT = idList;:}
+            	| ID:id ASSIGN Expr:expr    {: ArrayList<IDInit> idList = new ArrayList<IDInit>(); idList.add(0, new IDInit(new IdVal(id),(ExprNode)expr));RESULT = idList;:}
+            	| IdInitList:idList COMMA ID:id ASSIGN Expr:expr  {:((ArrayList<IDInit>)idList).add(0, new IDInit(new IdVal(id),(ExprNode)expr)); RESULT = idList;:};
+
+            IdInitObblList ::= ID:id ASSIGN Const:cost {:ArrayList<IDInitObb> idListObb = new ArrayList<IDInitObb>(); idListObb.add(0, new IDInitObb(new IdVal(id),(Const)cost));RESULT = idListObb;:}
+            	| IdInitObblList:idInitObb COMMA ID:id ASSIGN Const:cost {:((ArrayList<IDInitObb>)idInitObb).add(0, new IDInitObb(new IdVal(id),(Const)cost)); RESULT = idInitObb;:};
+
+            Const ::= INTEGER_CONST:val  {: RESULT = new Const("INTEGER_CONST", new IntegerConst(val)); :}
+            | REAL_CONST:val             {: RESULT = new Const("REAL_CONST", new RealConst(val)); :}
+            | TRUE                  {: RESULT = new Const("TRUE", new BoolConst(true)); :}
+            | FALSE                  {: RESULT = new Const("FALSE", new BoolConst(false)); :}
+            | STRING_CONST:val           {: RESULT = new Const("STRING_CONST", new StringConst(val)); :}
+            | CHAR_CONST:val              {: RESULT = new Const("CHAR_CONST", new CharConst(val)); :}
+            ;
+
+         FunDecl ::= DEF ID:id LPAR ParamDeclList:paramDecl RPAR COLON TypeOrVoid:typeorvoid Body:body{:RESULT = new FunDecl("FunDecl", new IdVal(id),(ArrayList<ParDecl>)paramDecl,(String)typeorvoid,(Body)body);:};
+
+         Body ::= LBRACK VarDeclList: varDeclList StatList: statList RBRACK {:RESULT = new Body("bodyOp",(ArrayList<VarDecl>)varDeclList, (ArrayList<Stat>)statList);:};
+
+
+
 
             //Da ragionare
             ParamDeclList ::= /*empty */ {: ArrayList<ParDecl> list = new ArrayList<ParDecl>();RESULT = list;:}
-            	| NonEmptyParamDeclList:nonEmptyList {:((ArrayList<ParDecl>)nonEmptyList).add((ParDecl)nonEmptyList); RESULT = nonEmptyList;:};
+            	| NonEmptyParamDeclList:nonEmptyList {: RESULT = nonEmptyList;:};
 
             NonEmptyParamDeclList ::= ParDecl:parDecl {: ArrayList<ParDecl> list = new ArrayList<ParDecl>(); list.add((ParDecl)parDecl); RESULT = list;:}
-            	| NonEmptyParamDeclList:nEmptyparDecl PIPE ParDecl:parDecl {:((ArrayList<ParDecl>)nEmptyparDecl).add((ParDecl)nEmptyparDecl); RESULT = nEmptyparDecl;:};
+            	| NonEmptyParamDeclList:nonEmptyList PIPE ParDecl:parDecl {:((ArrayList<ParDecl>)nonEmptyList).add(0, (ParDecl)parDecl); RESULT = nonEmptyList;:};
             //
             ParDecl ::= Type:type IdList:idList {: RESULT = new ParDecl("ParDeclOP",(String)type,(ArrayList<IdVal>)idList); :}
                            	| OUT Type:type IdList:idList {: RESULT = new ParDecl("ParDeclOutOP",(String)type,(ArrayList<IdVal>)idList); :};

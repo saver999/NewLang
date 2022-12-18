@@ -118,6 +118,7 @@ public String content= "";
         return content;
     }
 
+
     @Override
     public String visit(ExprNode node) {
         int flag = 0;
@@ -382,6 +383,31 @@ public String content= "";
         return content;
 
     }
+
+    @Override
+    public String visit(FunDecl node) {
+        this.content = String.format("<%s>",node.nomeNodo);
+        this.content += node.id.accept(this);
+
+        if(node.listaPar.size()>=1) {
+            for (int i = 0; i < node.listaPar.size(); i++) {
+                this.content += node.listaPar.get(i).accept(this);
+            }
+        }
+        this.content+= node.type;
+        this.content+= node.body.accept(this);
+        this.content += String.format("</%s>",node.nomeNodo);
+        return content;
+    }
+
+    @Override
+    public String visit(MainFunDecl node) {
+        this.content = String.format("<%s>",node.nomeNodo);
+        this.content+= node.fundecl.accept(this);
+        this.content += String.format("</%s>",node.nomeNodo);
+        return content;
+    }
+
     public void saveFileXML(){
         Writer writer = null;
 

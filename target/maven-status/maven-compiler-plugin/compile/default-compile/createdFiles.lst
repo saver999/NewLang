@@ -24,7 +24,9 @@ nodi\IntegerConst.class
 esercitazione4\Main.class
 esercitazione4\TesterLexer.class
 nodi\IfStat.class
+nodi\FunDecl.class
 nodi\Const.class
 nodi\ReadStat.class
 nodi\IDInit.class
+nodi\MainFunDecl.class
 nodi\CharConst.class
