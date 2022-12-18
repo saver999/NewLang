@@ -1,1 +1,5 @@
-start: def ciao ( integer ciao | out boolean a): void {}
+integer ciao;
+def ciao(): void{
+}
+start: def ciao(): void{
+       }

@@ -408,6 +408,57 @@ public String content= "";
         return content;
     }
 
+    @Override
+    public String visit(ProgramRoot node) {
+
+
+        this.content = String.format("<%s>",node.nomeRoot);
+        this.content += String.format("<%s>", "VarDeclList");
+        if(node.varDeclList.size() >= 1) {
+
+            for (int i = 0; i < node.varDeclList.size(); i++) {
+                Class classe = node.varDeclList.get(i).getClass();
+
+                if (classe == VarDecl.class) {
+                    VarDecl nodo = (VarDecl) node.varDeclList.get(i);
+                    this.content += nodo.accept(this);
+                }
+
+                if (classe == FunDecl.class) {
+                    FunDecl nodo = (FunDecl) node.varDeclList.get(i);
+                    this.content += nodo.accept(this);
+                }
+            }
+        }
+
+
+        this.content += String.format("</%s>", "VarDeclList");
+        this.content+= node.mainFun.accept(this);
+
+        this.content += String.format("<%s>", "VarDeclList");
+        if(node.varDecl.size() >= 1) {
+
+            for (int i = 0; i < node.varDecl.size(); i++) {
+                Class classe = node.varDecl.get(i).getClass();
+
+                if (classe == VarDecl.class) {
+                    VarDecl nodo = (VarDecl) node.varDecl.get(i);
+                    this.content += nodo.accept(this);
+                }
+
+                if (classe == FunDecl.class) {
+                    FunDecl nodo = (FunDecl) node.varDecl.get(i);
+                    this.content += nodo.accept(this);
+                }
+            }
+        }
+
+
+        this.content += String.format("</%s>", "VarDeclList");
+                this.content += String.format("</%s>",node.nomeRoot);
+                return content;
+    }
+
     public void saveFileXML(){
         Writer writer = null;
 

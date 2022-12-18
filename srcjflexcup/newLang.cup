@@ -29,13 +29,13 @@ precedence left DIV, TIMES;
 precedence right POW;
 precedence left UMINUS;
 
-//
-//Program ::= DeclList MainFunDecl DeclList {:RESULT = {new ProgramRoot("Program", };:};
-//
+
+Program ::= DeclList:declList MainFunDecl:mainFun DeclList:declList2 {:RESULT = new ProgramRoot("Program",(ArrayList<Node>)declList,(MainFunDecl)mainFun,(ArrayList<Node>)declList2);:};
+
 //qui se ci passiamo un arraylist di tipo node possiamo passare sia vardecl che fundecl
-            DeclList ::= VarDecl:varDecl DeclList:declList {:RESULT = new DeclList((ArrayList<Node>)decList);:}
-            | FunDecl:funDecl DeclList:declList {:RESULT = new DeclList((ArrayList<Node>)decList);:}
-            | /* empty */{: ArrayList<DecList> list = new ArrayList<DecList>();RESULT = list;:};
+            DeclList ::= VarDecl:varDecl DeclList:declList {:((ArrayList<Node>)declList).add(0, (VarDecl)varDecl); RESULT = declList;:}
+            | FunDecl:funDecl DeclList:declList {:((ArrayList<Node>)declList).add(0, (FunDecl)funDecl); RESULT = declList;:}
+            | /* empty */{: ArrayList<Node> list = new ArrayList<Node>();RESULT = list;:};
 
             MainFunDecl ::= MAIN FunDecl:funDecl {:RESULT = new MainFunDecl("MainFunDecl",(FunDecl)funDecl);:}
             ;

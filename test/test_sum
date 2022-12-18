@@ -4,23 +4,22 @@ start: def test(): void{
 
     while condizione = 1 loop {
 
-    ("quale operazione aritmetica vuoi scegliere?") -->!;
-    ("se vuoi fare la somma scrivi 1 ") -->!;
-    ("se vuoi fare la sottrazione scrivi 2 ") -->!;
-    ("se vuoi fare la moltiplicazione scrivi 3 ") -->!;
-    ("se vuoi fare la divisione  scrivi 4 ") -->!;
-    operazione <-- "inserisci la tua scelta qui (1,2,3,4)";
+       ("quale operazione aritmetica vuoi scegliere?") -->!;
+       ("se vuoi fare la somma scrivi 1 ") -->!;
+       ("se vuoi fare la sottrazione scrivi 2 ") -->!;
+       ("se vuoi fare la moltiplicazione scrivi 3 ") -->!;
+       ("se vuoi fare la divisione  scrivi 4 ") -->!;
+       operazione <-- "inserisci la tua scelta qui (1,2,3,4)";
 
-    if operazione = 1 or operazione = 2 or operazione = 3 or operazione =  4 then {
-        elaboraScelta(operazione);
+       if operazione = 1 or operazione = 2 or operazione = 3 or operazione =  4 then {
+           elaboraScelta(operazione);
 
-    }
+       }
 
-    ("vuoi continuare? scrivi 1, vuoi stopparti scrivi 0") -->!;
-    condizione <--;
+       ("vuoi continuare? scrivi 1, vuoi stopparti scrivi 0") -->!;
+       condizione <--;
+   }
 }
-}
-
 
 
 def elaboraScelta(integer operazione ): void{
@@ -32,24 +31,24 @@ def elaboraScelta(integer operazione ): void{
     numB <-- "inserisci il secondo numero";
 
     if operazione = 1 then {
-        somma(numA, numB, result);
-        "il risultato della somma  è :  " & result;
-    }
+               somma(numA, numB, result);
+               ("il risultato della somma  è :  " & result)-->!;
+           }
     if operazione = 2 then {
-        sottrazione(numA,numB, result);
-        "il risultato della sottrazione  è :  " & result;
-    }
-    if operazione = 3 then {
-        moltiplicazione(numA, numB, result);
-        "il risultato della moltiplicazione  è :  " & result;
-    }
-    if operazione = 4 then {
-        if numB <> 0 then {
-            divisione(numA, numB, result);
-        }else{
-            ("Divisione impossibile, il denomitaore non può essere 0") -->!;
+            sottrazione(numA,numB, result);
+            ("il risultato della sottrazione  è :  " & result)-->!;
         }
-    }
+        if operazione = 3 then {
+            moltiplicazione(numA, numB, result);
+            ("il risultato della moltiplicazione  è :  " & result)-->!;
+        }
+        if operazione = 4 then {
+            if numB <> 0 then {
+                divisione(numA, numB, result);
+            }else{
+                ("Divisione impossibile, il denomitaore non può essere 0") -->!;
+            }
+        }
 
     return result;
 }

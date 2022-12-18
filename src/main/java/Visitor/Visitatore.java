@@ -38,4 +38,6 @@ public interface Visitatore {
     String visit(FunDecl funDecl);
 
     String visit(MainFunDecl mainDunDecl);
+
+    String visit(ProgramRoot programRoot);
 }

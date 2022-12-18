@@ -20,7 +20,7 @@ public class Main {
         //System.out.println("Nodo radice is "+ p.debug_parse().value); // l'uso di p.debug_parse() al posto di p.parse() produce tutte le azioni del parser durante il riconoscimento
 
 
-       MainFunDecl pr = (MainFunDecl) p.parse().value;
+       ProgramRoot pr = (ProgramRoot) p.parse().value;
         TreeMaker ev = new TreeMaker();
         String result = (String) pr.accept(ev);
         System.out.println("result: " + result);
