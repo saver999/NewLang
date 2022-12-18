@@ -12,6 +12,7 @@ public class WhileStat extends Node{
         this.nodeEx= node;
         this.body=body;
     }
+
     public Object accept(Visitatore v) {
         return v.visit(this);
     }

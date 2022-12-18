@@ -1,5 +1,3 @@
 {
- for ciao << 3 to 5 loop {
- ciao();
- }
+ if 3 then {} else{}
 }

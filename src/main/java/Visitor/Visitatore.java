@@ -34,4 +34,5 @@ public interface Visitatore {
     String visit(WhileStat whileStat);
 
     String visit(ForStat forStat);
+
 }

@@ -85,6 +85,7 @@ public String content= "";
             ExprNode nodo =(ExprNode) node.nodo;
             this.content += nodo.accept(this);
         }
+
         return content;
     }
 
@@ -92,28 +93,27 @@ public String content= "";
     @Override
     public String visit(Body node) {
 
-        this.content = String.format("<%s>",node.nomeNodo);
+        this.content = String.format("<%s>", node.nomeNodo);
 
         if (node.listaVar.size() >= 1)
             this.content += String.format("<%s>", "varDeclList");
 
-        for(int i = 0; i < node.listaVar.size(); i++){
+        for (int i = 0; i < node.listaVar.size(); i++) {
             this.content += node.listaVar.get(i).accept(this);
         }
 
         if (node.listaVar.size() >= 1)
             this.content += String.format("</%s>", "varDeclList");
 
-        if (node.listaStat !=null)
+        if (node.listaStat.get(0)!= null){
             this.content += String.format("<%s>", "statList");
 
-        for(int i = 0; i < node.listaStat.size(); i++){
+        for (int i = 0; i < node.listaStat.size(); i++) {
             this.content += node.listaStat.get(i).accept(this);
         }
 
-        if (node.listaStat != null )
-            this.content += String.format("</%s>", "statList");
-
+        this.content += String.format("</%s>", "statList");
+    }
         this.content += String.format("</%s>",node.nomeNodo);
         return content;
     }
