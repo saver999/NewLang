@@ -32,8 +32,9 @@ precedence left UMINUS;
 //
 //Program ::= DeclList MainFunDecl DeclList {:RESULT = {new ProgramRoot("Program", };:};
 //
-            DeclList ::= VarDecl:varDecl DeclList:declList
-            | FunDecl:funDecl DeclList:declList {:RESULT = new DeclList((ArrayList<FunDecl>)funDecl,(ArrayList<>);:}
+//qui se ci passiamo un arraylist di tipo node possiamo passare sia vardecl che fundecl
+            DeclList ::= VarDecl:varDecl DeclList:declList {:RESULT = new DeclList((ArrayList<Node>)decList);:}
+            | FunDecl:funDecl DeclList:declList {:RESULT = new DeclList((ArrayList<Node>)decList);:}
             | /* empty */{: ArrayList<DecList> list = new ArrayList<DecList>();RESULT = list;:};
 
             MainFunDecl ::= MAIN FunDecl:funDecl {:RESULT = new MainFunDecl("MainFunDecl",(FunDecl)funDecl);:}
