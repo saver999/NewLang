@@ -48,6 +48,7 @@ id = {symbol}({all_symbol})*
 "out"   { return new Symbol(sym.OUT);}
 "for"  { return new Symbol(sym.FOR);}
 "if"  { return new Symbol(sym.IF);}
+"then"  { return new Symbol(sym.THEN);}
 "else"  { return new Symbol(sym.ELSE);}
 "while" { return new Symbol(sym.WHILE);}
 "to"  { return new Symbol(sym.TO);}

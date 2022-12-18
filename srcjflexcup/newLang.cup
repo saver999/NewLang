@@ -36,9 +36,8 @@ precedence left UMINUS;
 //            | FunDecl DeclList
 //            | /* empty */;
 //
-//            MainFunDecl ::= MAIN FunDecl
+//            MainFunDecl ::= MAIN FunDecl:funDecl
 //            ;
-
 
 
             VarDecl ::= Type:type IdInitList:idInit SEMI {:RESULT = new VarDecl("VarDecl",(String)type, (ArrayList<IDInit>)idInit);:}
@@ -68,9 +67,9 @@ precedence left UMINUS;
             | CHAR_CONST:val              {: RESULT = new Const("CHAR_CONST", new CharConst(val)); :}
             ;
 
-            FunDecl ::= DEF ID LPAR ParamDeclList RPAR COLON TypeOrVoid Body;
+          //  FunDecl ::= DEF ID:id LPAR ParamDeclList:paramDecl RPAR COLON TypeOrVoid:typeorvoid Body:body{:RESULT = new FunDecl("FunDecl", new IdVal(id),);:};
             //da discutere
-            Body ::= LBRACK VarDeclList: varDeclList StatList: statList RBRACK {:RESULT = new Body("bodyOp",(ArrayList<VarDecl>)varDeclList, (ArrayList<StatList>)statList);:};
+          Body ::= LBRACK VarDeclList: varDeclList StatList: statList RBRACK {:RESULT = new Body("bodyOp",(ArrayList<VarDecl>)varDeclList, (ArrayList<Stat>)statList);:};
 
             //Da ragionare
             ParamDeclList ::= /*empty */ {: ArrayList<ParDecl> list = new ArrayList<ParDecl>();RESULT = list;:}
@@ -99,22 +98,22 @@ precedence left UMINUS;
             	| AssignStat: assignVal SEMI {:RESULT = new Stat( (AssignStat)assignVal);:}
                     | WhileStat : whileVal {:RESULT = new Stat( (WhileStat)whileVal);:}
             	| FunCall: funCallVal SEMI {:RESULT = new Stat( (FuncallNode)funCallVal);:}
-            	| RETURN Expr:exprVal SEMI {:RESULT = new Stat( (ExprNode)exprVAl);:}
-            	| RETURN SEMI {:RESULT = new Stat( null);:}
+            	| RETURN Expr:exprVal SEMI {:RESULT = new Stat( (ExprNode)exprVal);:}
+            //	| RETURN SEMI {:RESULT = new Stat( );:}
             	| /* empty */ {:RESULT = null;:};
 
-            IfStat ::= IF Expr THEN Body Else;
+            IfStat ::= IF Expr:expr THEN Body:body Else {:RESULT = new IfStat("IfStat", (ExprNode)expr, (Body)body);:};
 
             Else ::= /* empty */ {:RESULT = null;:}
             	| ELSE Body:body  {:RESULT = body;:}
             	;
 
-//            WhileStat ::= WHILE Expr:expr LOOP Body:body
-//            ;
-//
-//            ForStat ::= FOR ID:id ASSIGN INTEGER_CONST:val TO INTEGER_CONST:val LOOP Body:body
-//            ;
+            WhileStat ::= WHILE Expr:expr LOOP Body:body{:RESULT = new WhileStat("WhileState", (ExprNode)expr, (Body)body);:}
+            ;
 
+            ForStat ::= FOR ID:id ASSIGN INTEGER_CONST:val TO INTEGER_CONST:val2 LOOP Body:body {:RESULT = new ForStat("ForStat",new IdVal(id), new IntegerConst(val), new IntegerConst(val2), (Body)body);:}
+            ;
+//se sta null stampa null
             ReadStat ::= IdList:idList READ STRING_CONST:val  {:RESULT = new ReadStat("ReadOp",(ArrayList<IdVal>) idList, val);:}
             	|  IdList:idList READ      {:RESULT = new ReadStat("ReadOp",(ArrayList<IdVal>) idList, null);:}
             	;

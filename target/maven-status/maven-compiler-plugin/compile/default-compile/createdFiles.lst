@@ -1,3 +1,4 @@
+nodi\ForStat.class
 nodi\IDInitObb.class
 nodi\StringConst.class
 nodi\WriteStat.class
@@ -9,18 +10,20 @@ nodi\VarDecl.class
 esercitazione4\parser.class
 esercitazione4\Yylex.class
 esercitazione4\sym.class
+nodi\WhileStat.class
 nodi\Body.class
 nodi\BoolConst.class
 esercitazione4\parser$CUP$parser$actions.class
 nodi\FuncallNode.class
+nodi\Stat.class
 nodi\IdVal.class
-nodi\StatList.class
 nodi\ExprNode.class
 nodi\Node.class
 nodi\RealConst.class
 nodi\IntegerConst.class
 esercitazione4\Main.class
 esercitazione4\TesterLexer.class
+nodi\IfStat.class
 nodi\Const.class
 nodi\ReadStat.class
 nodi\IDInit.class

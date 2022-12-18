@@ -28,4 +28,10 @@ public interface Visitatore {
 
 
     String visit(Body body);
+
+    String visit(IfStat ifStat);
+
+    String visit(WhileStat whileStat);
+
+    String visit(ForStat forStat);
 }

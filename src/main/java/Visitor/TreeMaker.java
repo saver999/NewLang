@@ -55,13 +55,43 @@ public String content= "";
         }
 
     @Override
-    public String visit(Stat stat) {
-        return null;
+    public String visit(Stat node) {
+        this.content = "";
+
+        Class classe = node.nodo.getClass();
+
+        if (classe == IfStat.class) {
+            IfStat nodo = (IfStat) node.nodo;
+            this.content += nodo.accept(this);
+        }else if(classe == ForStat.class){
+            ForStat nodo =(ForStat) node.nodo;
+            this.content += nodo.accept(this);
+        }else if(classe == WriteStat.class){
+            WriteStat nodo =(WriteStat) node.nodo;
+            this.content += nodo.accept(this);
+        }else if(classe == AssignStat.class){
+            AssignStat nodo =(AssignStat) node.nodo;
+            this.content += nodo.accept(this);
+        }else if(classe == FuncallNode.class){
+            FuncallNode nodo =(FuncallNode) node.nodo;
+            this.content += nodo.accept(this);
+        }else if(classe == WhileStat.class){
+            WhileStat nodo =(WhileStat) node.nodo;
+            this.content += nodo.accept(this);
+        }else if(classe == ReadStat.class){
+            ReadStat nodo =(ReadStat) node.nodo;
+            this.content += nodo.accept(this);
+        }else if(classe == ExprNode.class){
+            ExprNode nodo =(ExprNode) node.nodo;
+            this.content += nodo.accept(this);
+        }
+        return content;
     }
 
 
     @Override
     public String visit(Body node) {
+
         this.content = String.format("<%s>",node.nomeNodo);
 
         if (node.listaVar.size() >= 1)
@@ -74,17 +104,17 @@ public String content= "";
         if (node.listaVar.size() >= 1)
             this.content += String.format("</%s>", "varDeclList");
 
-        if (node.listaStat.size() >= 1)
+        if (node.listaStat !=null)
             this.content += String.format("<%s>", "statList");
 
         for(int i = 0; i < node.listaStat.size(); i++){
             this.content += node.listaStat.get(i).accept(this);
         }
 
-        if (node.listaStat.size() >= 1)
+        if (node.listaStat != null )
             this.content += String.format("</%s>", "statList");
 
-        this.content = String.format("</%s>",node.nomeNodo);
+        this.content += String.format("</%s>",node.nomeNodo);
         return content;
     }
 
@@ -315,7 +345,43 @@ public String content= "";
         return content;
     }
 
+    public String visit(IfStat node){
+        this.content = String.format("<%s>",node.nomenodo);
 
+
+        this.content += node.nodeEx.accept(this);
+        this.content += node.body.accept(this);
+
+        this.content += String.format("</%s>",node.nomenodo);
+        return content;
+
+    }
+
+    @Override
+    public String visit(WhileStat node) {
+        this.content = String.format("<%s>",node.nomenodo);
+
+
+        this.content += node.nodeEx.accept(this);
+        this.content += node.body.accept(this);
+
+        this.content += String.format("</%s>",node.nomenodo);
+        return content;
+
+    }
+    public String visit(ForStat node) {
+        this.content = String.format("<%s>",node.nomenodo);
+
+
+        this.content += node.id.accept(this);
+        this.content += node.val1.accept(this);
+        this.content += node.val2.accept(this);
+        this.content += node.body.accept(this);
+
+        this.content += String.format("</%s>",node.nomenodo);
+        return content;
+
+    }
     public void saveFileXML(){
         Writer writer = null;
 

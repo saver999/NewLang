@@ -1,1 +1,5 @@
-var ciao << 4, ciao << 3, ciao << 3;
+{
+ for ciao << 3 to 5 loop {
+ ciao();
+ }
+}
