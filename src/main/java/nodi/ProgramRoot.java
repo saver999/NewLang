@@ -7,15 +7,15 @@ import java.util.ArrayList;
 public class ProgramRoot extends Node{
 
     public String nomeRoot;
-    public ArrayList<Node> varDeclList;
+    public ArrayList<Node> declist1;
     public MainFunDecl mainFun;
-    public ArrayList<Node> varDecl;
+    public ArrayList<Node> declist2;
 
-    public ProgramRoot(String nomeRoot, ArrayList<Node> varDeclList,MainFunDecl mainFun, ArrayList<Node> varDecl) {
+    public ProgramRoot(String nomeRoot, ArrayList<Node> declist1,MainFunDecl mainFun, ArrayList<Node> declist2) {
         this.nomeRoot = nomeRoot;
-        this.varDeclList = varDeclList;
+        this.declist1 = declist1;
         this.mainFun =mainFun;
-        this.varDecl = varDecl;
+        this.declist2 = declist2;
     }
 
     public Object accept(Visitatore v) {

@@ -413,48 +413,52 @@ public String content= "";
 
 
         this.content = String.format("<%s>",node.nomeRoot);
-        this.content += String.format("<%s>", "VarDeclList");
-        if(node.varDeclList.size() >= 1) {
 
-            for (int i = 0; i < node.varDeclList.size(); i++) {
-                Class classe = node.varDeclList.get(i).getClass();
+        if(node.declist1.size() >= 1) {
+            this.content += String.format("<%s>", "DeclList");
+
+            for (int i = 0; i < node.declist1.size(); i++) {
+                Class classe = node.declist1.get(i).getClass();
 
                 if (classe == VarDecl.class) {
-                    VarDecl nodo = (VarDecl) node.varDeclList.get(i);
+                    VarDecl nodo = (VarDecl) node.declist1.get(i);
                     this.content += nodo.accept(this);
                 }
 
                 if (classe == FunDecl.class) {
-                    FunDecl nodo = (FunDecl) node.varDeclList.get(i);
+                    FunDecl nodo = (FunDecl) node.declist1.get(i);
                     this.content += nodo.accept(this);
                 }
             }
+            this.content += String.format("</%s>", "DeclList");
         }
 
 
-        this.content += String.format("</%s>", "VarDeclList");
+
         this.content+= node.mainFun.accept(this);
 
-        this.content += String.format("<%s>", "VarDeclList");
-        if(node.varDecl.size() >= 1) {
 
-            for (int i = 0; i < node.varDecl.size(); i++) {
-                Class classe = node.varDecl.get(i).getClass();
+        if(node.declist2.size() >= 1) {
+            this.content += String.format("<%s>", "DeclList");
+
+            for (int i = 0; i < node.declist2.size(); i++) {
+                Class classe = node.declist2.get(i).getClass();
 
                 if (classe == VarDecl.class) {
-                    VarDecl nodo = (VarDecl) node.varDecl.get(i);
+                    VarDecl nodo = (VarDecl) node.declist2.get(i);
                     this.content += nodo.accept(this);
                 }
 
                 if (classe == FunDecl.class) {
-                    FunDecl nodo = (FunDecl) node.varDecl.get(i);
+                    FunDecl nodo = (FunDecl) node.declist2.get(i);
                     this.content += nodo.accept(this);
                 }
             }
+            this.content += String.format("</%s>", "DeclList");
         }
 
 
-        this.content += String.format("</%s>", "VarDeclList");
+
                 this.content += String.format("</%s>",node.nomeRoot);
                 return content;
     }
