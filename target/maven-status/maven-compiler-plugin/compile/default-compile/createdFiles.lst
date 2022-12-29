@@ -1,3 +1,4 @@
+esercitazione5\parser$CUP$parser$actions.class
 nodi\ForStat.class
 nodi\IDInitObb.class
 nodi\StringConst.class
@@ -10,6 +11,7 @@ nodi\AssignStat.class
 nodi\VarDecl.class
 esercitazione4\parser.class
 esercitazione4\Yylex.class
+esercitazione5\parser.class
 nodi\ProgramRoot.class
 esercitazione4\sym.class
 nodi\WhileStat.class
@@ -31,4 +33,5 @@ nodi\Const.class
 nodi\ReadStat.class
 nodi\IDInit.class
 nodi\MainFunDecl.class
+esercitazione5\sym.class
 nodi\CharConst.class
