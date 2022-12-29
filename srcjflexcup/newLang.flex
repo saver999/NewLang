@@ -1,5 +1,5 @@
 
-package esercitazione4;
+package esercitazione5;
 import java_cup.runtime.Symbol; //This is how we pass tokens to the parser
 
 %%

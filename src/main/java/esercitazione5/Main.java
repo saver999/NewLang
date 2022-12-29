@@ -1,14 +1,10 @@
-package esercitazione4;
+package esercitazione5;
 
 
 import Visitor.TreeMaker;
 import nodi.*;
 
-import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) throws Exception {
