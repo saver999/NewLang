@@ -9,6 +9,8 @@ public class ReadStat extends Node{
     public ArrayList<IdVal> idList;
     public StringConst val;
 
+    public String typeNode;
+
     public ReadStat(String nomeNodo, ArrayList<IdVal> listaID, String val){
         this.nomeNodo = nomeNodo;
 

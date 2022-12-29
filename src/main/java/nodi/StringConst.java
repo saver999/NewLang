@@ -6,6 +6,7 @@ public class StringConst extends Node{
 
     public String val;
 
+    public String typeNode;
     public StringConst(String val) {
         this.val = val;
     }

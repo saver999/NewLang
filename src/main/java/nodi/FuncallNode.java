@@ -9,6 +9,8 @@ public class FuncallNode extends Node {
     public IdVal id;
     public ArrayList<ExprNode> listaExprNode;
 
+    public String typeNode;
+
     public FuncallNode(String nomeNodo, IdVal id){
         this.nomeNodo = nomeNodo;
         this.id = id;

@@ -11,6 +11,8 @@ public class ProgramRoot extends Node{
     public MainFunDecl mainFun;
     public ArrayList<Node> declist2;
 
+    public String typeNode;
+
     public ProgramRoot(String nomeRoot, ArrayList<Node> declist1,MainFunDecl mainFun, ArrayList<Node> declist2) {
         this.nomeRoot = nomeRoot;
         this.declist1 = declist1;

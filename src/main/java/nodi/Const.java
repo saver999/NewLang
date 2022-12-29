@@ -5,6 +5,7 @@ import Visitor.Visitatore;
 public class Const extends Node{
     public String nomeNodo;
     public Node nodo;
+    public String typeNode;
 
     public Const (String nomeNodo, Node nodo) {
         this.nomeNodo = nomeNodo;

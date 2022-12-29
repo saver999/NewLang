@@ -10,6 +10,8 @@ public class ParDecl {
     public String type;
     public ArrayList<IdVal> listaID;
 
+    public String typeNode;
+
     public ParDecl(String nomeNodo,String type,ArrayList<IdVal> listaID){
         this.nomeNodo = nomeNodo;
         this.type = type;

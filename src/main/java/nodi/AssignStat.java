@@ -9,6 +9,7 @@ public class AssignStat extends Node{
    public String nomeNodo;
    public ArrayList<IdVal> idList;
    public ArrayList<ExprNode> exprList;
+    public String typeNode;
 
     public AssignStat(String nomeNodo, ArrayList<IdVal> listId, ArrayList<ExprNode> listaExprNode){
         this.nomeNodo = nomeNodo;

@@ -5,6 +5,8 @@ import Visitor.Visitatore;
 public class IntegerConst extends Node{
     public int val;
 
+    public String typeNode;
+
     public IntegerConst(int val) {
         this.val = val;
     }

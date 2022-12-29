@@ -6,6 +6,8 @@ public class IdVal extends Node{
 
     public String val;
 
+    public String typeNode;
+
     public IdVal(String val) {
         this.val = val;
     }

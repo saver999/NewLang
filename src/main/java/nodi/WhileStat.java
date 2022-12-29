@@ -7,6 +7,7 @@ public class WhileStat extends Node{
     public ExprNode nodeEx;
     public Body body;
 
+    public String typeNode;
     public WhileStat(String nome, ExprNode node, Body body){
         this.nomenodo=nome;
         this.nodeEx= node;

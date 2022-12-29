@@ -7,6 +7,8 @@ public class IDInit extends Node{
     public IdVal id;
     public ExprNode expr;
 
+    public String typeNode;
+
     public IDInit(IdVal id, ExprNode expr) {
         this.id = id;
         this.expr = expr;

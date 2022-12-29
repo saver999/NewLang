@@ -10,6 +10,7 @@ public class FunDecl extends Node{
     public ArrayList<ParDecl> listaPar;
     public String type;
     public Body body;
+    public String typeNode;
 
     public FunDecl(String nomeNodo, IdVal idval,ArrayList<ParDecl> listaPar, String type, Body body){
         this.nomeNodo = nomeNodo;

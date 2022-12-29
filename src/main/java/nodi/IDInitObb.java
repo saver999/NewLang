@@ -6,6 +6,7 @@ import Visitor.Visitatore;
 public class IDInitObb extends Node{
     public IdVal id;
     public Const cost;
+    public String typeNode;
 
     public IDInitObb(IdVal id, Const cost) {
         this.id = id;

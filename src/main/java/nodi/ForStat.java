@@ -9,6 +9,9 @@ public class ForStat extends Node{
     public IntegerConst val2;
     public Body body;
 
+    public String typeNode;
+
+
     public ForStat(String nodo, IdVal id, IntegerConst val1, IntegerConst val2, Body body){
         this.nomenodo=nodo;
         this.id = id;

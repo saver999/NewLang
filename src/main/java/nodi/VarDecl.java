@@ -10,6 +10,8 @@ public class VarDecl extends Node{
     public ArrayList<IDInit> listaID;
     public ArrayList<IDInitObb> idInitObb;
 
+    public String typeNode;
+
     public VarDecl(String nomeNodo, String type, ArrayList<IDInit> listaID) {
         this.nomeNodo = nomeNodo;
         this.type = type;

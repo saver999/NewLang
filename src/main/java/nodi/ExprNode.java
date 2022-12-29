@@ -5,6 +5,7 @@ public class ExprNode extends Node{
     public Node nodo1;
     public Node nodo2;
 
+    public String typeNode;
     public ExprNode (String nomeNodo, Node nodo1) {
         this.nomeNodo = nomeNodo;
         this.nodo1 = nodo1;

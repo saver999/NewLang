@@ -8,6 +8,8 @@ public class WriteStat extends Node{
     public String nomeNodo;
     public ArrayList<ExprNode> listaExpr;
 
+    public String typeNode;
+
     public WriteStat(String nomenodo, ArrayList<ExprNode> listaExpr) {
         this.nomeNodo = nomenodo;
         this.listaExpr = listaExpr;

@@ -7,6 +7,8 @@ public class IfStat extends Node{
     public ExprNode nodeEx;
     public Body body;
 
+    public String typeNode;
+
     public IfStat(String nome, ExprNode node, Body body){
         this.nomenodo=nome;
         this.nodeEx= node;

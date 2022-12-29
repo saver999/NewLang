@@ -5,6 +5,8 @@ import Visitor.Visitatore;
 public class RealConst extends Node{
     public float val;
 
+    public String typeNode;
+
     public RealConst(float val) {
         this.val = val;
     }

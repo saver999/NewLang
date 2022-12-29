@@ -6,7 +6,7 @@ public class Stat extends Node{
 
 
     public Node nodo;
-
+    public String typeNode;
 
     public Stat( Node nodo){
         this.nodo = nodo;

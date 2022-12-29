@@ -9,6 +9,7 @@ public class Body extends Node{
     public ArrayList<VarDecl> listaVar;
     public ArrayList<Stat> listaStat;
 
+    public String typeNode;
     public Body(String nomeNodo, ArrayList<VarDecl> listaVar, ArrayList<Stat> listaStat){
         this.nomeNodo = nomeNodo;
         this.listaVar = listaVar;

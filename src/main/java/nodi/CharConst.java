@@ -5,6 +5,7 @@ import Visitor.Visitatore;
 public class CharConst extends Node{
 
     public char val;
+    public String typeNode;
 
     public CharConst(char val) {
         this.val = val;
