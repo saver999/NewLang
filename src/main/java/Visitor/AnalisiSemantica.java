@@ -2,130 +2,147 @@ package Visitor;
 
 import nodi.*;
 
+import java.util.ArrayList;
+
 public class AnalisiSemantica implements Visitatore{
+
+    Env top = null; //tabella dei simboli corrente
+    ArrayList<Env> stack = new ArrayList<Env>(); //stack per tenere conto di tutte le tabelle dei simboli
     @Override
     public String visit(ExprNode node) {
         return null;
     }
 
     @Override
-    public String visit(BoolConst boolConst) {
+    public String visit(BoolConst node) {
 
-        boolConst.typeNode = "BOOL";
+        node.typeNode = "BOOL";
         return null;
     }
 
     @Override
-    public String visit(IntegerConst integerConst) {
-        integerConst.typeNode =" INT";
+    public String visit(IntegerConst node) {
+        node.typeNode =" INT";
         return null;
     }
 
     @Override
-    public String visit(RealConst realConst) {
-        realConst.typeNode = "FLOAT";
+    public String visit(RealConst node) {
+        node.typeNode = "FLOAT";
         return null;
     }
 
     @Override
-    public String visit(StringConst stringConst) {
-        stringConst.typeNode = "STRING";
+    public String visit(StringConst node) {
+        node.typeNode = "STRING";
         return null;
     }
 
     @Override
-    public String visit(CharConst charConst) {
-        charConst.typeNode = "CHAR";
+    public String visit(CharConst node) {
+        node.typeNode = "CHAR";
         return null;
     }
 
     @Override
-    public String visit(IdVal idVal) {
+    public String visit(IdVal node) {
         return null;
     }
 
     @Override
-    public String visit(FuncallNode funcall) {
+    public String visit(FuncallNode node) {
         return null;
     }
 
     @Override
-    public String visit(AssignStat assignStat) {
+    public String visit(AssignStat node) {
         return null;
     }
 
     @Override
-    public String visit(WriteStat writeStat) {
+    public String visit(WriteStat node) {
         return null;
     }
 
     @Override
-    public String visit(ReadStat readStat) {
+    public String visit(ReadStat node) {
         return null;
     }
 
     @Override
-    public String visit(ParDecl parDecl) {
+    public String visit(ParDecl node) {
         return null;
     }
 
     @Override
-    public String visit(IDInit idInit) {
+    public String visit(IDInit node) {
         return null;
     }
 
     @Override
-    public String visit(IDInitObb idInitObb) {
+    public String visit(IDInitObb node) {
         return null;
     }
 
     @Override
-    public String visit(VarDecl varDecl) {
+    public String visit(VarDecl node) {
         return null;
     }
 
     @Override
-    public String visit(Const cost) {
+    public String visit(Const node) {
         return null;
     }
 
     @Override
-    public String visit(Stat stat) {
+    public String visit(Stat node) {
         return null;
     }
 
     @Override
-    public String visit(Body body) {
+    public String visit(Body node) {
+
         return null;
     }
 
     @Override
-    public String visit(IfStat ifStat) {
+    public String visit(IfStat node) {
+        top = new Env(top); //tabella dei simboli per if
+        stack.add(top);
         return null;
     }
 
     @Override
-    public String visit(WhileStat whileStat) {
+    public String visit(WhileStat node) {
+        top = new Env(top); //tabella dei simboli del while
+        stack.add(top);
         return null;
     }
 
     @Override
-    public String visit(ForStat forStat) {
+    public String visit(ForStat node) {
+        top = new Env(top); //tabella dei simboli per il for
+        stack.add(top);
         return null;
     }
 
     @Override
-    public String visit(FunDecl funDecl) {
+    public String visit(FunDecl node) {
+        top = new Env(top); //tabella dei simboli per dichiarazioni di funzioni
+        stack.add(top);
         return null;
     }
 
     @Override
-    public String visit(MainFunDecl mainDunDecl) {
+    public String visit(MainFunDecl node) {
         return null;
     }
 
     @Override
-    public String visit(ProgramRoot programRoot) {
+    public String visit(ProgramRoot node) {
+        top = new Env(top); //tabella dei simboli root
+        stack.add(top);
+
         return null;
     }
 }
