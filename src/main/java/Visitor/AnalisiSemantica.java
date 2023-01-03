@@ -76,6 +76,8 @@ public class AnalisiSemantica implements Visitatore{
 
     @Override
     public String visit(IDInit node) {
+
+
         return null;
     }
 
@@ -124,6 +126,47 @@ public class AnalisiSemantica implements Visitatore{
                 if(node.listaID.get(i).typeNode.equals("error"))
                     flag = 1;
             }
+
+            // idinitobblist
+
+        for(int i =0; i < node.idInitObb.size();i++ ) {
+            if (top.getInThisTable(node.idInitObb.get(i).id.val) == null) {//controlla se è nella tabella corrente
+                RecordSymbolTable recordPrec;
+                recordPrec = top.getInTypeEnviroment(node.idInitObb.get(i).id.val);
+                if (recordPrec == null) {
+                    top.put(node.idInitObb.get(i).id.val, "var", null, node.idInitObb.get(i).cost.typeNode );//inserisce nella tabella al top
+                } else {
+                    if (recordPrec.kind.equalsIgnoreCase("var")) {
+                        top.put(node.idInitObb.get(i).id.val, "var", null, node.idInitObb.get(i).cost.typeNode); //ci assicuriamo che sia una variabile se si tartta di un metodo allora errore es: int a a()
+                    } else {
+                        try {
+                            flag=1;
+                            throw new Exception("Esiste già una funzione con lo stesso nome: " + node.listaID.get(i).id.val);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+            } else {
+                try {
+                    flag=1;
+                    throw new Exception("Dichiarazione multipla");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        for(int i = 0; i < node.listaID.size(); i++){
+            node.listaID.get(i).accept(this);
+        }
+
+
+        for(int i = 0; i < node.listaID.size(); i++){
+            if(node.listaID.get(i).typeNode.equals("error"))
+                flag = 1;
+        }
+
 
             if (flag == 0) {
                 node.typeNode = "VOID";
