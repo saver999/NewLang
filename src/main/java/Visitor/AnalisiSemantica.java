@@ -86,6 +86,56 @@ public class AnalisiSemantica implements Visitatore{
 
     @Override
     public String visit(VarDecl node) {
+        int flag=0;
+        for(int i =0; i < node.listaID.size();i++ ) {
+            if (top.getInThisTable(node.listaID.get(i).id.val) == null) {//controlla se è nella tabella corrente
+                RecordSymbolTable recordPrec;
+                recordPrec = top.getInTypeEnviroment(node.listaID.get(i).id.val);
+                if (recordPrec == null) {
+                    top.put(node.listaID.get(i).id.val, "var", null, node.type);//inserisce nella tabella al top
+                } else {
+                    if (recordPrec.kind.equalsIgnoreCase("var")) {
+                        top.put(node.listaID.get(i).id.val, "var", null, node.type); //ci assicuriamo che sia una variabile se si tartta di un metodo allora errore es: int a a()
+                    } else {
+                        try {
+                            flag=1;
+                            throw new Exception("Esiste già una funzione con lo stesso nome: " + node.listaID.get(i).id.val);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+            } else {
+                try {
+                    flag=1;
+                    throw new Exception("Dichiarazione multipla");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+            for(int i = 0; i < node.listaID.size(); i++){
+                node.listaID.get(i).accept(this);
+            }
+
+
+            for(int i = 0; i < node.listaID.size(); i++){
+                if(node.listaID.get(i).typeNode.equals("error"))
+                    flag = 1;
+            }
+
+            if (flag == 0) {
+                node.typeNode = "VOID";
+            } else {
+                node.typeNode = "error";
+                try {
+                    throw new Exception("Errore in var decl");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
         return null;
     }
 

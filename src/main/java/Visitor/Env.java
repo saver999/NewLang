@@ -10,8 +10,8 @@ public class Env {
         prev = p;
     }
 
-    public void put(String s, String nome, String kind, ArrayList<String> typeParametri, ArrayList<String> typeRitorno) {
-        table.put(s, new RecordSymbolTable(nome, kind, typeParametri, typeRitorno));
+    public void put( String nome, String kind, ArrayList<String> typeParametri, String typeRitorno) {
+        table.put(nome, new RecordSymbolTable(nome, kind, typeParametri, typeRitorno));
     }
 
     public RecordSymbolTable getInTypeEnviroment(String s) {

@@ -7,9 +7,9 @@ public class RecordSymbolTable {
     public String nome;
     public String kind;
     public ArrayList<String> typeParametri;
-    public ArrayList<String> typeRitorno;
+    public String typeRitorno;
 
-    public RecordSymbolTable(String nome, String kind, ArrayList<String> typeParametri, ArrayList<String> typeRitorno) {
+    public RecordSymbolTable(String nome, String kind, ArrayList<String> typeParametri, String typeRitorno) {
         this.nome = nome;
         this.kind = kind;
         this.typeParametri = typeParametri;
