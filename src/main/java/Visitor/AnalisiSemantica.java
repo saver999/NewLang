@@ -133,15 +133,18 @@ public class AnalisiSemantica implements Visitatore{
             if (top.getInThisTable(node.idInitObb.get(i).id.val) == null) {//controlla se è nella tabella corrente
                 RecordSymbolTable recordPrec;
                 recordPrec = top.getInTypeEnviroment(node.idInitObb.get(i).id.val);
+
                 if (recordPrec == null) {
+                    node.idInitObb.get(i).cost.accept(this);
                     top.put(node.idInitObb.get(i).id.val, "var", null, node.idInitObb.get(i).cost.typeNode );//inserisce nella tabella al top
                 } else {
                     if (recordPrec.kind.equalsIgnoreCase("var")) {
+                        node.idInitObb.get(i).cost.accept(this);
                         top.put(node.idInitObb.get(i).id.val, "var", null, node.idInitObb.get(i).cost.typeNode); //ci assicuriamo che sia una variabile se si tartta di un metodo allora errore es: int a a()
                     } else {
                         try {
                             flag=1;
-                            throw new Exception("Esiste già una funzione con lo stesso nome: " + node.listaID.get(i).id.val);
+                            throw new Exception("Esiste già una funzione con lo stesso nome: " + node.idInitObb.get(i).id.val);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -157,13 +160,13 @@ public class AnalisiSemantica implements Visitatore{
                 }
             }
         }
-        for(int i = 0; i < node.listaID.size(); i++){
-            node.listaID.get(i).accept(this);
+        for(int i = 0; i < node.idInitObb.size(); i++){
+            node.idInitObb.get(i).accept(this);
         }
 
 
-        for(int i = 0; i < node.listaID.size(); i++){
-            if(node.listaID.get(i).typeNode.equals("error"))
+        for(int i = 0; i < node.idInitObb.size(); i++){
+            if(node.idInitObb.get(i).typeNode.equals("error"))
                 flag = 1;
         }
 
@@ -184,6 +187,28 @@ public class AnalisiSemantica implements Visitatore{
 
     @Override
     public String visit(Const node) {
+
+        Class classe = node.nodo.getClass();
+
+        if(classe == BoolConst.class){
+            BoolConst nodo = (BoolConst)node.nodo;
+             nodo.accept(this);
+        } else if(classe == RealConst.class){
+            RealConst nodo = (RealConst)node.nodo;
+            nodo.accept(this);
+        } else if(classe == IdVal.class){
+            IdVal nodo = (IdVal)node.nodo;
+            nodo.accept(this);
+        } else if(classe == IntegerConst.class){
+            IntegerConst nodo = (IntegerConst)node.nodo;
+            nodo.accept(this);
+        } else if(classe == StringConst.class){
+            StringConst nodo = (StringConst)node.nodo;
+            nodo.accept(this);
+        } else if(classe == CharConst.class) {
+            CharConst nodo = (CharConst) node.nodo;
+             nodo.accept(this);
+        }
         return null;
     }
 
