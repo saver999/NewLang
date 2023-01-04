@@ -46,6 +46,22 @@ public class AnalisiSemantica implements Visitatore{
 
     @Override
     public String visit(IdVal node) {
+
+        RecordSymbolTable rs = top.getInTypeEnviroment(node.val);
+        if(rs == null){
+            try{
+                throw new Exception("identificatore non dihiarato: "+node.val);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            node.typeNode = "error";
+        }else{
+            if(rs.kind.equalsIgnoreCase("var")) {
+                node.typeNode = rs.typeRitorno;
+            }else node.typeNode = "VOID"; //da capire
+
+        }
+
         return null;
     }
 
@@ -77,6 +93,24 @@ public class AnalisiSemantica implements Visitatore{
     @Override
     public String visit(IDInit node) {
 
+        node.id.accept(this);
+
+        if(node.expr != null){
+            node.expr.accept(this);
+            if(node.id.typeNode.equals(node.expr.typeNode)){
+                node.typeNode = "VOID";
+            }else {
+                node.typeNode ="error";
+                try {
+                    throw new Exception("errore inizializzazione");
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+        }else{
+            node.typeNode = "VOID";
+        }
 
         return null;
     }
@@ -89,6 +123,7 @@ public class AnalisiSemantica implements Visitatore{
     @Override
     public String visit(VarDecl node) {
         int flag=0;
+        //scorriamo uan lista di id nella casisitica dove il type è esplicito
         for(int i =0; i < node.listaID.size();i++ ) {
             if (top.getInThisTable(node.listaID.get(i).id.val) == null) {//controlla se è nella tabella corrente
                 RecordSymbolTable recordPrec;
