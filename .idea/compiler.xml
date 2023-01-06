@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="de-stefano-napolitano_es5" />
         <module name="de-stefano-napolitano_es4" />
       </profile>
     </annotationProcessing>

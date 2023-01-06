@@ -8,8 +8,101 @@ public class AnalisiSemantica implements Visitatore{
 
     Env top = null; //tabella dei simboli corrente
     ArrayList<Env> stack = new ArrayList<Env>(); //stack per tenere conto di tutte le tabelle dei simboli
+    OpTypeTable opTypeTable = new OpTypeTable();
     @Override
     public String visit(ExprNode node) {
+        Class classe = node.nodo1.getClass();
+        String typeFirstOperand = "";
+
+        if(classe == BoolConst.class){
+            BoolConst nodo = (BoolConst)node.nodo1;
+            nodo.accept(this);
+            if(node.nodo2 == null) {
+                node.typeNode = nodo.typeNode;
+            } else {
+                typeFirstOperand = nodo.typeNode;
+            }
+        } else if(classe == RealConst.class){
+            RealConst nodo = (RealConst)node.nodo1;
+            nodo.accept(this);
+            if(node.nodo2 == null) {
+                node.typeNode = nodo.typeNode;
+            } else {
+                typeFirstOperand = nodo.typeNode;
+            }
+        } else if(classe == IdVal.class){
+            IdVal nodo = (IdVal)node.nodo1;
+            nodo.accept(this);
+            if(node.nodo2 == null) {
+                node.typeNode = nodo.typeNode;
+            } else {
+                typeFirstOperand = nodo.typeNode;
+            }
+        } else if(classe == IntegerConst.class){
+            IntegerConst nodo = (IntegerConst)node.nodo1;
+            nodo.accept(this);
+            if(node.nodo2 == null) {
+                node.typeNode = nodo.typeNode;
+            } else {
+                typeFirstOperand = nodo.typeNode;
+            }
+        } else if(classe == StringConst.class){
+            StringConst nodo = (StringConst)node.nodo1;
+            nodo.accept(this);
+            if(node.nodo2 == null) {
+                node.typeNode = nodo.typeNode;
+            } else {
+                typeFirstOperand = nodo.typeNode;
+            }
+        } else if(classe == CharConst.class){
+            CharConst nodo = (CharConst)node.nodo1;
+            nodo.accept(this);
+            if(node.nodo2 == null) {
+                node.typeNode = nodo.typeNode;
+            } else {
+                typeFirstOperand = nodo.typeNode;
+            }
+        } else if(classe == FuncallNode.class){
+            FuncallNode nodo = (FuncallNode)node.nodo1;
+            nodo.accept(this);
+            if(node.nodo2 == null) {
+                node.typeNode = nodo.typeNode;
+            } else {
+                typeFirstOperand = nodo.typeNode;
+            }
+        } else if(classe == ExprNode.class){
+            ExprNode nodo = (ExprNode)node.nodo1;
+            nodo.accept(this);
+            if(node.nodo2 == null) {
+                node.typeNode = opTypeTable.searchOp(node.nomeNodo, nodo.typeNode, ""); //controllo operazioni unarie
+            }
+            typeFirstOperand = nodo.typeNode;
+
+        }
+
+        String tipoNodo2 = "";
+        if(node.nodo2 != null){
+            classe = node.nodo2.getClass();
+
+            if(classe == ExprNode.class){
+                ExprNode nodo = (ExprNode)node.nodo2;
+                nodo.accept(this);
+                tipoNodo2 = nodo.typeNode;
+                node.typeNode = opTypeTable.searchOp(node.nomeNodo, typeFirstOperand, tipoNodo2); //controllo operazioni a due operatori
+            }
+        }
+
+        if(node.typeNode.equals("error")) {
+            try {
+                if(node.nodo2 != null)
+                    throw new Exception("Operazione binaria non consentita " + node.nomeNodo + " tra: " + typeFirstOperand + " e " + tipoNodo2);
+                else
+                    throw new Exception("Operazione unaria non consentita " + node.nomeNodo + " su: " + typeFirstOperand);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         return null;
     }
 
@@ -22,13 +115,13 @@ public class AnalisiSemantica implements Visitatore{
 
     @Override
     public String visit(IntegerConst node) {
-        node.typeNode =" INT";
+        node.typeNode = "INTEGER";
         return null;
     }
 
     @Override
     public String visit(RealConst node) {
-        node.typeNode = "FLOAT";
+        node.typeNode = "REAL";
         return null;
     }
 
