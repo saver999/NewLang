@@ -165,6 +165,59 @@ public class AnalisiSemantica implements Visitatore{
 
     @Override
     public String visit(AssignStat node) {
+        for(int i = 0; i < node.idList.size(); i++){
+            node.idList.get(i).accept(this);
+        }
+
+        for(int i = 0; i < node.exprList.size(); i++){
+            node.exprList.get(i).accept(this);
+        }
+
+        ArrayList<String> typeExprFinale = new ArrayList<>();
+        int flag = 0;
+        for(int i = 0; i < node.exprList.size(); i++) { //aggiungo a typeExprFinale tutti i tipi che andiamo ad assegnare
+            if (node.exprList.get(i).nomeNodo.equals("FuncallOp")) {
+                FuncallNode proc = (FuncallNode) node.exprList.get(i).nodo1;
+                if (proc.typeNode.equals("error")) {
+                    flag = 1;
+                }
+                RecordSymbolTable record = top.getInTypeEnviroment(proc.id.val);
+                typeExprFinale.add(record.typeRitorno);
+            } else {
+                if (node.exprList.get(i).nomeNodo.equalsIgnoreCase("id")) {
+                    IdVal idV = (IdVal) node.exprList.get(i).nodo1;
+                    if (idV.typeNode.equals("error")) {
+                        flag = 1;
+                    }
+
+                    typeExprFinale.add(node.exprList.get(i).typeNode);
+
+                }
+            }
+        }
+
+        if(node.idList.size() == typeExprFinale.size() && flag == 0){ //controlliamo se la lista di variabili è della stessa size della lista dei valori che assegnamo
+            node.typeNode = "VOID";
+            for(int i = 0; i < node.idList.size(); i++){ //controlliamo se i tipi che assegnamo coincidono
+                if(!((node.idList.get(i).typeNode).equals(typeExprFinale.get(i)))) {
+                    node.typeNode = "error";
+                    try {
+                        throw new Exception("Assegnazione non consentita " + node.nomeNodo);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                }
+            }
+        }else{
+            node.typeNode = "error";
+            try {
+                throw new Exception("Assegnazione non consentita " + node.nomeNodo);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         return null;
     }
 
