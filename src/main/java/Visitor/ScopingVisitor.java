@@ -2,11 +2,11 @@ package Visitor;
 
 import nodi.*;
 
+import java.util.ArrayList;
+
 public class ScopingVisitor implements Visitatore{
 
-    public Env getTable(){
-        return top;
-    }
+    Env top = null; //tabella dei simboli corrente
 
     @Override
     public String visit(ExprNode node) {
@@ -50,6 +50,8 @@ public class ScopingVisitor implements Visitatore{
 
     @Override
     public String visit(AssignStat assignStat) {
+
+
         return null;
     }
 
@@ -65,6 +67,15 @@ public class ScopingVisitor implements Visitatore{
 
     @Override
     public String visit(ParDecl parDecl) {
+
+        String type = parDecl.type;
+
+        for(int i=0; i < parDecl.listaID.size(); i++){
+            if(top.getInTypeEnviroment(parDecl.listaID.get(i).val) == null){
+                top.put(parDecl.listaID.get(i).val, "var",null,type);
+            }
+        }
+
         return null;
     }
 
@@ -80,6 +91,8 @@ public class ScopingVisitor implements Visitatore{
 
     @Override
     public String visit(VarDecl varDecl) {
+
+
         return null;
     }
 
@@ -95,6 +108,38 @@ public class ScopingVisitor implements Visitatore{
 
     @Override
     public String visit(Body body) {
+        top = new Env(top);
+
+        for(int i=0; i< body.listaVar.size(); i++){
+            body.listaVar.get(i).accept(this);
+        }
+        for(int i=0; i< body.listaStat.size(); i++){
+            body.listaStat.get(i).accept(this);
+        }
+
+        body.currentEnv =top;
+
+        return null;
+    }
+
+    @Override
+    public String visit(Body body, ArrayList<ParDecl> parDecls) {
+
+        top = new Env(top);
+        for(int i=0; i< parDecls.size();i++){
+            parDecls.get(i).accept(this);
+        }
+
+
+        for(int i=0; i< body.listaVar.size(); i++){
+            body.listaVar.get(i).accept(this);
+        }
+        for(int i=0; i< body.listaStat.size(); i++){
+            body.listaStat.get(i).accept(this);
+        }
+        body.currentEnv =top;
+
+
         return null;
     }
 
@@ -125,6 +170,10 @@ public class ScopingVisitor implements Visitatore{
 
     @Override
     public String visit(ProgramRoot programRoot) {
+
+        top = new Env(top);
+
+
         return null;
     }
 }

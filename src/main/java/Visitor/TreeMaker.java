@@ -3,6 +3,7 @@ package Visitor;
 import nodi.*;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class TreeMaker implements Visitatore{
 public String content= "";
@@ -116,6 +117,11 @@ public String content= "";
     }
         this.content += String.format("</%s>",node.nomeNodo);
         return content;
+    }
+
+    @Override
+    public String visit(Body body, ArrayList<ParDecl> parDecls) {
+        return null;
     }
 
 

@@ -1,5 +1,6 @@
 package nodi;
 
+import Visitor.Env;
 import Visitor.Visitatore;
 
 import java.util.ArrayList;
@@ -12,6 +13,10 @@ public class ProgramRoot extends Node{
     public ArrayList<Node> declist2;
 
     public String typeNode;
+
+
+
+
 
     public ProgramRoot(String nomeRoot, ArrayList<Node> declist1,MainFunDecl mainFun, ArrayList<Node> declist2) {
         this.nomeRoot = nomeRoot;

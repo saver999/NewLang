@@ -1,6 +1,10 @@
+ integer  operazione ;
+    integer prova1  ;
+
 start: def test(): void{
 
     integer condizione << 1, operazione ;
+    integer prova1 << 1  ;
 
     while condizione = 1 loop {
 

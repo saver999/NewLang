@@ -1,5 +1,8 @@
 package Visitor;
 import nodi.*;
+
+import java.util.ArrayList;
+
 public interface Visitatore {
     public String visit(ExprNode node);
     String visit(BoolConst boolConst);
@@ -28,6 +31,8 @@ public interface Visitatore {
 
 
     String visit(Body body);
+
+    String visit(Body body, ArrayList<ParDecl> parDecls);
 
     String visit(IfStat ifStat);
 

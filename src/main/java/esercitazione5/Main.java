@@ -1,6 +1,8 @@
 package esercitazione5;
 
 
+import Visitor.AnalisiSemantica;
+import Visitor.ScopingVisitor;
 import Visitor.TreeMaker;
 import nodi.*;
 
@@ -21,6 +23,12 @@ public class Main {
         String result = (String) pr.accept(ev);
         System.out.println("result: " + result);
         ev.saveFileXML();
+
+        ScopingVisitor sv = new ScopingVisitor();
+        pr.accept(sv);
+
+        AnalisiSemantica as = new AnalisiSemantica();
+        pr.accept(as);
     }
 }
 

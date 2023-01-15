@@ -83,44 +83,6 @@ def moltiplicazione( real numA, numB | out real result): void {
 
 
 
-i=0;
-
-main(){
-
-}
-
-
-
-test(){
- i = 0
-    while(){
-    i=0
-    if (
-    }
-    int i;
-    }
-
-}
-
-
-top dello stack
-
-vede una dichiarazione di int
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

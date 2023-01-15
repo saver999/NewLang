@@ -165,6 +165,8 @@ public class AnalisiSemantica implements Visitatore{
 
     @Override
     public String visit(AssignStat node) {
+
+
         for(int i = 0; i < node.idList.size(); i++){
             node.idList.get(i).accept(this);
         }
@@ -268,6 +270,8 @@ public class AnalisiSemantica implements Visitatore{
 
     @Override
     public String visit(VarDecl node) {
+
+
         int flag=0;
         //scorriamo uan lista di id nella casisitica dove il type è esplicito
         for(int i =0; i < node.listaID.size();i++ ) {
@@ -405,6 +409,11 @@ public class AnalisiSemantica implements Visitatore{
     }
 
     @Override
+    public String visit(Body body, ArrayList<ParDecl> parDecls) {
+        return null;
+    }
+
+    @Override
     public String visit(IfStat node) {
         top = new Env(top); //tabella dei simboli per if
         stack.add(top);
@@ -441,6 +450,7 @@ public class AnalisiSemantica implements Visitatore{
     public String visit(ProgramRoot node) {
         top = new Env(top); //tabella dei simboli root
         stack.add(top);
+
 
 
 
