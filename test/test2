@@ -69,3 +69,68 @@ def divisione( real numA, numB | out real result): void {
 def moltiplicazione( real numA, numB | out real result): void {
      result << numA * numB;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+i=0;
+
+main(){
+
+}
+
+
+
+test(){
+ i = 0
+    while(){
+    i=0
+    if (
+    }
+    int i;
+    }
+
+}
+
+
+top dello stack
+
+vede una dichiarazione di int
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

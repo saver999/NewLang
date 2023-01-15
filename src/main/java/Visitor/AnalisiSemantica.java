@@ -442,6 +442,8 @@ public class AnalisiSemantica implements Visitatore{
         top = new Env(top); //tabella dei simboli root
         stack.add(top);
 
+
+
         return null;
     }
 }

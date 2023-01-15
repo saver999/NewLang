@@ -30,7 +30,7 @@ precedence right POW;
 precedence left UMINUS;
 
 
-Program ::= DeclList:declList MainFunDecl:mainFun DeclList:declList2 {:RESULT = new ProgramRoot("Program",(ArrayList<Node>)declList,(MainFunDecl)mainFun,(ArrayList<Node>)declList2);:};
+Program ::= DeclList:declList  MainFunDecl:mainFun DeclList:declList2 {:RESULT = new ProgramRoot("Program",(ArrayList<Node>)declList,(MainFunDecl)mainFun,(ArrayList<Node>)declList2);:};
 
 //qui se ci passiamo un arraylist di tipo node possiamo passare sia vardecl che fundecl
             DeclList ::= VarDecl:varDecl DeclList:declList {:((ArrayList<Node>)declList).add(0, (VarDecl)varDecl); RESULT = declList;:}
