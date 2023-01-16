@@ -365,8 +365,16 @@ public class ScopingVisitor implements Visitatore{
         }
 
         programRoot.currentEnv=top;
-
+printSymbleTable();
 
         return null;
+    }
+
+    public void printSymbleTable(){
+        int num = 0;
+        for( Env e = top; e != null; e = e.prev ) {
+            System.out.println("Tabella: " + num++);
+            System.out.println(e.getTable().toString());
+        }
     }
 }
