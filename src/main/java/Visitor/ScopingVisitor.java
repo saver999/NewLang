@@ -161,6 +161,7 @@ public class ScopingVisitor implements Visitatore{
 
         return null;
     }
+
     @Override
     public String visit(WhileStat whileStat) {
         whileStat.body.accept(this);
