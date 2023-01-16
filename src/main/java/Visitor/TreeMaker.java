@@ -120,6 +120,11 @@ public String content= "";
     }
 
     @Override
+    public String visit(Body body, IdVal idVal) {
+        return null;
+    }
+
+    @Override
     public String visit(Body body, ArrayList<ParDecl> parDecls) {
         return null;
     }
@@ -358,7 +363,9 @@ public String content= "";
 
         this.content += node.nodeEx.accept(this);
         this.content += node.body.accept(this);
-        this.content += node.els.accept(this);
+        if(node.els != null)
+            this.content += node.els.accept(this);
+
         this.content += String.format("</%s>",node.nomenodo);
         return content;
 

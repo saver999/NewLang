@@ -90,7 +90,38 @@ public class ScopingVisitor implements Visitatore{
     }
 
     @Override
-    public String visit(VarDecl varDecl) {
+    public String visit(VarDecl node) {
+
+
+        //scorriamo uan lista di id nella casisitica dove il type è esplicito
+        for(int i =0; i < node.listaID.size();i++ ) {
+            if (top.getInThisTable(node.listaID.get(i).id.val) == null) {//controlla se è nella tabella corrente
+                RecordSymbolTable recordPrec;
+                recordPrec = top.getInTypeEnviroment(node.listaID.get(i).id.val);
+                if (recordPrec == null) {
+                    top.put(node.listaID.get(i).id.val, "var", null, node.type);//inserisce nella tabella al top
+                } else {
+                    if (recordPrec.kind.equalsIgnoreCase("var")) {
+                        top.put(node.listaID.get(i).id.val, "var", null, node.type); //ci assicuriamo che sia una variabile se si tartta di un metodo allora errore es: int a a()
+                    } else {
+                        try {
+
+                            throw new Exception("Esiste già una funzione con lo stesso nome: " + node.listaID.get(i).id.val);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+            } else {
+                try {
+
+                    throw new Exception("Dichiarazione multipla");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
 
         return null;
@@ -102,7 +133,36 @@ public class ScopingVisitor implements Visitatore{
     }
 
     @Override
-    public String visit(Stat stat) {
+    public String visit(Stat node) {
+
+        Class classe = node.nodo.getClass();
+
+        if (classe == IfStat.class) {
+            IfStat nodo = (IfStat) node.nodo;
+             nodo.accept(this);
+        }else if(classe == ForStat.class){
+            ForStat nodo =(ForStat) node.nodo;
+            nodo.accept(this);
+        }else if(classe == WriteStat.class){
+            WriteStat nodo =(WriteStat) node.nodo;
+            nodo.accept(this);
+        }else if(classe == AssignStat.class){
+            AssignStat nodo =(AssignStat) node.nodo;
+            nodo.accept(this);
+        }else if(classe == FuncallNode.class){
+            FuncallNode nodo =(FuncallNode) node.nodo;
+            nodo.accept(this);
+        }else if(classe == WhileStat.class){
+            WhileStat nodo =(WhileStat) node.nodo;
+            nodo.accept(this);
+        }else if(classe == ReadStat.class){
+            ReadStat nodo =(ReadStat) node.nodo;
+            nodo.accept(this);
+        }else if(classe == ExprNode.class){
+            ExprNode nodo =(ExprNode) node.nodo;
+            nodo.accept(this);
+        }
+
         return null;
     }
 
@@ -117,6 +177,29 @@ public class ScopingVisitor implements Visitatore{
             body.listaStat.get(i).accept(this);
         }
 
+        body.currentEnv =top;
+        top = top.prev;
+
+        return null;
+    }
+
+    @Override
+    public String visit(Body body, IdVal idVal) {
+        top = new Env(top);
+
+        if(top.getInTypeEnviroment(idVal.val)==null){
+            top.put(idVal.val,"var", null,"INTEGER");
+        }
+
+
+
+
+        for(int i=0; i< body.listaVar.size(); i++){
+            body.listaVar.get(i).accept(this);
+        }
+        for(int i=0; i< body.listaStat.size(); i++){
+            body.listaStat.get(i).accept(this);
+        }
         body.currentEnv = top;
         top = top.prev;
 
@@ -161,7 +244,6 @@ public class ScopingVisitor implements Visitatore{
 
         return null;
     }
-
     @Override
     public String visit(WhileStat whileStat) {
         whileStat.body.accept(this);
@@ -171,6 +253,8 @@ public class ScopingVisitor implements Visitatore{
 
     @Override
     public String visit(ForStat forStat) {
+
+
         return null;
     }
 
@@ -184,6 +268,7 @@ public class ScopingVisitor implements Visitatore{
 
     @Override
     public String visit(MainFunDecl mainDunDecl) {
+        mainDunDecl.fundecl.accept(this);
         return null;
     }
 
@@ -191,6 +276,95 @@ public class ScopingVisitor implements Visitatore{
     public String visit(ProgramRoot programRoot) {
 
         top = new Env(top);
+
+        // chiamo accept su var decl sia di declist1 che declist2
+        for(int i=0; i<programRoot.declist1.size();i++){
+            Class classe = programRoot.declist1.get(i).getClass();
+            if(classe == VarDecl.class){
+                VarDecl vardecl =(VarDecl) programRoot.declist1.get(i);
+                vardecl.accept(this);
+            }
+        }
+
+        for(int i=0; i<programRoot.declist2.size();i++) {
+            Class classe = programRoot.declist2.get(i).getClass();
+            if (classe == VarDecl.class) {
+                VarDecl vardecl = (VarDecl) programRoot.declist2.get(i);
+                vardecl.accept(this);
+
+            }
+        }
+
+        //aggiungo tutti gli id delle funzioni alla tabella dei simboli global sia di declist1 che declist2
+
+        ArrayList<String> listaparametri = new ArrayList<String>();
+        for(int i=0; i<programRoot.declist1.size(); i++){
+            Class classe = programRoot.declist1.get(i).getClass();
+            if(classe == FunDecl.class){
+                FunDecl fundecl =(FunDecl) programRoot.declist1.get(i);
+                if(top.getInThisTable(fundecl.id.val) == null){
+                    for(int j=0;j<fundecl.listaPar.size();j++){
+                        listaparametri.add(fundecl.type);
+                    }
+                    top.put(fundecl.id.val,"func",listaparametri,fundecl.type);
+                }else{
+                    try {
+                        throw new Exception("Dichiarazione funzione multipla");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+
+        for(int i=0; i<programRoot.declist2.size(); i++){
+            Class classe = programRoot.declist2.get(i).getClass();
+            if(classe == FunDecl.class){
+                FunDecl fundecl =(FunDecl) programRoot.declist2.get(i);
+                if(top.getInThisTable(fundecl.id.val) == null){
+                    for(int j=0;j<fundecl.listaPar.size();j++){
+                        listaparametri.add(fundecl.type);
+                    }
+                    top.put(fundecl.id.val,"func",listaparametri,fundecl.type);
+                }else{
+                    try {
+                        throw new Exception("Dichiarazione funzione multipla");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+
+        //richiamo accept su i fundecl di declist1
+        for(int i=0; i<programRoot.declist1.size();i++){
+            Class classe = programRoot.declist1.get(i).getClass();
+             if(classe == FunDecl.class){
+                FunDecl fundecl =(FunDecl) programRoot.declist1.get(i);
+
+                fundecl.accept(this);
+            }
+        }
+
+
+
+
+        //richiamo accept su i fundecl di declist1
+        for(int i=0; i<programRoot.declist2.size();i++){
+            Class classe = programRoot.declist2.get(i).getClass();
+            if(classe == FunDecl.class){
+                FunDecl funDecl =(FunDecl) programRoot.declist2.get(i);
+                funDecl.accept(this);
+            }
+        }
+
+        // aggiungo id del main alla tabella global
+        programRoot.mainFun.accept(this);
+        if(top.getInThisTable(programRoot.mainFun.fundecl.id.val)==null){
+            top.put(programRoot.mainFun.fundecl.id.val,"mainFunc",null,programRoot.mainFun.fundecl.type);
+        }
+
+        programRoot.currentEnv=top;
 
 
         return null;

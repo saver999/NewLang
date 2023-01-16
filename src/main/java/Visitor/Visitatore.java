@@ -32,6 +32,7 @@ public interface Visitatore {
 
     String visit(Body body);
 
+    String visit(Body body, IdVal idVal);
     String visit(Body body, ArrayList<ParDecl> parDecls);
 
     String visit(IfStat ifStat);

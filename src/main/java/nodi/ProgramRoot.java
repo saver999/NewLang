@@ -14,6 +14,7 @@ public class ProgramRoot extends Node{
 
     public String typeNode;
 
+    public Env currentEnv;
 
 
 

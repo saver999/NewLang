@@ -409,6 +409,11 @@ public class AnalisiSemantica implements Visitatore{
     }
 
     @Override
+    public String visit(Body body, IdVal idVal) {
+        return null;
+    }
+
+    @Override
     public String visit(Body body, ArrayList<ParDecl> parDecls) {
         return null;
     }
