@@ -358,12 +358,21 @@ public String content= "";
 
         this.content += node.nodeEx.accept(this);
         this.content += node.body.accept(this);
-
+        this.content += node.els.accept(this);
         this.content += String.format("</%s>",node.nomenodo);
         return content;
 
     }
+    public String visit(ElseStat node){
+        this.content = String.format("<%s>",node.nomeNodo);
 
+
+        this.content += node.body.accept(this);
+
+        this.content += String.format("</%s>",node.nomeNodo);
+        return content;
+
+    }
     @Override
     public String visit(WhileStat node) {
         this.content = String.format("<%s>",node.nomenodo);

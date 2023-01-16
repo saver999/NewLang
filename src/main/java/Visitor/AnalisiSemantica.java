@@ -456,4 +456,9 @@ public class AnalisiSemantica implements Visitatore{
 
         return null;
     }
+
+    @Override
+    public Object visit(ElseStat elseStat) {
+        return null;
+    }
 }

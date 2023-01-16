@@ -117,7 +117,8 @@ public class ScopingVisitor implements Visitatore{
             body.listaStat.get(i).accept(this);
         }
 
-        body.currentEnv =top;
+        body.currentEnv = top;
+        top = top.prev;
 
         return null;
     }
@@ -137,7 +138,8 @@ public class ScopingVisitor implements Visitatore{
         for(int i=0; i< body.listaStat.size(); i++){
             body.listaStat.get(i).accept(this);
         }
-        body.currentEnv =top;
+        body.currentEnv = top;
+        top = top.prev;
 
 
         return null;
@@ -145,11 +147,24 @@ public class ScopingVisitor implements Visitatore{
 
     @Override
     public String visit(IfStat ifStat) {
+        ifStat.body.accept(this);
+        if(ifStat.els != null){
+            ifStat.els.accept(this);
+        }
+
         return null;
     }
 
+    public String visit(ElseStat elseStat) {
+
+        elseStat.body.accept(this);
+
+        return null;
+    }
     @Override
     public String visit(WhileStat whileStat) {
+        whileStat.body.accept(this);
+
         return null;
     }
 
@@ -160,6 +175,9 @@ public class ScopingVisitor implements Visitatore{
 
     @Override
     public String visit(FunDecl funDecl) {
+
+        funDecl.body.accept(this,funDecl.listaPar);
+        funDecl.id.accept(this);
         return null;
     }
 

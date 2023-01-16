@@ -1082,7 +1082,10 @@ class CUP$parser$actions {
 		int bodyleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int bodyright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object body = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-		RESULT = new IfStat("IfStat", (ExprNode)expr, (Body)body);
+		int elsleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int elsright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		Object els = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		RESULT = new IfStat("IfStat", (ExprNode)expr, (Body)body, (ElseStat)els);
               CUP$parser$result = parser.getSymbolFactory().newSymbol("IfStat",19, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1103,7 +1106,7 @@ class CUP$parser$actions {
 		int bodyleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int bodyright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object body = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		RESULT = body;
+		RESULT = new ElseStat("ElseStat", (Body)body);
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Else",26, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;

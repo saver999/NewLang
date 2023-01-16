@@ -45,4 +45,6 @@ public interface Visitatore {
     String visit(MainFunDecl mainDunDecl);
 
     String visit(ProgramRoot programRoot);
+
+    Object visit(ElseStat elseStat);
 }

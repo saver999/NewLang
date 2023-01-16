@@ -107,10 +107,10 @@ Program ::= DeclList:declList  MainFunDecl:mainFun DeclList:declList2 {:RESULT =
             	| RETURN SEMI
             	| /* empty */ ;
 
-            IfStat ::= IF Expr:expr THEN Body:body Else {:RESULT = new IfStat("IfStat", (ExprNode)expr, (Body)body);:};
+            IfStat ::= IF Expr:expr THEN Body:body Else:els {:RESULT = new IfStat("IfStat", (ExprNode)expr, (Body)body, (ElseStat)els);:};
 
             Else ::= /* empty */ {:RESULT = null;:}
-            	| ELSE Body:body  {:RESULT = body;:}
+            	| ELSE Body:body  {:RESULT = new ElseStat("ElseStat", (Body)body);:}
             	;
 
             WhileStat ::= WHILE Expr:expr LOOP Body:body{:RESULT = new WhileStat("WhileState", (ExprNode)expr, (Body)body);:}
