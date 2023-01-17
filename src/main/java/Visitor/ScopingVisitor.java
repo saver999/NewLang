@@ -14,27 +14,33 @@ public class ScopingVisitor implements Visitatore{
     }
 
     @Override
-    public String visit(BoolConst boolConst) {
+    public String visit(BoolConst node) {
+
+        node.typeNode = "BOOL";
         return null;
     }
 
     @Override
-    public String visit(IntegerConst integerConst) {
+    public String visit(IntegerConst node) {
+        node.typeNode = "INTEGER";
         return null;
     }
 
     @Override
-    public String visit(RealConst realConst) {
+    public String visit(RealConst node) {
+        node.typeNode = "REAL";
         return null;
     }
 
     @Override
-    public String visit(StringConst stringConst) {
+    public String visit(StringConst node) {
+        node.typeNode = "STRING";
         return null;
     }
 
     @Override
-    public String visit(CharConst charConst) {
+    public String visit(CharConst node) {
+        node.typeNode = "CHAR";
         return null;
     }
 
@@ -94,43 +100,105 @@ public class ScopingVisitor implements Visitatore{
 
 
         //scorriamo uan lista di id nella casisitica dove il type è esplicito
-        for(int i =0; i < node.listaID.size();i++ ) {
-            if (top.getInThisTable(node.listaID.get(i).id.val) == null) {//controlla se è nella tabella corrente
-                RecordSymbolTable recordPrec;
-                recordPrec = top.getInTypeEnviroment(node.listaID.get(i).id.val);
-                if (recordPrec == null) {
-                    top.put(node.listaID.get(i).id.val, "var", null, node.type);//inserisce nella tabella al top
-                } else {
-                    if (recordPrec.kind.equalsIgnoreCase("var")) {
-                        top.put(node.listaID.get(i).id.val, "var", null, node.type); //ci assicuriamo che sia una variabile se si tartta di un metodo allora errore es: int a a()
+        if(node.listaID !=null) {
+            for (int i = 0; i < node.listaID.size(); i++) {
+                if (top.getInThisTable(node.listaID.get(i).id.val) == null) {//controlla se è nella tabella corrente
+                    RecordSymbolTable recordPrec;
+                    recordPrec = top.getInTypeEnviroment(node.listaID.get(i).id.val);
+                    if (recordPrec == null) {
+                        top.put(node.listaID.get(i).id.val, "var", null, node.type);//inserisce nella tabella al top
                     } else {
-                        try {
+                        if (recordPrec.kind.equalsIgnoreCase("var")) {
+                            top.put(node.listaID.get(i).id.val, "var", null, node.type); //ci assicuriamo che sia una variabile se si tartta di un metodo allora errore es: int a a()
+                        } else {
+                            try {
 
-                            throw new Exception("Esiste già una funzione con lo stesso nome: " + node.listaID.get(i).id.val);
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                                throw new Exception("Esiste già una funzione con lo stesso nome: " + node.listaID.get(i).id.val);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
-                }
 
-            } else {
-                try {
+                } else {
+                    try {
 
-                    throw new Exception("Dichiarazione multipla");
-                } catch (Exception e) {
-                    e.printStackTrace();
+                        throw new Exception("Dichiarazione multipla");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
+        // idinitobblist
+if(node.idInitObb != null) {
+    for (int i = 0; i < node.idInitObb.size(); i++) {
+        if (top.getInThisTable(node.idInitObb.get(i).id.val) == null) {//controlla se è nella tabella corrente
+            RecordSymbolTable recordPrec;
+            recordPrec = top.getInTypeEnviroment(node.idInitObb.get(i).id.val);
 
+            if (recordPrec == null) {
+
+                node.idInitObb.get(i).cost.accept(this);
+                top.put(node.idInitObb.get(i).id.val, "var", null, node.idInitObb.get(i).cost.typeNode);//inserisce nella tabella al top
+
+            } else {
+                if (recordPrec.kind.equalsIgnoreCase("var")) {
+                    node.idInitObb.get(i).cost.accept(this);
+                    top.put(node.idInitObb.get(i).id.val, "var", null, node.idInitObb.get(i).cost.typeNode); //ci assicuriamo che sia una variabile se si tartta di un metodo allora errore es: int a a()
+                } else {
+                    try {
+
+                        throw new Exception("Esiste già una funzione con lo stesso nome: " + node.idInitObb.get(i).id.val);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+        } else {
+            try {
+
+                throw new Exception("Dichiarazione multipla");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
 
         return null;
     }
 
     @Override
-    public String visit(Const cost) {
+    public String visit(Const node) {
+
+        Class classe = node.nodo.getClass();
+
+        if(classe == BoolConst.class){
+            BoolConst nodo = (BoolConst)node.nodo;
+            nodo.accept(this);
+            node.typeNode = nodo.typeNode;
+        } else if(classe == RealConst.class){
+            RealConst nodo = (RealConst)node.nodo;
+            nodo.accept(this);
+            node.typeNode = nodo.typeNode;
+        }  else if(classe == IntegerConst.class){
+            IntegerConst nodo = (IntegerConst)node.nodo;
+            nodo.accept(this);
+            node.typeNode = nodo.typeNode;
+        } else if(classe == StringConst.class){
+            StringConst nodo = (StringConst)node.nodo;
+            nodo.accept(this);
+            node.typeNode = nodo.typeNode;
+        } else if(classe == CharConst.class) {
+            CharConst nodo = (CharConst) node.nodo;
+            nodo.accept(this);
+            node.typeNode = nodo.typeNode;
+        }
         return null;
     }
+
 
     @Override
     public String visit(Stat node) {
@@ -365,16 +433,16 @@ public class ScopingVisitor implements Visitatore{
         }
 
         programRoot.currentEnv=top;
-printSymbleTable();
+
 
         return null;
     }
 
-    public void printSymbleTable(){
-        int num = 0;
-        for( Env e = top; e != null; e = e.prev ) {
-            System.out.println("Tabella: " + num++);
-            System.out.println(e.getTable().toString());
-        }
-    }
+//    public void printSymbleTable(){
+//        int num = 0;
+//        for( Env e = top; e != null; e = e.prev ) {
+//            System.out.println("Tabella: " + num++);
+//            System.out.println(e.getTable().toString());
+//        }
+//    }
 }

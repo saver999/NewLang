@@ -151,7 +151,7 @@ public class AnalisiSemantica implements Visitatore{
         }else{
             if(rs.kind.equalsIgnoreCase("var")) {
                 node.typeNode = rs.typeRitorno;
-            }else node.typeNode = "VOID"; //da capire
+            }else node.typeNode = "NOTYPE";
 
         }
 
@@ -265,6 +265,10 @@ public class AnalisiSemantica implements Visitatore{
 
     @Override
     public String visit(IDInitObb node) {
+        node.id.accept(this);
+        node.typeNode = node.id.typeNode;
+
+
         return null;
     }
 
@@ -273,87 +277,34 @@ public class AnalisiSemantica implements Visitatore{
 
 
         int flag=0;
-        //scorriamo uan lista di id nella casisitica dove il type è esplicito
-        for(int i =0; i < node.listaID.size();i++ ) {
-            if (top.getInThisTable(node.listaID.get(i).id.val) == null) {//controlla se è nella tabella corrente
-                RecordSymbolTable recordPrec;
-                recordPrec = top.getInTypeEnviroment(node.listaID.get(i).id.val);
-                if (recordPrec == null) {
-                    top.put(node.listaID.get(i).id.val, "var", null, node.type);//inserisce nella tabella al top
-                } else {
-                    if (recordPrec.kind.equalsIgnoreCase("var")) {
-                        top.put(node.listaID.get(i).id.val, "var", null, node.type); //ci assicuriamo che sia una variabile se si tartta di un metodo allora errore es: int a a()
-                    } else {
-                        try {
-                            flag=1;
-                            throw new Exception("Esiste già una funzione con lo stesso nome: " + node.listaID.get(i).id.val);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
+if(node.listaID !=null) {
+    for (int i = 0; i < node.listaID.size(); i++) {
 
-            } else {
-                try {
-                    flag=1;
-                    throw new Exception("Dichiarazione multipla");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-            for(int i = 0; i < node.listaID.size(); i++){
-                node.listaID.get(i).accept(this);
-            }
+        node.listaID.get(i).accept(this);
+    }
 
 
-            for(int i = 0; i < node.listaID.size(); i++){
-                if(node.listaID.get(i).typeNode.equals("error"))
-                    flag = 1;
-            }
-
+    for (int i = 0; i < node.listaID.size(); i++) {
+        if (node.listaID.get(i).typeNode.equals("error"))
+            flag = 1;
+    }
+}
             // idinitobblist
+if(node.idInitObb != null) {
+    for (int i = 0; i < node.idInitObb.size(); i++) {
+        node.idInitObb.get(i).accept(this);
+    }
 
-        for(int i =0; i < node.idInitObb.size();i++ ) {
-            if (top.getInThisTable(node.idInitObb.get(i).id.val) == null) {//controlla se è nella tabella corrente
-                RecordSymbolTable recordPrec;
-                recordPrec = top.getInTypeEnviroment(node.idInitObb.get(i).id.val);
 
-                if (recordPrec == null) {
-                    node.idInitObb.get(i).cost.accept(this);
-                    top.put(node.idInitObb.get(i).id.val, "var", null, node.idInitObb.get(i).cost.typeNode );//inserisce nella tabella al top
-                } else {
-                    if (recordPrec.kind.equalsIgnoreCase("var")) {
-                        node.idInitObb.get(i).cost.accept(this);
-                        top.put(node.idInitObb.get(i).id.val, "var", null, node.idInitObb.get(i).cost.typeNode); //ci assicuriamo che sia una variabile se si tartta di un metodo allora errore es: int a a()
-                    } else {
-                        try {
-                            flag=1;
-                            throw new Exception("Esiste già una funzione con lo stesso nome: " + node.idInitObb.get(i).id.val);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
+    for (int i = 0; i < node.idInitObb.size(); i++) {
 
-            } else {
-                try {
-                    flag=1;
-                    throw new Exception("Dichiarazione multipla");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        for(int i = 0; i < node.idInitObb.size(); i++){
-            node.idInitObb.get(i).accept(this);
+        if (node.idInitObb.get(i).typeNode.equals("error"))
+            flag = 1;
+
         }
 
 
-        for(int i = 0; i < node.idInitObb.size(); i++){
-            if(node.idInitObb.get(i).typeNode.equals("error"))
-                flag = 1;
-        }
+    }
 
 
             if (flag == 0) {
@@ -377,22 +328,24 @@ public class AnalisiSemantica implements Visitatore{
 
         if(classe == BoolConst.class){
             BoolConst nodo = (BoolConst)node.nodo;
-             nodo.accept(this);
+            nodo.accept(this);
+            node.typeNode = nodo.typeNode;
         } else if(classe == RealConst.class){
             RealConst nodo = (RealConst)node.nodo;
             nodo.accept(this);
-        } else if(classe == IdVal.class){
-            IdVal nodo = (IdVal)node.nodo;
-            nodo.accept(this);
-        } else if(classe == IntegerConst.class){
+            node.typeNode = nodo.typeNode;
+        }  else if(classe == IntegerConst.class){
             IntegerConst nodo = (IntegerConst)node.nodo;
             nodo.accept(this);
+            node.typeNode = nodo.typeNode;
         } else if(classe == StringConst.class){
             StringConst nodo = (StringConst)node.nodo;
             nodo.accept(this);
+            node.typeNode = nodo.typeNode;
         } else if(classe == CharConst.class) {
             CharConst nodo = (CharConst) node.nodo;
-             nodo.accept(this);
+            nodo.accept(this);
+            node.typeNode = nodo.typeNode;
         }
         return null;
     }
@@ -420,29 +373,31 @@ public class AnalisiSemantica implements Visitatore{
 
     @Override
     public String visit(IfStat node) {
-        top = new Env(top); //tabella dei simboli per if
-        stack.add(top);
+
         return null;
     }
 
     @Override
     public String visit(WhileStat node) {
-        top = new Env(top); //tabella dei simboli del while
-        stack.add(top);
+
         return null;
     }
 
     @Override
     public String visit(ForStat node) {
-        top = new Env(top); //tabella dei simboli per il for
-        stack.add(top);
+
         return null;
     }
 
     @Override
+    //QUIII
     public String visit(FunDecl node) {
-        top = new Env(top); //tabella dei simboli per dichiarazioni di funzioni
-        stack.add(top);
+        node.id.accept(this);
+        if(node.id.typeNode.equalsIgnoreCase("notype")){
+            node.body.accept(this);
+        }else{
+            node.typeNode ="error";
+        }
         return null;
     }
 
@@ -453,15 +408,49 @@ public class AnalisiSemantica implements Visitatore{
 
     @Override
     public String visit(ProgramRoot node) {
-        top = new Env(top); //tabella dei simboli root
-        stack.add(top);
+        top = node.currentEnv; //tabella gloal
 
+        for(int i =0; i<node.declist1.size();i++){
 
+            Class classe = node.declist1.get(i).getClass();
+            if(classe == VarDecl.class){
+                VarDecl vardecl =(VarDecl) node.declist1.get(i);
+                vardecl.accept(this);
+            }
+            if(classe == FunDecl.class){
+                FunDecl funDecl =(FunDecl) node.declist1.get(i);
+                funDecl.accept(this);
+            }
+
+        }
+
+        for(int i=0; i<node.declist2.size();i++) {
+            Class classe = node.declist2.get(i).getClass();
+            if (classe == VarDecl.class) {
+                VarDecl vardecl = (VarDecl) node.declist2.get(i);
+                vardecl.accept(this);
+
+            }
+            if(classe == FunDecl.class){
+                FunDecl funDecl =(FunDecl) node.declist2.get(i);
+                funDecl.accept(this);
+            }
+        }
+
+        node.mainFun.accept(this);
+
+        printSymbleTable();
 
 
         return null;
     }
-
+    public void printSymbleTable(){
+        int num = 0;
+        for( Env e = top; e != null; e = e.prev ) {
+            System.out.println("Tabella: " + num++);
+            System.out.println(e.getTable().toString());
+        }
+    }
     @Override
     public Object visit(ElseStat elseStat) {
         return null;

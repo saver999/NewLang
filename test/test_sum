@@ -1,6 +1,6 @@
  integer  operazione ;
     integer prova1  ;
-
+ var ala <<true;
 start: def test(): void{
 
     integer condizione << 1, operazione ;
