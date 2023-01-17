@@ -352,12 +352,69 @@ if(node.idInitObb != null) {
 
     @Override
     public String visit(Stat node) {
+        Class classe = node.nodo.getClass();
+
+        if (classe == IfStat.class) {
+            IfStat nodo = (IfStat) node.nodo;
+            nodo.accept(this);
+            node.typeNode = nodo.typeNode;
+        }else if(classe == ForStat.class){
+            ForStat nodo =(ForStat) node.nodo;
+            nodo.accept(this);
+            node.typeNode = nodo.typeNode;
+        }else if(classe == WriteStat.class){
+            WriteStat nodo =(WriteStat) node.nodo;
+            nodo.accept(this);
+            node.typeNode = nodo.typeNode;
+        }else if(classe == AssignStat.class){
+            AssignStat nodo =(AssignStat) node.nodo;
+            nodo.accept(this);
+            node.typeNode = nodo.typeNode;
+        }else if(classe == FuncallNode.class){
+            FuncallNode nodo =(FuncallNode) node.nodo;
+            nodo.accept(this);
+            node.typeNode = nodo.typeNode;
+        }else if(classe == WhileStat.class){
+            WhileStat nodo =(WhileStat) node.nodo;
+            nodo.accept(this);
+            node.typeNode = nodo.typeNode;
+        }else if(classe == ReadStat.class){
+            ReadStat nodo =(ReadStat) node.nodo;
+            nodo.accept(this);
+            node.typeNode = nodo.typeNode;
+        }else if(classe == ExprNode.class){
+            ExprNode nodo =(ExprNode) node.nodo;
+            nodo.accept(this);
+            node.typeNode = nodo.typeNode;
+        }
+
+
         return null;
     }
 
     @Override
     public String visit(Body node) {
+        top= node.currentEnv;
 
+        if(node.listaVar != null) {
+        for (int i = 0; i < node.listaVar.size(); i++) {
+            node.listaVar.get(i).accept(this);
+        }
+}
+
+        if(node.listaStat != null) {
+            for (int i = 0; i < node.listaStat.size(); i++) {
+                Class classe= node.listaStat.get(i).nodo.getClass();
+                node.listaStat.get(i).accept(this);
+                if(classe == ExprNode.class){
+
+                    node.typeNode = node.listaStat.get(i).typeNode;
+                }
+            }
+        }
+
+
+        top= top.prev;
         return null;
     }
 
@@ -392,12 +449,27 @@ if(node.idInitObb != null) {
     @Override
     //QUIII
     public String visit(FunDecl node) {
+        int flag =0;
+
         node.id.accept(this);
         if(node.id.typeNode.equalsIgnoreCase("notype")){
+            if(node.listaPar != null){
+                for(int i=0; i< node.listaPar.size(); i++){
+                    node.listaPar.get(i).accept(this);
+                    if(node.listaPar.get(i).typeNode.equalsIgnoreCase("error")){
+                        flag =1;
+                    }
+                }
+            }
             node.body.accept(this);
+            if(node.body.typeNode.equalsIgnoreCase("error"))
+                flag=1;
+
         }else{
             node.typeNode ="error";
         }
+
+
         return null;
     }
 
