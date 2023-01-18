@@ -358,14 +358,17 @@ if(node.idInitObb != null) {
             IfStat nodo = (IfStat) node.nodo;
             nodo.accept(this);
             node.typeNode = nodo.typeNode;
+            node.tipoRitorno = nodo.tipoRitorno;
         }else if(classe == ForStat.class){
             ForStat nodo =(ForStat) node.nodo;
             nodo.accept(this);
             node.typeNode = nodo.typeNode;
+            node.tipoRitorno = nodo.tipoRitorno;
         }else if(classe == WriteStat.class){
             WriteStat nodo =(WriteStat) node.nodo;
             nodo.accept(this);
             node.typeNode = nodo.typeNode;
+
         }else if(classe == AssignStat.class){
             AssignStat nodo =(AssignStat) node.nodo;
             nodo.accept(this);
@@ -378,6 +381,7 @@ if(node.idInitObb != null) {
             WhileStat nodo =(WhileStat) node.nodo;
             nodo.accept(this);
             node.typeNode = nodo.typeNode;
+            node.tipoRitorno = nodo.tipoRitorno;
         }else if(classe == ReadStat.class){
             ReadStat nodo =(ReadStat) node.nodo;
             nodo.accept(this);
@@ -404,11 +408,17 @@ if(node.idInitObb != null) {
 
         if(node.listaStat != null) {
             for (int i = 0; i < node.listaStat.size(); i++) {
-                Class classe= node.listaStat.get(i).nodo.getClass();
-                node.listaStat.get(i).accept(this);
-                if(classe == ExprNode.class){
 
-                    node.typeNode = node.listaStat.get(i).typeNode;
+                node.listaStat.get(i).accept(this);
+                if(node.listaStat.get(i).nameStat.equals("return") ){
+
+                    node.tipoRitorno = node.listaStat.get(i).tipoRitorno;
+                    top= top.prev;
+                    return null;
+                }else if(node.listaStat.get(i).nameStat.equals("returnVoid")){
+                    node.tipoRitorno = "void";
+                    top= top.prev;
+                    return null;
                 }
             }
         }

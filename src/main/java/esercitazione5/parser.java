@@ -1049,7 +1049,7 @@ class CUP$parser$actions {
 		int exprValleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int exprValright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object exprVal = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-		RESULT = new Stat( (ExprNode)exprVal);
+		RESULT = new Stat( "return",(ExprNode)exprVal);
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Stat",18, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1058,7 +1058,7 @@ class CUP$parser$actions {
           case 47: // Stat ::= RETURN SEMI 
             {
               Object RESULT =null;
-
+		RESULT = new Stat( "returnVoid",null);
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Stat",18, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;

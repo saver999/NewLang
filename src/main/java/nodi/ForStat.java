@@ -8,6 +8,7 @@ public class ForStat extends Node{
     public IntegerConst val1;
     public IntegerConst val2;
     public Body body;
+    public String tipoRitorno;
 
     public String typeNode;
 

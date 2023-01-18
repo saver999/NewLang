@@ -103,8 +103,8 @@ Program ::= DeclList:declList  MainFunDecl:mainFun DeclList:declList2 {:RESULT =
             	| AssignStat: assignVal SEMI {:RESULT = new Stat( (AssignStat)assignVal);:}
                     | WhileStat : whileVal {:RESULT = new Stat( (WhileStat)whileVal);:}
             	| FunCall: funCallVal SEMI {:RESULT = new Stat( (FuncallNode)funCallVal);:}
-            	| RETURN Expr:exprVal SEMI {:RESULT = new Stat( (ExprNode)exprVal);:}
-            	| RETURN SEMI
+            	| RETURN Expr:exprVal SEMI {:RESULT = new Stat( "return",(ExprNode)exprVal);:}
+            	| RETURN SEMI{:RESULT = new Stat( "returnVoid",null);:}
             	| /* empty */ ;
 
             IfStat ::= IF Expr:expr THEN Body:body Else:els {:RESULT = new IfStat("IfStat", (ExprNode)expr, (Body)body, (ElseStat)els);:};

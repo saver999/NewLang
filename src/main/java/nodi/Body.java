@@ -11,6 +11,7 @@ public   class Body extends Node{
     public ArrayList<Stat> listaStat;
 
     public String typeNode;
+    public String tipoRitorno;
 
     public Env currentEnv;
 

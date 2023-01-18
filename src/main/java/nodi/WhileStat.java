@@ -6,6 +6,7 @@ public class WhileStat extends Node{
     public String nomenodo;
     public ExprNode nodeEx;
     public Body body;
+    public String tipoRitorno;
 
     public String typeNode;
     public WhileStat(String nome, ExprNode node, Body body){
