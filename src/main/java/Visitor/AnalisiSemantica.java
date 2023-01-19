@@ -143,8 +143,10 @@ public class AnalisiSemantica implements Visitatore{
         RecordSymbolTable rs = top.getInTypeEnviroment(node.val);
         if(rs == null){
             try{
-                throw new Exception("identificatore non dihiarato: "+node.val);
+                throw new Exception("identificatore non dihiarato: "+node.val+printSymbleTable());
+
             }catch (Exception e){
+
                 e.printStackTrace();
             }
             node.typeNode = "error";
@@ -534,7 +536,7 @@ if(node.idInitObb != null) {
     //QUIII
     public String visit(FunDecl node) {
         int flag =0;
-
+        top = node.body.currentEnv;
         node.id.accept(this);
         if(node.id.typeNode.equalsIgnoreCase("notype")){
             if(node.listaPar != null){
@@ -567,7 +569,7 @@ if(node.idInitObb != null) {
                 e.printStackTrace();
             }
         }
-
+        top = top.prev;
         return null;
     }
 
@@ -609,17 +611,21 @@ if(node.idInitObb != null) {
 
         node.mainFun.accept(this);
 
-        printSymbleTable();
+
 
 
         return null;
     }
-    public void printSymbleTable(){
+    public String  printSymbleTable(){
         int num = 0;
+        String tabella = "";
         for( Env e = top; e != null; e = e.prev ) {
+
             System.out.println("Tabella: " + num++);
             System.out.println(e.getTable().toString());
+            tabella += e.getTable().toString();
         }
+        return tabella;
     }
     @Override
     public Object visit(ElseStat node) {
