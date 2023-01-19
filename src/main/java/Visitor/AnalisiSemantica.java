@@ -235,6 +235,20 @@ public class AnalisiSemantica implements Visitatore{
 
     @Override
     public String visit(ParDecl node) {
+
+        for(int i = 0; i<node.listaID.size(); i++ ){
+            node.listaID.get(i).accept(this);
+        }
+        for(int i = 0; i<node.listaID.size(); i++ ){
+          if( node.listaID.get(i).typeNode.equals("error")){
+              node.typeNode = "error";
+            }else{
+              node.typeNode="notype";
+          }
+        }
+
+
+
         return null;
     }
 
@@ -422,10 +436,14 @@ if(node.idInitObb != null) {
                 if(node.listaVar.get(i).typeNode.equals("error"))
                     flag=1;
             }
-            for (int i = 0; i < node.listaStat.size(); i++) {
-                if(node.listaStat.get(i).typeNode.equals("error"))
-                    flag=1;
-            }
+
+                for (int i = 0; i < node.listaStat.size(); i++) {
+                    if(node.listaStat.get(i).typeNode != null) {
+                        if (node.listaStat.get(i).typeNode.equals("error"))
+                            flag = 1;
+                    }
+                }
+
 
         if (flag == 0) {
             node.typeNode = "notype";
@@ -449,14 +467,11 @@ if(node.idInitObb != null) {
                     node.tipoRitorno = "void";
                     return null;
                 }
+
+                    node.tipoRitorno = "void";
+                    return null;
+
             }
-
-
-
-
-
-
-
 
 
 
@@ -492,7 +507,11 @@ if(node.idInitObb != null) {
         if(!node.nodeEx.typeNode.equals("BOOL") ||  (node.body.typeNode.equals("error")) ){
             flag=1;
         }
-
+        if(flag == 0){
+            node.typeNode = "notype";
+        }else{
+            node.typeNode = "error";
+        }
 
 
 
