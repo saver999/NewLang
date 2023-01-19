@@ -622,7 +622,14 @@ if(node.idInitObb != null) {
         }
     }
     @Override
-    public Object visit(ElseStat elseStat) {
+    public Object visit(ElseStat node) {
+        node.body.accept(this);
+        if(node.body.typeNode.equals("notype")){
+            node.typeNode = "notype";
+        }else{
+            node.typeNode = "error";
+        }
+
         return null;
     }
 }

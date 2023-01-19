@@ -11,6 +11,8 @@ public class Stat extends Node{
     public String tipoRitorno;
 
     public Stat( Node nodo){
+
+        this.nameStat ="";
         this.nodo = nodo;
     }
     public Stat(String nameStat, Node nodo){
