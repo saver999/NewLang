@@ -358,12 +358,12 @@ if(node.idInitObb != null) {
             IfStat nodo = (IfStat) node.nodo;
             nodo.accept(this);
             node.typeNode = nodo.typeNode;
-            node.tipoRitorno = nodo.tipoRitorno;
+
         }else if(classe == ForStat.class){
             ForStat nodo =(ForStat) node.nodo;
             nodo.accept(this);
             node.typeNode = nodo.typeNode;
-            node.tipoRitorno = nodo.tipoRitorno;
+
         }else if(classe == WriteStat.class){
             WriteStat nodo =(WriteStat) node.nodo;
             nodo.accept(this);
@@ -381,7 +381,7 @@ if(node.idInitObb != null) {
             WhileStat nodo =(WhileStat) node.nodo;
             nodo.accept(this);
             node.typeNode = nodo.typeNode;
-            node.tipoRitorno = nodo.tipoRitorno;
+
         }else if(classe == ReadStat.class){
             ReadStat nodo =(ReadStat) node.nodo;
             nodo.accept(this);
@@ -390,6 +390,7 @@ if(node.idInitObb != null) {
             ExprNode nodo =(ExprNode) node.nodo;
             nodo.accept(this);
             node.typeNode = nodo.typeNode;
+            node.tipoRitorno = nodo.typeNode;
         }
 
 
@@ -399,6 +400,7 @@ if(node.idInitObb != null) {
     @Override
     public String visit(Body node) {
         top= node.currentEnv;
+        int flag =1;
 
         if(node.listaVar != null) {
         for (int i = 0; i < node.listaVar.size(); i++) {
@@ -410,21 +412,54 @@ if(node.idInitObb != null) {
             for (int i = 0; i < node.listaStat.size(); i++) {
 
                 node.listaStat.get(i).accept(this);
-                if(node.listaStat.get(i).nameStat.equals("return") ){
 
-                    node.tipoRitorno = node.listaStat.get(i).tipoRitorno;
-                    top= top.prev;
-                    return null;
-                }else if(node.listaStat.get(i).nameStat.equals("returnVoid")){
-                    node.tipoRitorno = "void";
-                    top= top.prev;
-                    return null;
-                }
             }
         }
 
+            top= top.prev;
 
-        top= top.prev;
+            for (int i = 0; i < node.listaVar.size(); i++) {
+                if(node.listaVar.get(i).typeNode.equals("error"))
+                    flag=1;
+            }
+            for (int i = 0; i < node.listaStat.size(); i++) {
+                if(node.listaStat.get(i).typeNode.equals("error"))
+                    flag=1;
+            }
+
+        if (flag == 0) {
+            node.typeNode = "notype";
+        } else {
+            node.typeNode = "error";
+            try {
+                throw new Exception("Errore in : " + node.nomeNodo);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+            for (int i = 0; i < node.listaStat.size(); i++) {
+
+
+                if(node.listaStat.get(i).nameStat.equals("return") ){
+
+                    node.tipoRitorno = node.listaStat.get(i).tipoRitorno;
+                    return null;
+                }else if(node.listaStat.get(i).nameStat.equals("returnVoid")){
+                    node.tipoRitorno = "void";
+                    return null;
+                }
+            }
+
+
+
+
+
+
+
+
+
+
         return null;
     }
 
@@ -440,6 +475,26 @@ if(node.idInitObb != null) {
 
     @Override
     public String visit(IfStat node) {
+        int flag = 0;
+
+        node.nodeEx.accept(this);
+        node.body.accept(this);
+
+        if(node.els != null) {
+            node.els.accept(this);
+
+            if(node.els.typeNode.equals("error"))
+                flag=1;
+        }
+
+
+
+        if(!node.nodeEx.typeNode.equals("BOOL") ||  (node.body.typeNode.equals("error")) ){
+            flag=1;
+        }
+
+
+
 
         return null;
     }
@@ -476,9 +531,23 @@ if(node.idInitObb != null) {
                 flag=1;
 
         }else{
-            node.typeNode ="error";
+            flag =1;
         }
 
+        if(!node.type.equals(node.body.tipoRitorno))
+            flag =1;
+
+
+        if (flag == 0) {
+            node.typeNode = "VOID";
+        } else {
+            node.typeNode = "error";
+            try {
+                throw new Exception("Errore in fundecls: " + node.id.val);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         return null;
     }

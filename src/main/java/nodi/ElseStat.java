@@ -6,7 +6,7 @@ public class ElseStat extends  Node {
     public String nomeNodo;
     public Body body;
     public String typeNode;
-    public String tipoRitorno;
+
 
     public ElseStat(String nome, Body body) {
         this.nomeNodo = nome;

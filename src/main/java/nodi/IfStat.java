@@ -7,7 +7,7 @@ public class IfStat extends Node{
     public ExprNode nodeEx;
     public Body body;
     public ElseStat els;
-    public String tipoRitorno;
+
 
     public String typeNode;
 
