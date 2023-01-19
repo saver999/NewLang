@@ -162,6 +162,58 @@ public class AnalisiSemantica implements Visitatore{
 
     @Override
     public String visit(FuncallNode node) {
+        int flag=0;
+        node.id.accept(this);
+        if(node.listaExprNode !=null){
+            for(int i =0 ;i< node.listaExprNode.size();i++){
+                node.listaExprNode.get(i).accept(this);
+            }
+        }
+
+        int sizeList = 0;
+
+        RecordSymbolTable recordSymbolTable = top.getInTypeEnviroment(node.id.val);
+        if (recordSymbolTable != null && (recordSymbolTable.kind.equals("func"))){
+            if(node.listaExprNode != null)
+                sizeList = node.listaExprNode.size();
+
+            if(sizeList == recordSymbolTable.typeParametri.size()) {
+                for (int i = 0; i < sizeList; i++) { //controllo che i parametri passati alla proc siano del tipo corretto
+                    if (!(node.listaExprNode.get(i).typeNode.equals(recordSymbolTable.typeParametri.get(i)))) {
+                        flag = 1;
+                        node.typeNode = "error";
+                        try {
+                            throw new Exception("Tipo di parametri errato" + node.nomeNodo);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                if(flag ==0) {
+                        node.typeNode = "notype";
+                }
+            } else {
+                node.typeNode = "error";
+                try {
+                    throw new Exception("Numero di parametri errato" + node.nomeNodo);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }else{
+            node.typeNode = "error";
+            try {
+                throw new Exception("Funzione non esistente " + node.id.val);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
+
+
+
         return null;
     }
 
@@ -188,39 +240,42 @@ public class AnalisiSemantica implements Visitatore{
                 RecordSymbolTable record = top.getInTypeEnviroment(proc.id.val);
                 typeExprFinale.add(record.typeRitorno);
             } else {
-                if (node.exprList.get(i).nomeNodo.equalsIgnoreCase("id")) {
-                    IdVal idV = (IdVal) node.exprList.get(i).nodo1;
-                    if (idV.typeNode.equals("error")) {
-                        flag = 1;
-                    }
+
 
                     typeExprFinale.add(node.exprList.get(i).typeNode);
 
                 }
             }
-        }
 
-        if(node.idList.size() == typeExprFinale.size() && flag == 0){ //controlliamo se la lista di variabili è della stessa size della lista dei valori che assegnamo
-            node.typeNode = "VOID";
-            for(int i = 0; i < node.idList.size(); i++){ //controlliamo se i tipi che assegnamo coincidono
-                if(!((node.idList.get(i).typeNode).equals(typeExprFinale.get(i)))) {
-                    node.typeNode = "error";
-                    try {
-                        throw new Exception("Assegnazione non consentita " + node.nomeNodo);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+
+        if(node.idList.size() == typeExprFinale.size() && flag == 0) { //controlliamo se la lista di variabili è della stessa size della lista dei valori che assegnamo
+
+            node.typeNode = "notype";
+                for (int i = 0; i < node.idList.size(); i++) { //controlliamo se i tipi che assegnamo coincidono
+                    RecordSymbolTable record = top.getInTypeEnviroment(node.idList.get(i).val);
+
+                    if (!((record.typeRitorno).equals(typeExprFinale.get(i)))) {
+                        if (!(record.typeRitorno.equals("REAL") && typeExprFinale.get(i).equals("INTEGER"))) {
+                            node.typeNode = "error";
+                            try {
+                                throw new Exception("Assegnazione non consentita " + node.nomeNodo + node.idList.get(i).val + node.exprList.get(i).nodo1.toString());
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                        }
                     }
-                    break;
+                }
+            }else{
+                node.typeNode = "error";
+                try {
+                    throw new Exception("Assegnazione non consentita " + node.nomeNodo + node.idList.get(0).val);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
-        }else{
-            node.typeNode = "error";
-            try {
-                throw new Exception("Assegnazione non consentita " + node.nomeNodo);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+
+
 
         return null;
     }

@@ -67,6 +67,8 @@ public class OpTypeTable {
         listaOpType.add(new OpType("GeOp", "REAL", "REAL", "BOOL"));
 
 
+
+
         //operazioni unarie
         listaOpType.add(new OpType("UminusOp", "INTEGER", "", "INTEGER"));
         listaOpType.add(new OpType("UminusOp", "REAL", "", "REAL"));
