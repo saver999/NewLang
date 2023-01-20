@@ -179,6 +179,7 @@ public class AnalisiSemantica implements Visitatore{
                 sizeList = node.listaExprNode.size();
 
             if(sizeList == recordSymbolTable.typeParametri.size()) {//da rivedere
+
                 for (int i = 0; i < sizeList; i++) { //controllo che i parametri passati alla proc siano del tipo corretto
                     if (!(node.listaExprNode.get(i).typeNode.equals(recordSymbolTable.typeParametri.get(i)))) {
                         flag = 1;
@@ -189,6 +190,7 @@ public class AnalisiSemantica implements Visitatore{
                             e.printStackTrace();
                         }
                     }
+                    System.out.println("TYPE NODE "+node.listaExprNode.get(i).typeNode+ " TYPE PARAMTRI "+ recordSymbolTable.typeParametri.get(i));
                 }
                 if(flag ==0) {
                         node.typeNode = "notype";
@@ -295,6 +297,7 @@ public class AnalisiSemantica implements Visitatore{
     public String visit(ParDecl node) {
 
         for(int i = 0; i<node.listaID.size(); i++ ){
+
             node.listaID.get(i).accept(this);
         }
         for(int i = 0; i<node.listaID.size(); i++ ){
@@ -597,29 +600,34 @@ if(node.idInitObb != null) {
         int flag =0;
         top = node.body.currentEnv;
 
+
         node.id.accept(this);
-        if(node.id.typeNode.equalsIgnoreCase("notype")){
+
+        if(node.id.typeNode.equalsIgnoreCase("NOTYPE")){
             if(node.listaPar != null){
                 for(int i=0; i< node.listaPar.size(); i++){
-                    System.out.println(node.id.val+ " "+ node.listaPar.size()+ " SSSSSSSSAAA");
-                    System.out.println(node.id.val+ " "+ node.listaPar.get(i).type+ " SSSSSSSSAAA");
+
                         node.listaPar.get(i).accept(this);
+
                         if (node.listaPar.get(i).typeNode.equalsIgnoreCase("error")) {
                             flag = 1;
 
                     }
                 }
+
             }
-            System.out.println(node.id.val+ " "+ node.listaPar.size()+ " SSSSSSSS");
+
             node.body.accept(this);
             if(node.body.typeNode.equalsIgnoreCase("error"))
                 flag=1;
+
 
         }else{
             flag =1;
         }
 
-        if(!node.type.equals(node.body.tipoRitorno))
+
+        if(!node.type.equalsIgnoreCase(node.body.tipoRitorno))
             flag =1;
 
 
@@ -639,13 +647,14 @@ if(node.idInitObb != null) {
 
     @Override
     public String visit(MainFunDecl node) {
+        node.fundecl.accept(this);
         return null;
     }
 
     @Override
     public String visit(ProgramRoot node) {
         top = node.currentEnv; //tabella gloal
-
+        printSymbleTable();
         for(int i =0; i<node.declist1.size();i++){
 
             Class classe = node.declist1.get(i).getClass();

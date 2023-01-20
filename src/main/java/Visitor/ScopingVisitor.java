@@ -280,8 +280,10 @@ if(node.idInitObb != null) {
     public String visit(Body body, ArrayList<ParDecl> parDecls) {
 
         top = new Env(top);
+
         for(int i=0; i< parDecls.size();i++){
             parDecls.get(i).accept(this);
+
         }
 
 
@@ -291,7 +293,9 @@ if(node.idInitObb != null) {
         for(int i=0; i< body.listaStat.size(); i++){
             body.listaStat.get(i).accept(this);
         }
+
         body.currentEnv = top;
+
 
         top = top.prev;
 
@@ -406,7 +410,7 @@ if(node.idInitObb != null) {
                             listaparametri.add(0,fundecl.listaPar.get(j).type);
                         }
                     }
-                    System.out.println(fundecl.id.val+ " "+ listaparametri.size());
+
                     top.put(fundecl.id.val,"func",listaparametri,fundecl.type);
                 }else{
                     try {

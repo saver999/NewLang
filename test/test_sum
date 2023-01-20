@@ -54,10 +54,10 @@ def elaboraScelta(integer operazione ): void{
             }
         }
 
-    return result;
+
 }
 
-def somma( real numA, numB | out real result): void {
+def somma( real numA, numB | out real result ): void {
    result << numA + numB;
 }
 
