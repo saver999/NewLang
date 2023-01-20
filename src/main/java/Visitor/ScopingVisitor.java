@@ -292,6 +292,7 @@ if(node.idInitObb != null) {
             body.listaStat.get(i).accept(this);
         }
         body.currentEnv = top;
+
         top = top.prev;
 
 
@@ -367,15 +368,21 @@ if(node.idInitObb != null) {
 
         //aggiungo tutti gli id delle funzioni alla tabella dei simboli global sia di declist1 che declist2
 
-        ArrayList<String> listaparametri = new ArrayList<String>();
+
         for(int i=0; i<programRoot.declist1.size(); i++){
+            ArrayList<String> listaparametri = new ArrayList<String>();
             Class classe = programRoot.declist1.get(i).getClass();
             if(classe == FunDecl.class){
                 FunDecl fundecl =(FunDecl) programRoot.declist1.get(i);
                 if(top.getInThisTable(fundecl.id.val) == null){
                     for(int j=0;j<fundecl.listaPar.size();j++){
-                        listaparametri.add(fundecl.type);
+
+                        for(int k = 0; k < fundecl.listaPar.get(j).listaID.size(); k++) {
+
+                            listaparametri.add(fundecl.listaPar.get(j).type);
+                        }
                     }
+
                     top.put(fundecl.id.val,"func",listaparametri,fundecl.type);
                 }else{
                     try {
@@ -388,13 +395,18 @@ if(node.idInitObb != null) {
         }
 
         for(int i=0; i<programRoot.declist2.size(); i++){
+            ArrayList<String> listaparametri = new ArrayList<String>();
             Class classe = programRoot.declist2.get(i).getClass();
             if(classe == FunDecl.class){
                 FunDecl fundecl =(FunDecl) programRoot.declist2.get(i);
-                if(top.getInThisTable(fundecl.id.val) == null){
-                    for(int j=0;j<fundecl.listaPar.size();j++){
-                        listaparametri.add(fundecl.type);
+                if(top.getInThisTable(fundecl.id.val) == null) {
+                    for (int j = 0; j < fundecl.listaPar.size(); j++) {
+                        for (int k = 0; k < fundecl.listaPar.get(j).listaID.size(); k++) {
+
+                            listaparametri.add(0,fundecl.listaPar.get(j).type);
+                        }
                     }
+                    System.out.println(fundecl.id.val+ " "+ listaparametri.size());
                     top.put(fundecl.id.val,"func",listaparametri,fundecl.type);
                 }else{
                     try {
@@ -440,11 +452,11 @@ if(node.idInitObb != null) {
         return null;
     }
 
-//    public void printSymbleTable(){
-//        int num = 0;
-//        for( Env e = top; e != null; e = e.prev ) {
-//            System.out.println("Tabella: " + num++);
-//            System.out.println(e.getTable().toString());
-//        }
-//    }
+    public void printSymbleTable(){
+        int num = 0;
+        for( Env e = top; e != null; e = e.prev ) {
+            System.out.println("Tabella: " + num++);
+            System.out.println(e.getTable().toString());
+        }
+    }
 }

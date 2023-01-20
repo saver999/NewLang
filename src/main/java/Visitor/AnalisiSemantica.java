@@ -596,16 +596,21 @@ if(node.idInitObb != null) {
     public String visit(FunDecl node) {
         int flag =0;
         top = node.body.currentEnv;
+
         node.id.accept(this);
         if(node.id.typeNode.equalsIgnoreCase("notype")){
             if(node.listaPar != null){
                 for(int i=0; i< node.listaPar.size(); i++){
-                    node.listaPar.get(i).accept(this);
-                    if(node.listaPar.get(i).typeNode.equalsIgnoreCase("error")){
-                        flag =1;
+                    System.out.println(node.id.val+ " "+ node.listaPar.size()+ " SSSSSSSSAAA");
+                    System.out.println(node.id.val+ " "+ node.listaPar.get(i).type+ " SSSSSSSSAAA");
+                        node.listaPar.get(i).accept(this);
+                        if (node.listaPar.get(i).typeNode.equalsIgnoreCase("error")) {
+                            flag = 1;
+
                     }
                 }
             }
+            System.out.println(node.id.val+ " "+ node.listaPar.size()+ " SSSSSSSS");
             node.body.accept(this);
             if(node.body.typeNode.equalsIgnoreCase("error"))
                 flag=1;
@@ -623,7 +628,7 @@ if(node.idInitObb != null) {
         } else {
             node.typeNode = "error";
             try {
-                throw new Exception("Errore in fundecls: " + node.id.val);
+                throw new Exception("Errore in fundecls: " + node.id.val + node.listaPar.size());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -680,12 +685,14 @@ if(node.idInitObb != null) {
         String tabella = "";
         for( Env e = top; e != null; e = e.prev ) {
 
-            System.out.println("Tabella: " + num++);
+
             System.out.println(e.getTable().toString());
             tabella += e.getTable().toString();
         }
         return tabella;
     }
+
+
     @Override
     public Object visit(ElseStat node) {
         node.body.accept(this);

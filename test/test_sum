@@ -61,7 +61,7 @@ def somma( real numA, numB | out real result): void {
    result << numA + numB;
 }
 
-def sottrazione( real numA, numB | out real result): void {
+def sottrazione( real numA, numB | out real result ): void {
      result << numA - numB;
 }
 def divisione( real numA, numB | out real result): void {
@@ -69,6 +69,6 @@ def divisione( real numA, numB | out real result): void {
      result << numA / numB;
 
 }
-def moltiplicazione( real numA, numB | out real result): void {
+def moltiplicazione( real numA, numB | out real result ): void {
      result << numA * numB;
 }
