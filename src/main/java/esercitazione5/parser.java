@@ -965,7 +965,7 @@ class CUP$parser$actions {
 		int ifValleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int ifValright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object ifVal = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		RESULT = new Stat((IfStat)ifVal);
+		RESULT = new Stat("if",(IfStat)ifVal);
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Stat",18, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -977,7 +977,7 @@ class CUP$parser$actions {
 		int forValleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int forValright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object forVal = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		RESULT = new Stat( (ForStat)forVal);
+		RESULT = new Stat( "for",(ForStat)forVal);
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Stat",18, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -989,7 +989,7 @@ class CUP$parser$actions {
 		int readValleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int readValright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object readVal = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-		RESULT = new Stat((ReadStat) readVal);
+		RESULT = new Stat("read",(ReadStat) readVal);
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Stat",18, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1001,7 +1001,7 @@ class CUP$parser$actions {
 		int writeValleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int writeValright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object writeVal = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-		RESULT = new Stat( (WriteStat)writeVal);
+		RESULT = new Stat("write", (WriteStat)writeVal);
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Stat",18, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1013,7 +1013,7 @@ class CUP$parser$actions {
 		int assignValleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int assignValright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object assignVal = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-		RESULT = new Stat( (AssignStat)assignVal);
+		RESULT = new Stat("assign", (AssignStat)assignVal);
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Stat",18, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1025,7 +1025,7 @@ class CUP$parser$actions {
 		int whileValleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int whileValright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object whileVal = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		RESULT = new Stat( (WhileStat)whileVal);
+		RESULT = new Stat("while", (WhileStat)whileVal);
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Stat",18, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1037,7 +1037,7 @@ class CUP$parser$actions {
 		int funCallValleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int funCallValright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Object funCallVal = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-		RESULT = new Stat( (FuncallNode)funCallVal);
+		RESULT = new Stat("funcall", (FuncallNode)funCallVal);
               CUP$parser$result = parser.getSymbolFactory().newSymbol("Stat",18, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;

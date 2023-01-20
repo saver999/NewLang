@@ -96,13 +96,13 @@ Program ::= DeclList:declList  MainFunDecl:mainFun DeclList:declList2 {:RESULT =
             	 | StatList:statList Stat:stat {:((ArrayList<Stat>)statList).add(0, (Stat)stat); RESULT = statList;:};
 
 
-            Stat ::= IfStat:ifVal {:RESULT = new Stat((IfStat)ifVal);:}
-            	| ForStat:forVal {:RESULT = new Stat( (ForStat)forVal);:}
-            	| ReadStat:readVal SEMI {:RESULT = new Stat((ReadStat) readVal);:}
-            	| WriteStat: writeVal  SEMI {:RESULT = new Stat( (WriteStat)writeVal);:}
-            	| AssignStat: assignVal SEMI {:RESULT = new Stat( (AssignStat)assignVal);:}
-                    | WhileStat : whileVal {:RESULT = new Stat( (WhileStat)whileVal);:}
-            	| FunCall: funCallVal SEMI {:RESULT = new Stat( (FuncallNode)funCallVal);:}
+            Stat ::= IfStat:ifVal {:RESULT = new Stat("if",(IfStat)ifVal);:}
+            	| ForStat:forVal {:RESULT = new Stat( "for",(ForStat)forVal);:}
+            	| ReadStat:readVal SEMI {:RESULT = new Stat("read",(ReadStat) readVal);:}
+            	| WriteStat: writeVal  SEMI {:RESULT = new Stat("write", (WriteStat)writeVal);:}
+            	| AssignStat: assignVal SEMI {:RESULT = new Stat("assign", (AssignStat)assignVal);:}
+                    | WhileStat : whileVal {:RESULT = new Stat("while", (WhileStat)whileVal);:}
+            	| FunCall: funCallVal SEMI {:RESULT = new Stat("funcall", (FuncallNode)funCallVal);:}
             	| RETURN Expr:exprVal SEMI {:RESULT = new Stat( "return",(ExprNode)exprVal);:}
             	| RETURN SEMI{:RESULT = new Stat( "returnVoid",null);:}
             	| /* empty */ ;

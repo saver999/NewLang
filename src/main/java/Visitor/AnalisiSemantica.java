@@ -164,6 +164,7 @@ public class AnalisiSemantica implements Visitatore{
     public String visit(FuncallNode node) {
         int flag=0;
         node.id.accept(this);
+
         if(node.listaExprNode !=null){
             for(int i =0 ;i< node.listaExprNode.size();i++){
                 node.listaExprNode.get(i).accept(this);
@@ -177,7 +178,7 @@ public class AnalisiSemantica implements Visitatore{
             if(node.listaExprNode != null)
                 sizeList = node.listaExprNode.size();
 
-            if(sizeList == recordSymbolTable.typeParametri.size()) {
+            if(sizeList == recordSymbolTable.typeParametri.size()) {//da rivedere
                 for (int i = 0; i < sizeList; i++) { //controllo che i parametri passati alla proc siano del tipo corretto
                     if (!(node.listaExprNode.get(i).typeNode.equals(recordSymbolTable.typeParametri.get(i)))) {
                         flag = 1;
@@ -471,7 +472,7 @@ if(node.idInitObb != null) {
     @Override
     public String visit(Body node) {
         top= node.currentEnv;
-        int flag =1;
+        int flag =0;
 
         if(node.listaVar != null) {
         for (int i = 0; i < node.listaVar.size(); i++) {
@@ -498,6 +499,8 @@ if(node.idInitObb != null) {
                     if(node.listaStat.get(i).typeNode != null) {
                         if (node.listaStat.get(i).typeNode.equals("error"))
                             flag = 1;
+
+                        System.out.println(node.listaStat.get(i).typeNode+ " " +node.listaStat.get(i).nameStat);
                     }
                 }
 
@@ -507,7 +510,7 @@ if(node.idInitObb != null) {
         } else {
             node.typeNode = "error";
             try {
-                throw new Exception("Errore in : " + node.nomeNodo);
+                throw new Exception("Errore in : " + node.nomeNodo );
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -562,6 +565,7 @@ if(node.idInitObb != null) {
 
 
         if(!node.nodeEx.typeNode.equals("BOOL") ||  (node.body.typeNode.equals("error")) ){
+
             flag=1;
         }
         if(flag == 0){
