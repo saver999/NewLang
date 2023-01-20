@@ -4,10 +4,13 @@
      integer numC <<0;
 
 
+
 start: def test(): void{
 
     integer condizione << 1, operazione ;
     integer prova1 << 1  ;
+
+
 
     while condizione = 1 loop {
 
@@ -33,7 +36,7 @@ def elaboraScelta(integer operazione ): void{
 
     real numA, numB, result;
     numA, numB, result << 0, 0, 0;
- real numC;
+
 
 
     numA <-- "inserisci il primo numero";
@@ -63,7 +66,7 @@ def elaboraScelta(integer operazione ): void{
 }
 
 def somma( real numA, numB | out real result ): void {
-
+real numC <<0;
 
    result << numA + numB;
 }
