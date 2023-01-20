@@ -483,13 +483,14 @@ if(node.idInitObb != null) {
         }
 }
 
-        if(node.listaStat != null) {
-            for (int i = 0; i < node.listaStat.size(); i++) {
 
-                node.listaStat.get(i).accept(this);
+            for (int i = 0; i < node.listaStat.size(); i++) {
+                if(node.listaStat.get(i)!=null) {
+                    node.listaStat.get(i).accept(this);
+                }
 
             }
-        }
+
 
             top= top.prev;
 
@@ -497,15 +498,16 @@ if(node.idInitObb != null) {
                 if(node.listaVar.get(i).typeNode.equals("error"))
                     flag=1;
             }
-
+            if(node.listaStat.size()!=0){
                 for (int i = 0; i < node.listaStat.size(); i++) {
-                    if(node.listaStat.get(i).typeNode != null) {
+                    if(node.listaStat.get(i)!= null && node.listaStat.get(i).typeNode != null  ) {
                         if (node.listaStat.get(i).typeNode.equals("error"))
                             flag = 1;
 
                         System.out.println(node.listaStat.get(i).typeNode+ " " +node.listaStat.get(i).nameStat);
                     }
                 }
+            }
 
 
         if (flag == 0) {
@@ -522,11 +524,11 @@ if(node.idInitObb != null) {
             for (int i = 0; i < node.listaStat.size(); i++) {
 
 
-                if(node.listaStat.get(i).nameStat.equals("return") ){
+                if( node.listaStat.get(i)!= null &&  node.listaStat.get(i).nameStat.equals("return") ){
 
                     node.tipoRitorno = node.listaStat.get(i).tipoRitorno;
                     return null;
-                }else if(node.listaStat.get(i).nameStat.equals("returnVoid")){
+                }else if( node.listaStat.get(i)!= null && node.listaStat.get(i).nameStat.equals("returnVoid")){
                     node.tipoRitorno = "void";
                     return null;
                 }

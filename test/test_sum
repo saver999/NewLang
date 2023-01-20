@@ -1,6 +1,8 @@
  integer  operazione ;
     integer prova1  ;
  var ala <<true;
+     integer numC <<0;
+
 
 start: def test(): void{
 
@@ -31,7 +33,7 @@ def elaboraScelta(integer operazione ): void{
 
     real numA, numB, result;
     numA, numB, result << 0, 0, 0;
-
+ real numC;
 
 
     numA <-- "inserisci il primo numero";
@@ -61,7 +63,7 @@ def elaboraScelta(integer operazione ): void{
 }
 
 def somma( real numA, numB | out real result ): void {
-real numC <<0;
+
 
    result << numA + numB;
 }

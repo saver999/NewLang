@@ -1,0 +1,5 @@
+start: def test(): void{
+
+    integer condizione << 1, operazione ;
+    
+}

@@ -28,6 +28,7 @@ def elaboraScelta(integer operazione ): void{
     real numA, numB, result;
     numA, numB, result << 0, 0, 0;
 
+
     numA <-- "inserisci il primo numero";
     numB <-- "inserisci il secondo numero";
 
@@ -51,11 +52,11 @@ def elaboraScelta(integer operazione ): void{
             }
         }
 
-    return result;
 }
 
 def somma( real numA, numB | out real result): void {
    result << numA + numB;
+
 }
 
 def sottrazione( real numA, numB | out real result): void {

@@ -290,9 +290,12 @@ if(node.idInitObb != null) {
         for(int i=0; i< body.listaVar.size(); i++){
             body.listaVar.get(i).accept(this);
         }
-        for(int i=0; i< body.listaStat.size(); i++){
-            body.listaStat.get(i).accept(this);
-        }
+
+            for (int i = 0; i < body.listaStat.size(); i++) {
+                if(body.listaStat.get(i)!=null) {
+                    body.listaStat.get(i).accept(this);
+                }
+            }
 
         body.currentEnv = top;
 
