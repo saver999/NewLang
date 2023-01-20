@@ -181,7 +181,7 @@ public class AnalisiSemantica implements Visitatore{
             if(sizeList == recordSymbolTable.typeParametri.size()) {//da rivedere
 
                 for (int i = 0; i < sizeList; i++) { //controllo che i parametri passati alla proc siano del tipo corretto
-                    if (!(node.listaExprNode.get(i).typeNode.equals(recordSymbolTable.typeParametri.get(i)))) {
+                    if (!(node.listaExprNode.get(i).typeNode.equalsIgnoreCase(recordSymbolTable.typeParametri.get(i)))) {
                         flag = 1;
                         node.typeNode = "error";
                         try {
@@ -190,7 +190,7 @@ public class AnalisiSemantica implements Visitatore{
                             e.printStackTrace();
                         }
                     }
-                    System.out.println("TYPE NODE "+node.listaExprNode.get(i).typeNode+ " TYPE PARAMTRI "+ recordSymbolTable.typeParametri.get(i));
+
                 }
                 if(flag ==0) {
                         node.typeNode = "notype";
@@ -532,7 +532,7 @@ if(node.idInitObb != null) {
                 }
 
                     node.tipoRitorno = "void";
-                    return null;
+
 
             }
 

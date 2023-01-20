@@ -1,15 +1,1 @@
- integer  operazione ;
-    integer prova1  ;
- var ala <<true;
-start: def test(): void{
-
-    real numA, numB, result;
-       numA, numB, result << 0, 0, 0;
-    integer prova1 << 1  ;
-
-   moltiplicazione(numA, numB, result);
-}
-
-def moltiplicazione( real numA, numB | out real result): void {
-     result << numA * numB;
-}
+ Vedere gestione out, è stata rimandata a generazione C.

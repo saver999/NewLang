@@ -383,7 +383,7 @@ if(node.idInitObb != null) {
 
                         for(int k = 0; k < fundecl.listaPar.get(j).listaID.size(); k++) {
 
-                            listaparametri.add(fundecl.listaPar.get(j).type);
+                            listaparametri.add(0,fundecl.listaPar.get(j).type);
                         }
                     }
 
@@ -449,7 +449,7 @@ if(node.idInitObb != null) {
         if(top.getInThisTable(programRoot.mainFun.fundecl.id.val)==null){
             top.put(programRoot.mainFun.fundecl.id.val,"mainFunc",null,programRoot.mainFun.fundecl.type);
         }
-
+        printSymbleTable();
         programRoot.currentEnv=top;
 
 
