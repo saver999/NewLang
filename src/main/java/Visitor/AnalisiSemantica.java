@@ -258,7 +258,7 @@ public class AnalisiSemantica implements Visitatore{
                     RecordSymbolTable record = top.getInTypeEnviroment(node.idList.get(i).val);
 
                     if (!((record.typeRitorno).equals(typeExprFinale.get(i)))) {
-                        if (!(record.typeRitorno.equals("REAL") && typeExprFinale.get(i).equals("INTEGER"))) {
+                       // if (!(record.typeRitorno.equals("REAL") && typeExprFinale.get(i).equals("INTEGER"))) {
                             node.typeNode = "error";
                             try {
                                 throw new Exception("Assegnazione non consentita " + node.nomeNodo + node.idList.get(i).val + node.exprList.get(i).nodo1.toString());
@@ -266,7 +266,7 @@ public class AnalisiSemantica implements Visitatore{
                                 e.printStackTrace();
                             }
                             break;
-                        }
+                      //  }
                     }
                 }
             }else{

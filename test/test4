@@ -6,8 +6,9 @@ start: def test(): void{
 
 
     integer i;
+    real a;
     for  i <<  0 to 4 loop {
-        integer a << i;
+         a << 0.0;
 
     }
 
