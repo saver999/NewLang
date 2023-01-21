@@ -3,3 +3,9 @@
  idinit analisi semantica deve essere sistemata la cosa se associo un real a int deve fa la coecercezione
 
 far capire che errore accade quando va in errore
+
+trovato un problema, quando dichiaro una variabole in declist due dopo aver dichiarato un metodo si scassa tutto
+    --forse risolto ho toloto top = top.prev in fundecl
+
+mi da errore s eprovo a chimare il main
+    ho risolto andando e sistemare il controolo in funcall e poi andando ad inserire una lista di marametri vuota nel symbol table

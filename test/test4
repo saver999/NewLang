@@ -2,6 +2,8 @@ start: def test(): void{
 
     integer condizione << 1 ;
     string bu;
+    string bu2;
+    string bu3 << bu & bu2;
 
 
 
@@ -12,7 +14,22 @@ start: def test(): void{
 
     }
 
-
-
-    
 }
+
+integer a;
+
+def prova(): void{
+
+integer b;
+test();
+
+    while true loop{
+        integer i<<0;
+    }
+}
+
+integer f;
+
+
+
+

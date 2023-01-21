@@ -174,7 +174,7 @@ public class AnalisiSemantica implements Visitatore{
         int sizeList = 0;
 
         RecordSymbolTable recordSymbolTable = top.getInTypeEnviroment(node.id.val);
-        if (recordSymbolTable != null && (recordSymbolTable.kind.equals("func"))){
+        if (recordSymbolTable != null && (recordSymbolTable.kind.equals("func") || (recordSymbolTable.kind.equals("mainFunc")) )){
             if(node.listaExprNode != null)
                 sizeList = node.listaExprNode.size();
 
@@ -538,7 +538,7 @@ if(node.idInitObb != null) {
 
             }
 
-
+            printSymbleTable2();
             top= top.prev;
 
             for (int i = 0; i < node.listaVar.size(); i++) {
@@ -551,7 +551,6 @@ if(node.idInitObb != null) {
                         if (node.listaStat.get(i).typeNode.equals("error"))
                             flag = 1;
 
-                        System.out.println(node.listaStat.get(i).typeNode+ " " +node.listaStat.get(i).nameStat);
                     }
                 }
             }
@@ -633,6 +632,7 @@ if(node.idInitObb != null) {
 
         int flag = 0;
 
+       // printSymbleTable2();
         node.nodeEx.accept(this);
         node.body.accept(this);
 
@@ -699,6 +699,8 @@ if(node.idInitObb != null) {
 
         node.id.accept(this);
 
+
+
         if(node.id.typeNode.equalsIgnoreCase("NOTYPE")){
             if(node.listaPar != null){
                 for(int i=0; i< node.listaPar.size(); i++){
@@ -737,7 +739,7 @@ if(node.idInitObb != null) {
                 e.printStackTrace();
             }
         }
-        top = top.prev;
+       // top = top.prev;
         return null;
     }
 
@@ -750,7 +752,7 @@ if(node.idInitObb != null) {
     @Override
     public String visit(ProgramRoot node) {
         top = node.currentEnv; //tabella gloal
-        printSymbleTable();
+
         for(int i =0; i<node.declist1.size();i++){
 
             Class classe = node.declist1.get(i).getClass();
@@ -795,6 +797,14 @@ if(node.idInitObb != null) {
             tabella += e.getTable().toString();
         }
         return tabella;
+    }
+
+    public void printSymbleTable2(){
+        int num = 0;
+        for( Env e = top; e != null; e = e.prev ) {
+            System.out.println("Tabella: " + num++);
+            System.out.println(e.getTable().toString());
+        }
     }
 
 

@@ -432,9 +432,9 @@ if(node.idInitObb != null) {
         // aggiungo id del main alla tabella global
         programRoot.mainFun.accept(this);
         if(top.getInThisTable(programRoot.mainFun.fundecl.id.val)==null){
-            top.put(programRoot.mainFun.fundecl.id.val,"mainFunc",null,programRoot.mainFun.fundecl.type);
+            top.put(programRoot.mainFun.fundecl.id.val,"mainFunc",new ArrayList<String>(),programRoot.mainFun.fundecl.type);
         }
-        printSymbleTable();
+
         programRoot.currentEnv=top;
 
 
