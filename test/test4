@@ -1,5 +1,17 @@
 start: def test(): void{
 
-    integer condizione << 1, operazione ;
+    integer condizione << 1 ;
+    string bu;
+
+
+
+    integer i;
+    for  i <<  0 to 4 loop {
+        integer a << i;
+
+    }
+
+
+
     
 }

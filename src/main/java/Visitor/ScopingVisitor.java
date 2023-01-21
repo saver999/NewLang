@@ -244,7 +244,9 @@ if(node.idInitObb != null) {
             body.listaVar.get(i).accept(this);
         }
         for(int i=0; i< body.listaStat.size(); i++){
-            body.listaStat.get(i).accept(this);
+            if(body.listaStat.get(i)!=null) {
+                body.listaStat.get(i).accept(this);
+            }
         }
 
         body.currentEnv =top;
@@ -253,28 +255,7 @@ if(node.idInitObb != null) {
         return null;
     }
 
-    @Override
-    public String visit(Body body, IdVal idVal) {
-        top = new Env(top);
 
-        if(top.getInTypeEnviroment(idVal.val)==null){
-            top.put(idVal.val,"var", null,"INTEGER");
-        }
-
-
-
-
-        for(int i=0; i< body.listaVar.size(); i++){
-            body.listaVar.get(i).accept(this);
-        }
-        for(int i=0; i< body.listaStat.size(); i++){
-            body.listaStat.get(i).accept(this);
-        }
-        body.currentEnv = top;
-        top = top.prev;
-
-        return null;
-    }
 
     @Override
     public String visit(Body body, ArrayList<ParDecl> parDecls) {
@@ -332,6 +313,7 @@ if(node.idInitObb != null) {
     @Override
     public String visit(ForStat forStat) {
 
+    forStat.body.accept(this);
 
         return null;
     }

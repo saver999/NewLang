@@ -65,7 +65,7 @@ public class OpTypeTable {
         listaOpType.add(new OpType("NeOp", "REAL", "REAL", "BOOL"));
         listaOpType.add(new OpType("GtOp", "REAL", "REAL", "BOOL"));
         listaOpType.add(new OpType("GeOp", "REAL", "REAL", "BOOL"));
-
+        listaOpType.add(new OpType("StrConcatOp", "STRING", "STRING", "STRING"));
 
 
 

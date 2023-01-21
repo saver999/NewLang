@@ -31,8 +31,5 @@ public   class Body extends Node{
         return v.visit(this, pardecls);
     }
 
-    public Object accept(Visitatore v,IdVal idVal) {
-        return v.visit(this,  idVal);
-    }
 
 }

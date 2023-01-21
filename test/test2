@@ -28,21 +28,20 @@ def elaboraScelta(integer operazione ): void{
     real numA, numB, result;
     numA, numB, result << 0, 0, 0;
 
-
     numA <-- "inserisci il primo numero";
     numB <-- "inserisci il secondo numero";
 
     if operazione = 1 then {
                somma(numA, numB, result);
-               ("il risultato della somma  è :  " & result)-->!;
+               ("il risultato della somma  è :  " , result)-->!;
            }
     if operazione = 2 then {
             sottrazione(numA,numB, result);
-            ("il risultato della sottrazione  è :  " & result)-->!;
+            ("il risultato della sottrazione  è :  " , result)-->!;
         }
         if operazione = 3 then {
             moltiplicazione(numA, numB, result);
-            ("il risultato della moltiplicazione  è :  " & result)-->!;
+            ("il risultato della moltiplicazione  è :  " , result)-->!;
         }
         if operazione = 4 then {
             if numB <> 0 then {
@@ -52,11 +51,11 @@ def elaboraScelta(integer operazione ): void{
             }
         }
 
+
 }
 
 def somma( real numA, numB | out real result): void {
    result << numA + numB;
-
 }
 
 def sottrazione( real numA, numB | out real result): void {

@@ -2,3 +2,6 @@
  aggiungendo
  idinit analisi semantica deve essere sistemata la cosa se associo un real a int deve fa la coecercezione
  controllare il caso in cui ad esempio c'è soo un main con variabili e quindi non c'è stat va in errore.
+ str_concat verificare che ci sia in optable
+
+far capire che errore accade quando va in errore

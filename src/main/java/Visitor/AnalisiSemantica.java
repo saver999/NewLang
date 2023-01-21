@@ -285,11 +285,58 @@ public class AnalisiSemantica implements Visitatore{
 
     @Override
     public String visit(WriteStat node) {
+        int flag =0;
+
+        for(int i=0; i<node.listaExpr.size(); i++) {
+            node.listaExpr.get(i).accept(this);
+
+        }
+
+        for(int i=0; i<node.listaExpr.size(); i++){
+           if( node.listaExpr.get(i).typeNode.equalsIgnoreCase("error"))
+            flag =1;
+        }
+
+        if (flag == 0) {
+            node.typeNode = "notype";
+        } else {
+            node.typeNode = "error";
+            try {
+                throw new Exception("Errore in: "+node.nomeNodo);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         return null;
     }
 
     @Override
     public String visit(ReadStat node) {
+        for(int i = 0; i < node.idList.size(); i++){
+            node.idList.get(i).accept(this);
+        }
+
+        int flag=0;
+        for(int i = 0; i < node.idList.size(); i++){
+            if(node.idList.get(i).typeNode.equalsIgnoreCase("error"))
+                flag =1;
+        }
+        if(node.val != null){
+            node.val.accept(this);
+        }
+
+
+        if (flag == 0) {
+            node.typeNode = "notype";
+        } else {
+            node.typeNode = "error";
+            try {
+                throw new Exception("Errore in read");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         return null;
     }
 
@@ -321,7 +368,7 @@ public class AnalisiSemantica implements Visitatore{
         if(node.expr != null){
             node.expr.accept(this);
             if(node.id.typeNode.equals(node.expr.typeNode)){
-                node.typeNode = "VOID";
+                node.typeNode = "notype";
             }else {
                 node.typeNode ="error";
                 try {
@@ -332,7 +379,7 @@ public class AnalisiSemantica implements Visitatore{
             }
 
         }else{
-            node.typeNode = "VOID";
+            node.typeNode = "notype";
         }
 
         return null;
@@ -383,7 +430,7 @@ if(node.idInitObb != null) {
 
 
             if (flag == 0) {
-                node.typeNode = "VOID";
+                node.typeNode = "notype";
             } else {
                 node.typeNode = "error";
                 try {
@@ -543,10 +590,7 @@ if(node.idInitObb != null) {
         return null;
     }
 
-    @Override
-    public String visit(Body body, IdVal idVal) {
-        return null;
-    }
+
 
     @Override
     public String visit(Body body, ArrayList<ParDecl> parDecls) {
@@ -587,11 +631,61 @@ if(node.idInitObb != null) {
     @Override
     public String visit(WhileStat node) {
 
+        int flag = 0;
+
+        node.nodeEx.accept(this);
+        node.body.accept(this);
+
+
+
+
+
+        if(!node.nodeEx.typeNode.equals("BOOL") ||  (node.body.typeNode.equals("error")) ){
+
+            node.typeNode = "error";
+            try {
+                throw new Exception("eccezione nodo" + node.nomenodo);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else{
+            node.typeNode = "notype";
+
+        }
+
+
+
         return null;
     }
 
     @Override
     public String visit(ForStat node) {
+        int flag=0;
+
+        node.id.accept(this);
+        node.val1.accept(this);
+        node.val2.accept(this);
+        node.body.accept(this);
+
+        if(node.id.typeNode.equalsIgnoreCase("error"))
+            flag=1;
+
+
+        if(node.body.typeNode.equalsIgnoreCase("error"))
+            flag=1;
+
+        if (flag == 0) {
+            node.typeNode = "notype";
+        } else {
+            node.typeNode = "error";
+            try {
+                throw new Exception("Errore in for");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
 
         return null;
     }
@@ -634,7 +728,7 @@ if(node.idInitObb != null) {
 
 
         if (flag == 0) {
-            node.typeNode = "VOID";
+            node.typeNode = "notype";
         } else {
             node.typeNode = "error";
             try {
