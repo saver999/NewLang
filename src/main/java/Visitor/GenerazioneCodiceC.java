@@ -137,12 +137,13 @@ public class GenerazioneCodiceC implements Visitatore{
 
                 this.content += node.idInitObb.get(i).accept(this);
 
-                if( i != node.listaID.size()-1)
+                if( i != node.idInitObb.size()-1)
                     this.content += ",";
 
-                this.content += ";\n";
+
 
             }
+            this.content += ";\n";
 
         }else{
             switch (node.type){
@@ -164,6 +165,18 @@ public class GenerazioneCodiceC implements Visitatore{
                     break;
 
             }
+            for(int i=0; i<node.listaID.size();i++) {
+
+                this.content += node.listaID.get(i).accept(this);
+
+                if (i != node.listaID.size() - 1)
+                    this.content += ",";
+
+            }
+
+            this.content += ";\n";
+
+
         }
 
         return content;
