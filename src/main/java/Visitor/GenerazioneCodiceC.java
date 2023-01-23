@@ -78,27 +78,124 @@ public class GenerazioneCodiceC implements Visitatore{
 
     @Override
     public String visit(ParDecl node) {
+
+
         return null;
     }
 
     @Override
     public String visit(IDInit node) {
-        return null;
+        this.content="";
+        this.content += node.id.accept(this);
+
+        if(node.expr != null){
+            this.content += "=";
+            this.content += node.expr.accept(this);
+        }
+
+
+        return content;
     }
 
     @Override
     public String visit(IDInitObb node) {
-        return null;
+        this.content="";
+        this.content += node.id.accept(this);
+        this.content += node.cost.accept(this);
+
+
+        return content;
     }
 
     @Override
     public String visit(VarDecl node) {
-        return null;
+        this.content = "";
+
+        if(node.nomeNodo.equalsIgnoreCase("VarDeclObb")){
+            for(int i=0; i<node.idInitObb.size(); i++){
+
+
+                switch (node.idInitObb.get(i).cost.typeNode){
+                    case "STRING":
+                        this.content += "char *";
+                        break;
+
+                    case "BOOL":
+                        this.content += node.type.toLowerCase();
+                        break;
+                    case "REAL":
+                        this.content += "float";
+                        break;
+                    case "INTEGER":
+                        this.content += "int";
+                        break;
+                    case "CHAR":
+                        this.content += node.type.toLowerCase();
+                        break;
+
+                }
+
+                this.content += node.idInitObb.get(i).accept(this);
+
+                if( i != node.listaID.size()-1)
+                    this.content += ",";
+
+                this.content += ";\n";
+
+            }
+
+        }else{
+            switch (node.type){
+                case "STRING":
+                    this.content += "char *";
+                    break;
+
+                case "BOOL":
+                    this.content += node.type.toLowerCase();
+                    break;
+                case "REAL":
+                    this.content += "float";
+                    break;
+                case "INTEGER":
+                    this.content += "int";
+                    break;
+                case "CHAR":
+                    this.content += node.type.toLowerCase();
+                    break;
+
+            }
+        }
+
+        return content;
     }
 
     @Override
     public String visit(Const node) {
-        return null;
+        this.content = "";
+
+        Class classe = node.nodo.getClass();
+
+        if(classe == BoolConst.class){
+            BoolConst nodo = (BoolConst)node.nodo;
+            this.content += nodo.accept(this);
+        } else if(classe == RealConst.class){
+            RealConst nodo = (RealConst)node.nodo;
+            this.content += nodo.accept(this);
+        } else if(classe == IdVal.class){
+            IdVal nodo = (IdVal)node.nodo;
+            this.content += nodo.accept(this);
+        } else if(classe == IntegerConst.class){
+            IntegerConst nodo = (IntegerConst)node.nodo;
+            this.content += nodo.accept(this);
+        } else if(classe == StringConst.class){
+            StringConst nodo = (StringConst)node.nodo;
+            this.content += nodo.accept(this);
+        } else if(classe == CharConst.class) {
+            CharConst nodo = (CharConst) node.nodo;
+            this.content += nodo.accept(this);
+        }
+
+        return content;
     }
 
     @Override

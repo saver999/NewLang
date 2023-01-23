@@ -388,6 +388,7 @@ public class AnalisiSemantica implements Visitatore{
     @Override
     public String visit(IDInitObb node) {
         node.id.accept(this);
+        node.cost.accept(this);
         node.typeNode = node.id.typeNode;
 
 

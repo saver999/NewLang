@@ -9,3 +9,8 @@ trovato un problema, quando dichiaro una variabole in declist due dopo aver dich
 
 mi da errore s eprovo a chimare il main
     ho risolto andando e sistemare il controolo in funcall e poi andando ad inserire una lista di marametri vuota nel symbol table
+
+
+var a <<5, b<<6;
+
+int a =5, b=6;
