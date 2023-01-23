@@ -5,46 +5,46 @@ import java.util.ArrayList;
 
 public interface Visitatore {
     public String visit(ExprNode node);
-    String visit(BoolConst boolConst);
+    String visit(BoolConst node);
 
-    String visit(IntegerConst integerConst);
-    String visit(RealConst realConst);
-    String visit(StringConst stringConst);
-    String visit(CharConst charConst);
-    String visit(IdVal idVal);
-    String visit(FuncallNode funcall);
+    String visit(IntegerConst node);
+    String visit(RealConst node);
+    String visit(StringConst node);
+    String visit(CharConst node);
+    String visit(IdVal node);
+    String visit(FuncallNode node);
 
-    String visit(AssignStat assignStat);
-    String visit(WriteStat writeStat);
-    String visit(ReadStat readStat);
+    String visit(AssignStat node);
+    String visit(WriteStat node);
+    String visit(ReadStat node);
 
-    String visit(ParDecl parDecl);
-    String visit (IDInit idInit);
+    String visit(ParDecl node);
+    String visit (IDInit node);
 
-    String visit(IDInitObb idInitObb);
+    String visit(IDInitObb node);
 
-    String visit(VarDecl varDecl);
+    String visit(VarDecl node);
 
-    String visit(Const cost);
-    String visit(Stat stat);
+    String visit(Const node);
+    String visit(Stat node);
 
 
 
-    String visit(Body body);
+    String visit(Body node);
 
-    String visit(Body body, ArrayList<ParDecl> parDecls);
+    String visit(Body node, ArrayList<ParDecl> parDecls);
 
-    String visit(IfStat ifStat);
+    String visit(IfStat node);
 
-    String visit(WhileStat whileStat);
+    String visit(WhileStat node);
 
-    String visit(ForStat forStat);
+    String visit(ForStat node);
 
-    String visit(FunDecl funDecl);
+    String visit(FunDecl node);
 
-    String visit(MainFunDecl mainDunDecl);
+    String visit(MainFunDecl node);
 
-    String visit(ProgramRoot programRoot);
+    String visit(ProgramRoot node);
 
-    Object visit(ElseStat elseStat);
+    Object visit(ElseStat node);
 }

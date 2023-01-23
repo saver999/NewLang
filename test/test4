@@ -10,7 +10,7 @@ start: def test(): void{
     integer i;
     real a;
     for  i <<  0 to 4 loop {
-         a << 0.0;
+         a << (0);
 
     }
 

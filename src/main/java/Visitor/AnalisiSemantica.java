@@ -746,11 +746,14 @@ if(node.idInitObb != null) {
     @Override
     public String visit(MainFunDecl node) {
         node.fundecl.accept(this);
+        node.typeNode=node.fundecl.typeNode;
         return null;
     }
 
+
     @Override
     public String visit(ProgramRoot node) {
+        int flag =0;
         top = node.currentEnv; //tabella gloal
 
         for(int i =0; i<node.declist1.size();i++){
@@ -759,10 +762,14 @@ if(node.idInitObb != null) {
             if(classe == VarDecl.class){
                 VarDecl vardecl =(VarDecl) node.declist1.get(i);
                 vardecl.accept(this);
+                if(vardecl.typeNode.equals("error"))
+                    flag=1;
             }
             if(classe == FunDecl.class){
                 FunDecl funDecl =(FunDecl) node.declist1.get(i);
                 funDecl.accept(this);
+                if(funDecl.typeNode.equals("error"))
+                    flag=1;
             }
 
         }
@@ -772,17 +779,34 @@ if(node.idInitObb != null) {
             if (classe == VarDecl.class) {
                 VarDecl vardecl = (VarDecl) node.declist2.get(i);
                 vardecl.accept(this);
+                if(vardecl.typeNode.equals("error"))
+                    flag=1;
 
             }
             if(classe == FunDecl.class){
                 FunDecl funDecl =(FunDecl) node.declist2.get(i);
                 funDecl.accept(this);
+                if(funDecl.typeNode.equals("error"))
+                    flag=1;
             }
         }
 
+
         node.mainFun.accept(this);
+        if(node.mainFun.typeNode.equals("error"))
+            flag=1;
 
 
+        if (flag == 0) {
+            node.typeNode = "notype";
+        } else {
+            node.typeNode = "error";
+            try {
+                throw new Exception("Errore in root");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
 
         return null;
