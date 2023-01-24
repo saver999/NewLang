@@ -11,6 +11,7 @@ public class ParDecl {
     public ArrayList<IdVal> listaID;
 
     public String typeNode;
+    public boolean isOut;
 
     public ParDecl(String nomeNodo,String type,ArrayList<IdVal> listaID){
         this.nomeNodo = nomeNodo;

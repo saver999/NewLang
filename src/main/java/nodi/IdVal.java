@@ -7,6 +7,7 @@ public class IdVal extends Node{
     public String val;
 
     public String typeNode;
+    public boolean isOut;
 
     public IdVal(String val) {
         this.val = val;
