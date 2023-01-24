@@ -151,7 +151,7 @@ public class AnalisiSemantica implements Visitatore{
             }
             node.typeNode = "error";
         }else{
-            if(rs.kind.equalsIgnoreCase("var")) {
+            if(rs.kind.equalsIgnoreCase("var") || rs.kind.equalsIgnoreCase("varOUT") ) {
                 node.typeNode = rs.typeRitorno;
             }else node.typeNode = "NOTYPE";
 

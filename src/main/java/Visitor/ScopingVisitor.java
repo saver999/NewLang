@@ -78,7 +78,10 @@ public class ScopingVisitor implements Visitatore{
 
         for(int i=0; i < parDecl.listaID.size(); i++){
             if(top.getInTypeEnviroment(parDecl.listaID.get(i).val) == null){
-                top.put(parDecl.listaID.get(i).val, "var",null,type);
+                if(parDecl.nomeNodo.equalsIgnoreCase("ParDeclOutOP"))
+                    top.put(parDecl.listaID.get(i).val, "varOUT",null,type);
+                else
+                    top.put(parDecl.listaID.get(i).val, "var",null,type);
             }
         }
 
@@ -110,8 +113,8 @@ public class ScopingVisitor implements Visitatore{
                     if (recordPrec == null) {
                         top.put(node.listaID.get(i).id.val, "var", null, node.type);//inserisce nella tabella al top
                     } else {
-                        if (recordPrec.kind.equalsIgnoreCase("var")) {
-                            top.put(node.listaID.get(i).id.val, "var", null, node.type); //ci assicuriamo che sia una variabile se si tartta di un metodo allora errore es: int a a()
+                        if (recordPrec.kind.equalsIgnoreCase("var")  ) {
+                            top.put(node.listaID.get(i).id.val, "var", null, node.type); //ci assicuriamo che sia una variabile se si tartta di un metodo allora errore es: int a a() (most closely nested)
                         } else {
                             try {
 

@@ -4,6 +4,7 @@ import nodi.*;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class GenerazioneCodiceC implements Visitatore{
     String content;
@@ -12,8 +13,118 @@ public class GenerazioneCodiceC implements Visitatore{
     @Override
     public String visit(ExprNode node) {
         this.content ="";
+        String copyContent = "";
+        String tmp="";
+
+        //controllo se è un operazione unaria per mettere prima il simbolo
+        switch (node.nomeNodo){
+            case "UminusOp":
+                this.content += " -";
+                break;
+            case "NotOp":
+                this.content += " !";
+                break;
+            case "InparOp":
+                this.content += "(";
+                break;
+        }
 
 
+        Class classe = node.nodo1.getClass();
+        if(classe == BoolConst.class){
+            BoolConst nodo = (BoolConst)node.nodo1;
+            this.content += nodo.accept(this);
+        } else if(classe == RealConst.class){
+            RealConst nodo = (RealConst)node.nodo1;
+            this.content += nodo.accept(this);
+        } else if(classe == IdVal.class){
+            IdVal nodo = (IdVal) node.nodo1;
+            this.content += nodo.accept(this);
+        } else if(classe == IntegerConst.class){
+            IntegerConst nodo = (IntegerConst) node.nodo1;
+            this.content += nodo.accept(this);
+        }  else if(classe == StringConst.class){
+            StringConst nodo = (StringConst) node.nodo1;
+            this.content += nodo.accept(this);
+        } else if(classe == FuncallNode.class){
+            FuncallNode nodo = (FuncallNode) node.nodo1;
+            this.content += nodo.accept(this);
+        } else if(classe == ExprNode.class) {
+            ExprNode nodo = (ExprNode) node.nodo1;
+
+//            copyContent = this.content;
+//            tmp += nodo.accept(this);
+//            this.content = copyContent;
+            this.content += nodo.accept(this);
+            if(node.nodo2 == null){ //nodo2 è null se operazione è unaria
+                this.content += ")";
+            }
+
+        }
+
+            if(node.nodo2 != null){ //nodo2 è null se operazione è unaria
+
+
+                classe = node.nodo2.getClass();
+
+                switch (node.nomeNodo) {
+                    case "AddOp":
+                        this.content += " + ";
+                        break;
+                    case "MinusOp":
+                        this.content += " - ";
+                        break;
+                    case "MulOp":
+                        this.content += " * ";
+                        break;
+                    case "DivOp":
+                        this.content += " / ";
+                        break;
+                    case "AndOp":
+                        this.content += " && ";
+                        break;
+//                        case "PowOp":
+//                            this.content += " && ";
+//                            break;
+//                        case "StrConcatOp":
+//                            this.content += " || ";
+//                            break;
+                    case "OrOp":
+                        this.content += " || ";
+                        break;
+                    case "GtOp":
+                        this.content += " > ";
+                        break;
+                    case "GeOp":
+                        this.content += " >= ";
+                        break;
+                    case "LtOp":
+                        this.content += " < ";
+                        break;
+                    case "LeOp":
+                        this.content += " <= ";
+                        break;
+                    case "EqOp":
+                        this.content += " == ";
+                        break;
+                    case "NeOp":
+                        this.content += " != ";
+                        break;
+                }
+
+
+                if (classe == ExprNode.class) {
+                    ExprNode nodo = (ExprNode) node.nodo2;
+                    this.content += nodo.accept(this);
+
+                    }
+
+
+
+
+
+
+            }
 
         return content;
     }
@@ -67,6 +178,7 @@ public class GenerazioneCodiceC implements Visitatore{
         this.content ="";
         if(node.idList.size()==node.exprList.size()) {
             for (int i = 0; i < node.idList.size(); i++) {
+
                 this.content+=node.idList.get(i).accept(this);
                 this.content+=" = ";
                 this.content+= node.exprList.get(i).accept(this);
@@ -192,8 +304,72 @@ public class GenerazioneCodiceC implements Visitatore{
     @Override
     public String visit(ParDecl node) {
 
+        this.content="";
 
-        return null;
+
+        Collections.reverse(node.listaID);
+
+        if(node.nomeNodo.equalsIgnoreCase("ParDeclOP")) {
+            for (int i = 0; i < node.listaID.size(); i++) {
+                switch (node.type) {
+                    case "STRING":
+                        this.content += "char *";
+                        break;
+
+                    case "BOOL":
+                        this.content += node.type.toLowerCase();
+                        break;
+                    case "REAL":
+                        this.content += "float";
+                        break;
+                    case "INTEGER":
+                        this.content += "int";
+                        break;
+                    case "CHAR":
+                        this.content += node.type.toLowerCase();
+                        break;
+
+                }
+
+                this.content += " ";
+                this.content += node.listaID.get(i).accept(this);
+
+                if (i != node.listaID.size() - 1)
+                    this.content += ",";
+
+            }
+        }else if(node.nomeNodo.equalsIgnoreCase("ParDeclOutOP")){
+            for (int i = 0; i < node.listaID.size(); i++) {
+                switch (node.type) {
+                    case "STRING":
+                        this.content += "char *";
+                        break;
+
+                    case "BOOL":
+                        this.content += node.type.toLowerCase()+"*";
+                        break;
+                    case "REAL":
+                        this.content += "float*";
+                        break;
+                    case "INTEGER":
+                        this.content += "int*";
+                        break;
+                    case "CHAR":
+                        this.content += node.type.toLowerCase()+"*";
+                        break;
+
+                }
+
+                this.content += " ";
+                this.content += node.listaID.get(i).accept(this);
+
+                if (i != node.listaID.size() - 1)
+                    this.content += ",";
+
+            }
+        }
+
+        return content;
     }
 
     @Override
@@ -368,15 +544,16 @@ public class GenerazioneCodiceC implements Visitatore{
     @Override
     public String visit(Body node) {
         this.content ="";
-        this.content +="{";
+        this.content +="{\n";
         for(int i=0;i<node.listaVar.size();i++){
             content+= node.listaVar.get(i).accept(this);
 
         }
+        Collections.reverse(node.listaStat);
         for(int i=0;i<node.listaStat.size();i++){
             content+= node.listaStat.get(i).accept(this);
         }
-        this.content +="}";
+        this.content +="}\n";
         return content;
     }
 
@@ -438,11 +615,40 @@ public class GenerazioneCodiceC implements Visitatore{
     @Override
     public String visit(FunDecl node) {
         this.content = "";
-        this.content+= node.type;
-        node.id.accept(this);
+
+        switch (node.type){
+            case "STRING":
+                this.content += "char* ";
+                break;
+
+            case "BOOL":
+                this.content += node.type.toLowerCase();
+                break;
+            case "REAL":
+                this.content += "float";
+                break;
+            case "INTEGER":
+                this.content += "int";
+                break;
+            case "CHAR":
+                this.content += node.type.toLowerCase();
+                break;
+            case "VOID":
+                this.content+= node.type.toLowerCase();
+
+        }
+
+
+
+
+        this.content += " ";
+        this.content += node.id.accept(this);
         this.content += "(";
+        Collections.reverse(node.listaPar);
         for(int i=0;i<node.listaPar.size();i++) {
             this.content += node.listaPar.get(i).accept(this);
+            if(i != node.listaPar.size()-1)
+                this.content+=",";
         }
         this.content += ")";
         this.content+=node.body.accept(this);

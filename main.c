@@ -2,18 +2,39 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-elaboraScelta(null){floatresult,numB,numA;
-if(){if(){null}else{printf("%s 
-", )}}if(){printf("%s %f 
-", , )null}if(){printf("%s %f 
-", , )null}if(){printf("%s %f 
-", , )null}printf("inserisci il secondo numero");
-scanf("%f",&numB);printf("inserisci il primo numero");
-scanf("%f",&numA);numA = ;
-numB = ;
-result = ;
-}somma(nullnull){result = ;
-}sottrazione(nullnull){result = ;
-}divisione(nullnull){result = ;
-}moltiplicazione(nullnull){result = ;
+void elaboraScelta(int operazione){
+floatresult,numB,numA;
+numA = 0.0;
+numB = 0.0;
+result = 0.0;
+printf("inserisci il primo numero");
+scanf("%f",&numA);printf("inserisci il secondo numero");
+scanf("%f",&numB);if(operazione == 1){
+nullprintf("%s %f 
+", "il risultato della somma  è :  ", result)}
+if(operazione == 2){
+nullprintf("%s %f 
+", "il risultato della sottrazione  è :  ", result)}
+if(operazione == 3){
+nullprintf("%s %f 
+", "il risultato della moltiplicazione  è :  ", result)}
+if(operazione == 4){
+if(numB != 0){
+null}
+else{
+printf("%s 
+", "Divisione impossibile, il denomitaore non può essere 0")}
+}
+}
+void somma(float numB,float numA,float* result){
+result = (numA + numB);
+}
+void sottrazione(float numB,float numA,float* result){
+result = numA - numB;
+}
+void divisione(float numB,float numA,float* result){
+result = numA / numB;
+}
+void moltiplicazione(float numB,float numA,float* result){
+result = numA * numB;
 }
