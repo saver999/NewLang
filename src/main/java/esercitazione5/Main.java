@@ -2,6 +2,7 @@ package esercitazione5;
 
 
 import Visitor.AnalisiSemantica;
+import Visitor.GenerazioneCodiceC;
 import Visitor.ScopingVisitor;
 import Visitor.TreeMaker;
 import nodi.*;
@@ -32,10 +33,10 @@ public class Main {
         System.out.println("Programma corretto semanticamente? ");
         if(pr.typeNode.equals("notype")) {
             System.out.println("SI");
-            //generazioneC gc = new generazioneC(envTop);
-           // pr.accept(gc);//generazione codice C
-           // System.out.println("##### GENERAZIONE CODICE C #####");
-           // gc.saveFileC();
+            GenerazioneCodiceC gc = new GenerazioneCodiceC();
+            pr.accept(gc);//generazione codice C
+            System.out.println("##### GENERAZIONE CODICE C #####");
+            gc.saveFileC();
         }else {
             System.out.println("NO");
         }

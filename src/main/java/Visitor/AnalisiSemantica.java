@@ -193,7 +193,12 @@ public class AnalisiSemantica implements Visitatore{
 
                 }
                 if(flag ==0) {
+                    if(recordSymbolTable.typeRitorno.equalsIgnoreCase("void")) {
                         node.typeNode = "notype";
+                    }else{
+                        node.typeNode = recordSymbolTable.typeRitorno;
+                    }
+
                 }
             } else {
                 node.typeNode = "error";

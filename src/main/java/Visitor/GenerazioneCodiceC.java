@@ -2,6 +2,7 @@ package Visitor;
 
 import nodi.*;
 
+import java.io.*;
 import java.util.ArrayList;
 
 public class GenerazioneCodiceC implements Visitatore{
@@ -63,17 +64,129 @@ public class GenerazioneCodiceC implements Visitatore{
 
     @Override
     public String visit(AssignStat node) {
-        return null;
+        this.content ="";
+        if(node.idList.size()==node.exprList.size()) {
+            for (int i = 0; i < node.idList.size(); i++) {
+                this.content+=node.idList.get(i).accept(this);
+                this.content+=" = ";
+                this.content+= node.exprList.get(i).accept(this);
+                this.content+=";\n";
+
+            }
+        }
+
+        return content;
     }
 
     @Override
     public String visit(WriteStat node) {
-        return null;
+        this.content+="";
+        if(node.nomeNodo.equalsIgnoreCase("WritelnOp")){
+            this.content+= "printf(\"";
+            for(int i=0;i<node.listaExpr.size();i++) {
+                switch (node.listaExpr.get(i).typeNode){
+                    case "INTEGER":
+                        this.content+= "%d ";
+                        break;
+                    case "REAL":
+                        this.content+= "%f ";
+                        break;
+                    case "STRING":
+                        this.content+="%s ";
+                        break;
+                    case "CHAR":
+                        this.content+="%c ";
+                        break;
+                    case "BOOL":
+                        this.content+="%d ";
+                        break;
+
+                }
+
+
+            }
+            this.content += "\n\"";
+            for(int i=0;i<node.listaExpr.size();i++) {
+                this.content +=", ";
+                this.content += node.listaExpr.get(i).accept(this);
+            }
+            this.content += ")";
+        }else{
+            this.content+= "printf(\"";
+            for(int i=0;i<node.listaExpr.size();i++) {
+                switch (node.listaExpr.get(i).typeNode){
+                    case "INTEGER":
+                        this.content+= "%d ";
+                        break;
+                    case "REAL":
+                        this.content+= "%f ";
+                        break;
+                    case "STRING":
+                        this.content+="%s ";
+                        break;
+                    case "CHAR":
+                        this.content+="%c ";
+                        break;
+                    case "BOOL":
+                        this.content+="%d ";
+                        break;
+
+                }
+
+
+            }
+            this.content += "\"";
+            for(int i=0;i<node.listaExpr.size();i++) {
+                this.content +=", ";
+                this.content += node.listaExpr.get(i).accept(this);
+            }
+            this.content += ")";
+        }
+
+
+        return content;
     }
 
     @Override
     public String visit(ReadStat node) {
-        return null;
+        this.content ="";
+        if(node.val!=null){
+            this.content+="printf(";
+            this.content+= node.val.accept(this);
+            this.content+=");";
+            this.content+="\n";
+        }
+        this.content+="scanf(\"";
+        for(int i =0;i<node.idList.size();i++){
+            switch (node.idList.get(i).typeNode){
+                case "INTEGER":
+                    this.content += "%d";
+                    break;
+                case "REAL":
+                    this.content += "%f";
+                    break;
+                case "STRING":
+                    this.content += "%s";
+                    break;
+                case "CHAR":
+                    this.content += "%c";
+                    break;
+                case "BOOL":
+                    this.content += "%d";
+                    break;
+            }
+        }
+
+        this.content+="\"";
+        for(int i =0;i<node.idList.size();i++) {
+            this.content += ",";
+            this.content += "&";
+            this.content += node.idList.get(i).val;
+
+        }
+        this.content += ");";
+
+        return content;
     }
 
     @Override
@@ -213,12 +326,58 @@ public class GenerazioneCodiceC implements Visitatore{
 
     @Override
     public String visit(Stat node) {
-        return null;
+        this.content = "";
+
+        Class classe = node.nodo.getClass();
+
+        if (classe == IfStat.class) {
+            IfStat nodo = (IfStat) node.nodo;
+            this.content += nodo.accept(this);
+        }else if(classe == ForStat.class){
+            ForStat nodo =(ForStat) node.nodo;
+            this.content += nodo.accept(this);
+        }else if(classe == WriteStat.class){
+            WriteStat nodo =(WriteStat) node.nodo;
+            this.content += nodo.accept(this);
+        }else if(classe == AssignStat.class){
+            AssignStat nodo =(AssignStat) node.nodo;
+            this.content += nodo.accept(this);
+        }else if(classe == FuncallNode.class){
+            FuncallNode nodo =(FuncallNode) node.nodo;
+            this.content += nodo.accept(this);
+        }else if(classe == WhileStat.class){
+            WhileStat nodo =(WhileStat) node.nodo;
+            this.content += nodo.accept(this);
+        }else if(classe == ReadStat.class){
+            ReadStat nodo =(ReadStat) node.nodo;
+            this.content += nodo.accept(this);
+        }else if(classe == ExprNode.class){
+            ExprNode nodo =(ExprNode) node.nodo;
+            this.content += "return";
+            this.content += nodo.accept(this);
+            this.content += ";\n";
+        }else if(node.nameStat.equalsIgnoreCase("returnVoid")){
+            this.content += "return";
+            this.content += ";\n";
+
+        }
+
+        return content;
     }
 
     @Override
     public String visit(Body node) {
-        return null;
+        this.content ="";
+        this.content +="{";
+        for(int i=0;i<node.listaVar.size();i++){
+            content+= node.listaVar.get(i).accept(this);
+
+        }
+        for(int i=0;i<node.listaStat.size();i++){
+            content+= node.listaStat.get(i).accept(this);
+        }
+        this.content +="}";
+        return content;
     }
 
     @Override
@@ -228,37 +387,156 @@ public class GenerazioneCodiceC implements Visitatore{
 
     @Override
     public String visit(IfStat node) {
-        return null;
+        this.content ="";
+        this.content +="if(";
+        content+=node.nodeEx.accept(this);
+        this.content +=")";
+        this.content+=node.body.accept(this);
+        if(node.els!=null){
+            content+=node.els.accept(this);
+        }
+        return content;
     }
 
     @Override
     public String visit(WhileStat node) {
-        return null;
+        this.content = "";
+        this.content += "while (";
+        content+=node.nodeEx.accept(this);
+        this.content += ")";
+        this.content+=node.body.accept(this);
+
+        return content;
     }
 
     @Override
     public String visit(ForStat node) {
-        return null;
+        this.content = "";
+        this.content += "for (";
+
+        this.content+="int ";
+        this.content+= node.id.accept(this);
+        this.content += " = ";
+        this.content+= node.val1.accept(this);
+        this.content += ";";
+
+        this.content+= node.id.accept(this);
+        this.content += " <= ";
+        this.content+= node.val2.accept(this);
+        this.content += ";";
+
+        this.content+= node.id.accept(this);
+        this.content += "++";
+
+
+        this.content += ")";
+        this.content+=node.body.accept(this);
+
+        return content;
     }
 
     @Override
     public String visit(FunDecl node) {
-        return null;
+        this.content = "";
+        this.content+= node.type;
+        node.id.accept(this);
+        this.content += "(";
+        for(int i=0;i<node.listaPar.size();i++) {
+            this.content += node.listaPar.get(i).accept(this);
+        }
+        this.content += ")";
+        this.content+=node.body.accept(this);
+        return content;
     }
 
     @Override
     public String visit(MainFunDecl node) {
-        return null;
+        this.content = "";
+        return content;
     }
 
     @Override
     public String visit(ProgramRoot node) {
-        return null;
+        this.content = "#include <stdio.h>\n";
+        this.content += "#include <stdlib.h>\n";
+        this.content += "#include <string.h>\n";
+        this.content += "#include <stdbool.h>\n";
+
+        if(node.declist1.size() >= 1) {
+
+
+            for (int i = 0; i < node.declist1.size(); i++) {
+                Class classe = node.declist1.get(i).getClass();
+
+                if (classe == VarDecl.class) {
+                    VarDecl nodo = (VarDecl) node.declist1.get(i);
+                    this.content += nodo.accept(this);
+                }
+            }
+        }
+        if(node.declist2.size() >= 1) {
+
+
+            for (int i = 0; i < node.declist2.size(); i++) {
+                Class classe = node.declist2.get(i).getClass();
+
+                if (classe == VarDecl.class) {
+                    VarDecl nodo = (VarDecl) node.declist2.get(i);
+                    this.content += nodo.accept(this);
+                }
+            }
+        }
+
+        if(node.declist1.size() >= 1) {
+
+
+            for (int i = 0; i < node.declist1.size(); i++) {
+                Class classe = node.declist1.get(i).getClass();
+
+                if (classe == FunDecl.class) {
+                    FunDecl nodo = (FunDecl) node.declist1.get(i);
+                    this.content += nodo.accept(this);
+                }
+            }
+        }
+        if(node.declist2.size() >= 1) {
+
+
+            for (int i = 0; i < node.declist2.size(); i++) {
+                Class classe = node.declist2.get(i).getClass();
+
+                if (classe == FunDecl.class) {
+                    FunDecl nodo = (FunDecl) node.declist2.get(i);
+                    this.content += nodo.accept(this);
+                }
+            }
+        }
+     //   node.mainFun.accept(this);
+        return content;
     }
 
     @Override
     public Object visit(ElseStat node) {
-        return null;
+        this.content ="";
+        this.content +="else";
+        this.content+= node.body.accept(this);
+        return content;
+    }
+
+    public void saveFileC(){
+        Writer writer = null;
+
+        try {
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("main.c"), "utf-8"));
+            writer.write(this.content);
+            writer.close();
+        } catch (IOException ex) {
+            System.out.println("Errore nella scrittura del file");
+        } finally {
+            try {writer.close();} catch (Exception ex) {
+                System.out.println("Errore durante la chiusura del file");
+            }
+        }
     }
 }
 

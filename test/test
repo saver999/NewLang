@@ -14,3 +14,4 @@ mi da errore s eprovo a chimare il main
 var a <<5, b<<6;
 
 int a =5, b=6;
+Fare expr formattare meglio il main
