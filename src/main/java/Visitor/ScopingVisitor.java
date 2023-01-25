@@ -79,6 +79,7 @@ public class ScopingVisitor implements Visitatore{
         for(int i=0; i < parDecl.listaID.size(); i++){
             if(top.getInTypeEnviroment(parDecl.listaID.get(i).val) == null){
                 if(parDecl.nomeNodo.equalsIgnoreCase("ParDeclOutOP")) {
+
                     top.put(parDecl.listaID.get(i).val, "varOUT", null, type,true);
                     parDecl.listaID.get(i).isOut=true;
                     parDecl.isOut=true;
@@ -273,7 +274,7 @@ if(node.idInitObb != null) {
 
 
         }
-
+printSymbleTable();
 
         for(int i=0; i< body.listaVar.size(); i++){
             body.listaVar.get(i).accept(this);
@@ -287,6 +288,7 @@ if(node.idInitObb != null) {
 
 
         body.currentEnv = top;
+
 
 
         top = top.prev;
@@ -331,12 +333,13 @@ if(node.idInitObb != null) {
 
         funDecl.body.accept(this,funDecl.listaPar);
         funDecl.id.accept(this);
+
         return null;
     }
 
     @Override
-    public String visit(MainFunDecl mainDunDecl) {
-        mainDunDecl.fundecl.accept(this);
+    public String visit(MainFunDecl mainFunDecl) {
+        mainFunDecl.fundecl.accept(this);
         return null;
     }
 
@@ -371,6 +374,7 @@ if(node.idInitObb != null) {
             Class classe = programRoot.declist1.get(i).getClass();
             if(classe == FunDecl.class){
                 FunDecl fundecl =(FunDecl) programRoot.declist1.get(i);
+
                 if(top.getInThisTable(fundecl.id.val) == null){
                     for(int j=0;j<fundecl.listaPar.size();j++){
 
@@ -407,17 +411,24 @@ if(node.idInitObb != null) {
             Class classe = programRoot.declist2.get(i).getClass();
             if(classe == FunDecl.class){
                 FunDecl fundecl =(FunDecl) programRoot.declist2.get(i);
+
                 if(top.getInThisTable(fundecl.id.val) == null) {
+
                     for (int j = 0; j < fundecl.listaPar.size(); j++) {
                         for (int k = 0; k < fundecl.listaPar.get(j).listaID.size(); k++) {
 
                             listaparametri.add(0,fundecl.listaPar.get(j).type);
                         }
+
+
                     }
 
                     for(int j=0;j<fundecl.listaPar.size();j++){
-                        if(fundecl.listaPar.get(j).isOut)
-                            top.put(fundecl.id.val, "func", listaparametri, fundecl.type,true);
+
+                        if(fundecl.listaPar.get(j).isOut) {
+
+                            top.put(fundecl.id.val, "func", listaparametri, fundecl.type, true);
+                        }
                         else
                             top.put(fundecl.id.val, "func", listaparametri, fundecl.type);
 
@@ -466,7 +477,6 @@ if(node.idInitObb != null) {
             }
         }
 
-        printSymbleTable();
 
         programRoot.currentEnv=top;
 

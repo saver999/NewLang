@@ -174,6 +174,7 @@ public class AnalisiSemantica implements Visitatore{
         int sizeList = 0;
 
         RecordSymbolTable recordSymbolTable = top.getInTypeEnviroment(node.id.val);
+
         if (recordSymbolTable != null && (recordSymbolTable.kind.equals("func") || (recordSymbolTable.kind.equals("mainFunc")) )){
             if(node.listaExprNode != null)
                 sizeList = node.listaExprNode.size();
@@ -829,13 +830,7 @@ if(node.idInitObb != null) {
         return tabella;
     }
 
-    public void printSymbleTable2(){
-        int num = 0;
-        for( Env e = top; e != null; e = e.prev ) {
-            System.out.println("Tabella: " + num++);
-            System.out.println(e.getTable().toString());
-        }
-    }
+
 
 
     @Override

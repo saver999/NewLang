@@ -195,10 +195,11 @@ public class GenerazioneCodiceC implements Visitatore{
     public String visit(FuncallNode node) {
         this.content = "";
         this.content += node.id.accept(this);
-
+        RecordSymbolTable recordSymbolTable = top.getInTypeEnviroment(node.id.val);
 
         return null;
     }
+
 
     @Override
     public String visit(AssignStat node) {
@@ -575,6 +576,7 @@ public class GenerazioneCodiceC implements Visitatore{
     @Override
     public String visit(Body node) {
         this.content ="";
+        top= node.currentEnv;
         this.content +="{\n";
         for(int i=0;i<node.listaVar.size();i++){
             content+= node.listaVar.get(i).accept(this);
@@ -586,6 +588,7 @@ public class GenerazioneCodiceC implements Visitatore{
             content+= node.listaStat.get(i).accept(this);
         }
         this.content +="}\n";
+        top= top.prev;
         return content;
     }
 
@@ -646,6 +649,8 @@ public class GenerazioneCodiceC implements Visitatore{
 
     @Override
     public String visit(FunDecl node) {
+
+        top = node.body.currentEnv;
         this.content = "";
 
         switch (node.type){
@@ -684,6 +689,7 @@ public class GenerazioneCodiceC implements Visitatore{
         }
         this.content += ")";
         this.content+=node.body.accept(this);
+
         return content;
     }
 
@@ -700,7 +706,7 @@ public class GenerazioneCodiceC implements Visitatore{
 
     @Override
     public String visit(ProgramRoot node) {
-
+        top = node.currentEnv;
 
         this.content = "#include <stdio.h>\n";
         this.content += "#include <stdlib.h>\n";
@@ -763,6 +769,7 @@ public class GenerazioneCodiceC implements Visitatore{
         }
         this.content +=node.mainFun.fundecl.accept(this);
         this.content +=node.mainFun.accept(this);
+
         return content;
     }
 
@@ -772,6 +779,18 @@ public class GenerazioneCodiceC implements Visitatore{
         this.content +="else";
         this.content+= node.body.accept(this);
         return content;
+    }
+
+    public String  printSymbleTable(){
+        int num = 0;
+        String tabella = "";
+        for( Env e = top; e != null; e = e.prev ) {
+
+
+            System.out.println(e.getTable().toString());
+            tabella += e.getTable().toString();
+        }
+        return tabella;
     }
 
     public void saveFileC(){
