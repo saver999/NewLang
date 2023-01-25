@@ -4,22 +4,25 @@ real c << 5.0;
 real d << 8.0;
 real f << 8.0;
 
-    test1(3,2,c,d,f);
+
 
 
 }
 
  def test1(integer a, b | out real c, d,f): void{
 
-
-     prova << 2^2;
+        test2(d);
+        d<< f+3;
 
 
 
 }
+def test2(real ok): void{
+
+}
 
 
- integer prova;
+
 
 
 

@@ -39,6 +39,11 @@ public class GenerazioneCodiceC implements Visitatore{
             this.content += nodo.accept(this);
         } else if(classe == IdVal.class){
             IdVal nodo = (IdVal) node.nodo1;
+
+            RecordSymbolTable record = top.getInTypeEnviroment(nodo.val);
+            if(record.isout)
+                this.content +="*";
+
             this.content += nodo.accept(this);
         } else if(classe == IntegerConst.class){
             IntegerConst nodo = (IntegerConst) node.nodo1;
@@ -234,6 +239,10 @@ public class GenerazioneCodiceC implements Visitatore{
         this.content ="";
         if(node.idList.size()==node.exprList.size()) {
             for (int i = 0; i < node.idList.size(); i++) {
+                RecordSymbolTable record = top.getInTypeEnviroment(node.idList.get(i).val);
+
+                if(record.isout)
+                    this.content+="*";
 
                 this.content+=node.idList.get(i).accept(this);
                 this.content+=" = ";
