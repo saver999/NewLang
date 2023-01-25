@@ -1,6 +1,8 @@
 package Visitor;
 
 
+import nodi.ParDecl;
+
 import java.util.ArrayList;
 
 public class RecordSymbolTable {
@@ -10,6 +12,8 @@ public class RecordSymbolTable {
     public String typeRitorno;
 
     public Boolean isout;
+
+    public ArrayList<ParDecl> parDecls;
 
     public RecordSymbolTable(String nome, String kind, ArrayList<String> typeParametri, String typeRitorno, Boolean isout) {
         this.isout=isout;
@@ -27,6 +31,7 @@ public class RecordSymbolTable {
                 ", typeParametri=" + typeParametri +
                 ", typeRitorno=" + typeRitorno +
                 ", isOut=" + isout +
+                ", parDecls=" + parDecls +
                 '}';
     }
 }

@@ -1,12 +1,15 @@
 start: def test(): void{
 
+real c << 5.0;
+real d << 8.0;
+real f << 8.0;
 
-    string prova << "prova1"&"prova2";
+    test1(3,2,c,d,f);
 
 
 }
 
- def test1(integer a, b | out real c): void{
+ def test1(integer a, b | out real c, d,f): void{
 
 
      prova << 2^2;

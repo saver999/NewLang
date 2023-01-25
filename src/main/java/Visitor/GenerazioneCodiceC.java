@@ -193,11 +193,39 @@ public class GenerazioneCodiceC implements Visitatore{
 
     @Override
     public String visit(FuncallNode node) {
+        RecordSymbolTable recordSymbolTable = top.getInTypeEnviroment(node.id.val);
+        int tmp=0;
+
         this.content = "";
         this.content += node.id.accept(this);
-        RecordSymbolTable recordSymbolTable = top.getInTypeEnviroment(node.id.val);
+        this.content += "(";
 
-        return null;
+
+        for(int i=0;i<recordSymbolTable.parDecls.size();i++) {
+            for (int j = 0; j < recordSymbolTable.parDecls.get(i).listaID.size(); j++) {
+                if (recordSymbolTable.parDecls.get(i).isOut) {
+                    this.content += "&";
+                    this.content += node.listaExprNode.get(tmp).accept(this);
+                    if (j != recordSymbolTable.parDecls.get(i).listaID.size() - 1)
+                        this.content += ",";
+                }else{
+                    this.content += node.listaExprNode.get(tmp).accept(this);
+                   if (j != recordSymbolTable.parDecls.get(i).listaID.size() - 1)
+                       this.content += ",";
+                }
+
+                tmp++;
+            }
+
+            if (i != recordSymbolTable.parDecls.size() - 1)
+               this.content += ",";
+
+        }
+
+        this.content += ");\n";
+
+
+        return content;
     }
 
 

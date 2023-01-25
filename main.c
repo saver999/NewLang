@@ -5,11 +5,14 @@
 #include <math.h>
 char supporto[100];
 int prova;
-void test1(int b,int a,float* c){
+void test1(int b,int a,float* f,float* d,float* c){
 prova = pow(2,2);
 }
 void test(){
-char *prova=strcat(strcpy(supporto,"prova1"),"prova2");
+float c=5.0;
+float d=8.0;
+float f=8.0;
+test1(3,2,&c,&d,&f);
 }
 int main(){
 test();

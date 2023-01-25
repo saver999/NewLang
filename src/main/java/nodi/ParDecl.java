@@ -22,4 +22,12 @@ public class ParDecl {
     public Object accept(Visitatore v) {
         return v.visit(this);
     }
+
+    public String toString() {
+        return "Pardecl{" +
+                "type=" + type +
+                ", isout='" + isOut + '\'' +
+                ", listaid=" + listaID +
+                '}';
+    }
 }

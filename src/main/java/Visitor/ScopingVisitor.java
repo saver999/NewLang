@@ -274,7 +274,7 @@ if(node.idInitObb != null) {
 
 
         }
-printSymbleTable();
+
 
         for(int i=0; i< body.listaVar.size(); i++){
             body.listaVar.get(i).accept(this);
@@ -368,9 +368,9 @@ printSymbleTable();
 
         //aggiungo tutti gli id delle funzioni alla tabella dei simboli global sia di declist1 che declist2
 
-
+        ArrayList<String> listaparametri1 = new ArrayList<String>();
         for(int i=0; i<programRoot.declist1.size(); i++){
-            ArrayList<String> listaparametri = new ArrayList<String>();
+
             Class classe = programRoot.declist1.get(i).getClass();
             if(classe == FunDecl.class){
                 FunDecl fundecl =(FunDecl) programRoot.declist1.get(i);
@@ -380,18 +380,14 @@ printSymbleTable();
 
                         for(int k = 0; k < fundecl.listaPar.get(j).listaID.size(); k++) {
 
-                            listaparametri.add(0,fundecl.listaPar.get(j).type);
+                            listaparametri1.add(0,fundecl.listaPar.get(j).type);
                         }
                     }
 
 
-                    for(int j=0;j<fundecl.listaPar.size();j++){
-                            if(fundecl.listaPar.get(j).isOut)
-                                top.put(fundecl.id.val, "func", listaparametri, fundecl.type,true);
-                            else
-                                top.put(fundecl.id.val, "func", listaparametri, fundecl.type);
+                    top.put(fundecl.id.val, "func", listaparametri1, fundecl.type);
 
-                    }
+
 
 
 
@@ -405,9 +401,9 @@ printSymbleTable();
                 }
             }
         }
-
+        ArrayList<String> listaparametri2 = new ArrayList<String>();
         for(int i=0; i<programRoot.declist2.size(); i++){
-            ArrayList<String> listaparametri = new ArrayList<String>();
+
             Class classe = programRoot.declist2.get(i).getClass();
             if(classe == FunDecl.class){
                 FunDecl fundecl =(FunDecl) programRoot.declist2.get(i);
@@ -417,22 +413,16 @@ printSymbleTable();
                     for (int j = 0; j < fundecl.listaPar.size(); j++) {
                         for (int k = 0; k < fundecl.listaPar.get(j).listaID.size(); k++) {
 
-                            listaparametri.add(0,fundecl.listaPar.get(j).type);
+                            listaparametri2.add(0,fundecl.listaPar.get(j).type);
                         }
 
 
                     }
 
-                    for(int j=0;j<fundecl.listaPar.size();j++){
 
-                        if(fundecl.listaPar.get(j).isOut) {
+                    top.put(fundecl.id.val, "func", listaparametri2, fundecl.type);
 
-                            top.put(fundecl.id.val, "func", listaparametri, fundecl.type, true);
-                        }
-                        else
-                            top.put(fundecl.id.val, "func", listaparametri, fundecl.type);
 
-                    }
                 }else{
                     try {
                         throw new Exception("Dichiarazione funzione multipla");
@@ -450,6 +440,19 @@ printSymbleTable();
                 FunDecl fundecl =(FunDecl) programRoot.declist1.get(i);
 
                 fundecl.accept(this);
+                //sovrascrivo recordsymboltable
+                 for(int j=0;j<fundecl.listaPar.size();j++){
+
+                     top.getInThisTable(fundecl.id.val).parDecls=fundecl.listaPar;
+//                     if(fundecl.listaPar.get(j).isOut) {
+//                         top.getInThisTable(fundecl.id.val).isout=true;
+//
+//
+//                     }
+
+
+                 }
+
             }
         }
 
@@ -462,6 +465,19 @@ printSymbleTable();
             if(classe == FunDecl.class){
                 FunDecl funDecl =(FunDecl) programRoot.declist2.get(i);
                 funDecl.accept(this);
+
+
+                for(int j=0;j<funDecl.listaPar.size();j++){
+
+                    top.getInThisTable(funDecl.id.val).parDecls=funDecl.listaPar;
+//                    if(funDecl.listaPar.get(j).isOut) {
+//                        top.getInThisTable(funDecl.id.val).isout=true;
+//
+//
+//                    }
+
+
+                }
             }
         }
 
@@ -477,6 +493,7 @@ printSymbleTable();
             }
         }
 
+        printSymbleTable();
 
         programRoot.currentEnv=top;
 
