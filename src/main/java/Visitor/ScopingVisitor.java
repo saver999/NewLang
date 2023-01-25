@@ -368,9 +368,9 @@ if(node.idInitObb != null) {
 
         //aggiungo tutti gli id delle funzioni alla tabella dei simboli global sia di declist1 che declist2
 
-        ArrayList<String> listaparametri1 = new ArrayList<String>();
-        for(int i=0; i<programRoot.declist1.size(); i++){
 
+        for(int i=0; i<programRoot.declist1.size(); i++){
+            ArrayList<String> listaparametri1 = new ArrayList<String>();
             Class classe = programRoot.declist1.get(i).getClass();
             if(classe == FunDecl.class){
                 FunDecl fundecl =(FunDecl) programRoot.declist1.get(i);
@@ -401,9 +401,9 @@ if(node.idInitObb != null) {
                 }
             }
         }
-        ArrayList<String> listaparametri2 = new ArrayList<String>();
-        for(int i=0; i<programRoot.declist2.size(); i++){
 
+        for(int i=0; i<programRoot.declist2.size(); i++){
+            ArrayList<String> listaparametri2 = new ArrayList<String>();
             Class classe = programRoot.declist2.get(i).getClass();
             if(classe == FunDecl.class){
                 FunDecl fundecl =(FunDecl) programRoot.declist2.get(i);
@@ -418,7 +418,6 @@ if(node.idInitObb != null) {
 
 
                     }
-
 
                     top.put(fundecl.id.val, "func", listaparametri2, fundecl.type);
 
@@ -459,7 +458,7 @@ if(node.idInitObb != null) {
 
 
 
-        //richiamo accept su i fundecl di declist1
+        //richiamo accept su i fundecl di declist2
         for(int i=0; i<programRoot.declist2.size();i++){
             Class classe = programRoot.declist2.get(i).getClass();
             if(classe == FunDecl.class){
