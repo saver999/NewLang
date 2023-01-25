@@ -9,7 +9,10 @@ public class RecordSymbolTable {
     public ArrayList<String> typeParametri;
     public String typeRitorno;
 
-    public RecordSymbolTable(String nome, String kind, ArrayList<String> typeParametri, String typeRitorno) {
+    public Boolean isout;
+
+    public RecordSymbolTable(String nome, String kind, ArrayList<String> typeParametri, String typeRitorno, Boolean isout) {
+        this.isout=isout;
         this.nome = nome;
         this.kind = kind;
         this.typeParametri = typeParametri;
@@ -23,6 +26,7 @@ public class RecordSymbolTable {
                 ", kind='" + kind + '\'' +
                 ", typeParametri=" + typeParametri +
                 ", typeRitorno=" + typeRitorno +
+                ", isOut=" + isout +
                 '}';
     }
 }

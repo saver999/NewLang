@@ -544,7 +544,7 @@ if(node.idInitObb != null) {
 
             }
 
-            printSymbleTable2();
+
             top= top.prev;
 
             for (int i = 0; i < node.listaVar.size(); i++) {

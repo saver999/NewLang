@@ -1,34 +1,25 @@
 start: def test(): void{
 
-    integer condizione << 1 ;
-    string bu;
-    string bu2;
-    string bu3 << bu & bu2;
 
+    string prova << "prova1"&"prova2";
 
-
-    integer i;
-    real a;
-    for  i <<  0 to 4 loop {
-         a << (0);
-
-    }
 
 }
 
-integer a;
+ def test1(integer a, b | out real c): void{
 
-def prova(): void{
 
-integer b;
-test();
+     prova << 2^2;
 
-    while true loop{
-        integer i<<0;
-    }
+
+
 }
+ integer prova;
 
-integer f;
+
+
+
+
 
 
 

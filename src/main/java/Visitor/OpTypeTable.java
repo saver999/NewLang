@@ -12,21 +12,25 @@ public class OpTypeTable {
         listaOpType.add(new OpType("MinusOp", "INTEGER", "INTEGER", "INTEGER"));
         listaOpType.add(new OpType("MulOp", "INTEGER", "INTEGER", "INTEGER"));
         listaOpType.add(new OpType("DivOp", "INTEGER", "INTEGER", "INTEGER"));
+        listaOpType.add(new OpType("PowOp", "INTEGER", "INTEGER", "INTEGER"));
 
         listaOpType.add(new OpType("AddOp", "INTEGER", "REAL", "REAL"));
         listaOpType.add(new OpType("MinusOp", "INTEGER", "REAL", "REAL"));
         listaOpType.add(new OpType("MulOp", "INTEGER", "REAL", "REAL"));
         listaOpType.add(new OpType("DivOp", "INTEGER", "REAL", "REAL"));
+        listaOpType.add(new OpType("PowOp", "INTEGER", "REAL", "REAL"));
 
         listaOpType.add(new OpType("AddOp", "REAL", "INTEGER", "REAL"));
         listaOpType.add(new OpType("MinusOp", "REAL", "INTEGER", "REAL"));
         listaOpType.add(new OpType("MulOp", "REAL", "INTEGER", "REAL"));
         listaOpType.add(new OpType("DivOp", "REAL", "INTEGER", "REAL"));
+        listaOpType.add(new OpType("PowOp", "REAL", "INTEGER", "REAL"));
 
         listaOpType.add(new OpType("AddOp", "REAL", "REAL", "REAL"));
         listaOpType.add(new OpType("MinusOp", "REAL", "REAL", "REAL"));
         listaOpType.add(new OpType("MulOp", "REAL", "REAL", "REAL"));
         listaOpType.add(new OpType("DivOp", "REAL", "REAL", "REAL"));
+        listaOpType.add(new OpType("PowOp", "REAL", "REAL", "REAL"));
 
         listaOpType.add(new OpType("AndOp", "BOOL", "BOOL", "BOOL"));
         listaOpType.add(new OpType("OrOp", "BOOL", "BOOL", "BOOL"));
@@ -66,6 +70,8 @@ public class OpTypeTable {
         listaOpType.add(new OpType("GtOp", "REAL", "REAL", "BOOL"));
         listaOpType.add(new OpType("GeOp", "REAL", "REAL", "BOOL"));
         listaOpType.add(new OpType("StrConcatOp", "STRING", "STRING", "STRING"));
+
+
 
 
 

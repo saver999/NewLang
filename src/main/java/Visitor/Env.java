@@ -11,9 +11,12 @@ public class Env {
     }
 
     public void put( String nome, String kind, ArrayList<String> typeParametri, String typeRitorno) {
-        table.put(nome, new RecordSymbolTable(nome, kind, typeParametri, typeRitorno));
+        table.put(nome, new RecordSymbolTable(nome, kind, typeParametri, typeRitorno,false));
     }
 
+    public void put( String nome, String kind, ArrayList<String> typeParametri, String typeRitorno,Boolean isout) {
+        table.put(nome, new RecordSymbolTable(nome, kind, typeParametri, typeRitorno,isout));
+    }
     public RecordSymbolTable getInTypeEnviroment(String s) {
         for( Env e = this; e != null; e = e.prev ) {
             RecordSymbolTable found = (RecordSymbolTable)(e.table.get(s));

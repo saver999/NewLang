@@ -13,8 +13,8 @@ public class GenerazioneCodiceC implements Visitatore{
     @Override
     public String visit(ExprNode node) {
         this.content ="";
-        String copyContent = "";
-        String tmp="";
+        ExprNode nodotmp;
+        String support="";
 
         //controllo se è un operazione unaria per mettere prima il simbolo
         switch (node.nomeNodo){
@@ -55,14 +55,26 @@ public class GenerazioneCodiceC implements Visitatore{
 //            copyContent = this.content;
 //            tmp += nodo.accept(this);
 //            this.content = copyContent;
+
+            if(node.nomeNodo.equalsIgnoreCase("PowOp")){
+                this.content+= "pow(";
+                this.content += nodo.accept(this);
+                this.content+= ",";
+            }else if(node.nomeNodo.equalsIgnoreCase("StrConcatOp")){
+                this.content += "strcat(strcpy(supporto,"+nodo.accept(this)+"),";
+
+
+
+            }else{
             this.content += nodo.accept(this);
-            if(node.nodo2 == null){ //nodo2 è null se operazione è unaria
+            if(node.nodo2 == null && node.nomeNodo.equalsIgnoreCase("InparOp")){ //controlli per chiudere le parentesi di inparOP
                 this.content += ")";
+            }
             }
 
         }
 
-            if(node.nodo2 != null){ //nodo2 è null se operazione è unaria
+            if(node.nodo2 != null){ //nodo2 non è null se operazione non è unaria
 
 
                 classe = node.nodo2.getClass();
@@ -113,9 +125,20 @@ public class GenerazioneCodiceC implements Visitatore{
                 }
 
 
+
                 if (classe == ExprNode.class) {
-                    ExprNode nodo = (ExprNode) node.nodo2;
-                    this.content += nodo.accept(this);
+                    ExprNode nodo2 = (ExprNode) node.nodo2;
+
+                    if(node.nomeNodo.equalsIgnoreCase("PowOp")){
+
+                        this.content += nodo2.accept(this);
+                        this.content+= ")";
+                    }else if(node.nomeNodo.equalsIgnoreCase("StrConcatOp")){
+                        this.content += nodo2.accept(this);
+                        this.content += ")";
+
+                    }else {this.content += nodo2.accept(this);}
+
 
                     }
 
@@ -170,6 +193,10 @@ public class GenerazioneCodiceC implements Visitatore{
 
     @Override
     public String visit(FuncallNode node) {
+        this.content = "";
+        this.content += node.id.accept(this);
+
+
         return null;
     }
 
@@ -411,6 +438,7 @@ public class GenerazioneCodiceC implements Visitatore{
 
                     case "BOOL":
                         this.content += node.type.toLowerCase();
+                        this.content += " ";
                         break;
                     case "REAL":
                         this.content += "float";
@@ -420,6 +448,7 @@ public class GenerazioneCodiceC implements Visitatore{
                         break;
                     case "CHAR":
                         this.content += node.type.toLowerCase();
+                        this.content += " ";
                         break;
 
                 }
@@ -442,15 +471,17 @@ public class GenerazioneCodiceC implements Visitatore{
 
                 case "BOOL":
                     this.content += node.type.toLowerCase();
+                    this.content += " ";
                     break;
                 case "REAL":
-                    this.content += "float";
+                    this.content += "float ";
                     break;
                 case "INTEGER":
-                    this.content += "int";
+                    this.content += "int ";
                     break;
                 case "CHAR":
                     this.content += node.type.toLowerCase();
+                    this.content += " ";
                     break;
 
             }
@@ -551,6 +582,7 @@ public class GenerazioneCodiceC implements Visitatore{
         }
         Collections.reverse(node.listaStat);
         for(int i=0;i<node.listaStat.size();i++){
+            if(node.listaStat.get(i) != null)
             content+= node.listaStat.get(i).accept(this);
         }
         this.content +="}\n";
@@ -658,16 +690,27 @@ public class GenerazioneCodiceC implements Visitatore{
     @Override
     public String visit(MainFunDecl node) {
         this.content = "";
+        this.content += "int main(){\n";
+        this.content += node.fundecl.id.accept(this)+"();\n";
+        this.content += "return 0;\n";
+        this.content += "}\n";
+
         return content;
     }
 
     @Override
     public String visit(ProgramRoot node) {
+
+
         this.content = "#include <stdio.h>\n";
         this.content += "#include <stdlib.h>\n";
         this.content += "#include <string.h>\n";
         this.content += "#include <stdbool.h>\n";
+        this.content += "#include <math.h>\n";
+        this.content += "char supporto[100];\n";
 
+
+        //dichiarazioni di variabili globali tutte all'inizio
         if(node.declist1.size() >= 1) {
 
 
@@ -693,6 +736,7 @@ public class GenerazioneCodiceC implements Visitatore{
             }
         }
 
+        //dichiarazioni di funzioni
         if(node.declist1.size() >= 1) {
 
 
@@ -717,7 +761,8 @@ public class GenerazioneCodiceC implements Visitatore{
                 }
             }
         }
-     //   node.mainFun.accept(this);
+        this.content +=node.mainFun.fundecl.accept(this);
+        this.content +=node.mainFun.accept(this);
         return content;
     }
 

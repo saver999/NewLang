@@ -79,7 +79,7 @@ public class ScopingVisitor implements Visitatore{
         for(int i=0; i < parDecl.listaID.size(); i++){
             if(top.getInTypeEnviroment(parDecl.listaID.get(i).val) == null){
                 if(parDecl.nomeNodo.equalsIgnoreCase("ParDeclOutOP")) {
-                    top.put(parDecl.listaID.get(i).val, "varOUT", null, type);
+                    top.put(parDecl.listaID.get(i).val, "varOUT", null, type,true);
                     parDecl.listaID.get(i).isOut=true;
                     parDecl.isOut=true;
                 }
@@ -271,6 +271,7 @@ if(node.idInitObb != null) {
         for(int i=0; i< parDecls.size();i++){
             parDecls.get(i).accept(this);
 
+
         }
 
 
@@ -283,6 +284,7 @@ if(node.idInitObb != null) {
                     body.listaStat.get(i).accept(this);
                 }
             }
+
 
         body.currentEnv = top;
 
@@ -378,7 +380,18 @@ if(node.idInitObb != null) {
                         }
                     }
 
-                    top.put(fundecl.id.val,"func",listaparametri,fundecl.type);
+
+                    for(int j=0;j<fundecl.listaPar.size();j++){
+                            if(fundecl.listaPar.get(j).isOut)
+                                top.put(fundecl.id.val, "func", listaparametri, fundecl.type,true);
+                            else
+                                top.put(fundecl.id.val, "func", listaparametri, fundecl.type);
+
+                    }
+
+
+
+
                 }else{
                     try {
                         throw new Exception("Dichiarazione funzione multipla");
@@ -402,7 +415,13 @@ if(node.idInitObb != null) {
                         }
                     }
 
-                    top.put(fundecl.id.val,"func",listaparametri,fundecl.type);
+                    for(int j=0;j<fundecl.listaPar.size();j++){
+                        if(fundecl.listaPar.get(j).isOut)
+                            top.put(fundecl.id.val, "func", listaparametri, fundecl.type,true);
+                        else
+                            top.put(fundecl.id.val, "func", listaparametri, fundecl.type);
+
+                    }
                 }else{
                     try {
                         throw new Exception("Dichiarazione funzione multipla");
@@ -439,7 +458,15 @@ if(node.idInitObb != null) {
         programRoot.mainFun.accept(this);
         if(top.getInThisTable(programRoot.mainFun.fundecl.id.val)==null){
             top.put(programRoot.mainFun.fundecl.id.val,"mainFunc",new ArrayList<String>(),programRoot.mainFun.fundecl.type);
+        }else{
+            try {
+                throw new Exception("Identificativo main già dichiarato");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
+        printSymbleTable();
 
         programRoot.currentEnv=top;
 
