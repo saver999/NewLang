@@ -79,7 +79,6 @@ public class ScopingVisitor implements Visitatore{
         for(int i=0; i < parDecl.listaID.size(); i++){
             if(top.getInTypeEnviroment(parDecl.listaID.get(i).val) == null){
                 if(parDecl.nomeNodo.equalsIgnoreCase("ParDeclOutOP")) {
-
                     top.put(parDecl.listaID.get(i).val, "varOUT", null, type,true);
                     parDecl.listaID.get(i).isOut=true;
                     parDecl.isOut=true;
@@ -106,6 +105,13 @@ public class ScopingVisitor implements Visitatore{
 
     @Override
     public String visit(VarDecl node) {
+        /*
+         * andiamo a controllare che l'id non sia nella tabella corrente
+         * se c'è allora dichiarazione multipla
+         * se non c'è facciamo
+         * il controllo nel type environment e andiamo a vedere se non è già dichiarata una funzione con lo stesso nome
+         * se è una variabile va be ne perchè la portiamo anche in questo scope(most closed nested)
+        */
 
 
         //scorriamo uan lista di id nella casisitica dove il type è esplicito
@@ -140,41 +146,40 @@ public class ScopingVisitor implements Visitatore{
             }
         }
         // idinitobblist
-if(node.idInitObb != null) {
-    for (int i = 0; i < node.idInitObb.size(); i++) {
-        if (top.getInThisTable(node.idInitObb.get(i).id.val) == null) {//controlla se è nella tabella corrente
-            RecordSymbolTable recordPrec;
-            recordPrec = top.getInTypeEnviroment(node.idInitObb.get(i).id.val);
+        if(node.idInitObb != null) {
+            for (int i = 0; i < node.idInitObb.size(); i++) {
+                if (top.getInThisTable(node.idInitObb.get(i).id.val) == null) {//controlla se è nella tabella corrente
+                    RecordSymbolTable recordPrec;
+                    recordPrec = top.getInTypeEnviroment(node.idInitObb.get(i).id.val);
 
-            if (recordPrec == null) {
+                    if (recordPrec == null) {
 
-                node.idInitObb.get(i).cost.accept(this);
-                top.put(node.idInitObb.get(i).id.val, "var", null, node.idInitObb.get(i).cost.typeNode);//inserisce nella tabella al top
+                        node.idInitObb.get(i).cost.accept(this);
+                        top.put(node.idInitObb.get(i).id.val, "var", null, node.idInitObb.get(i).cost.typeNode);//inserisce nella tabella al top
 
-            } else {
-                if (recordPrec.kind.equalsIgnoreCase("var")) {
-                    node.idInitObb.get(i).cost.accept(this);
-                    top.put(node.idInitObb.get(i).id.val, "var", null, node.idInitObb.get(i).cost.typeNode); //ci assicuriamo che sia una variabile se si tartta di un metodo allora errore es: int a a()
+                    } else {
+                        if (recordPrec.kind.equalsIgnoreCase("var")) {
+                            node.idInitObb.get(i).cost.accept(this);
+                            top.put(node.idInitObb.get(i).id.val, "var", null, node.idInitObb.get(i).cost.typeNode); //ci assicuriamo che sia una variabile se si tartta di un metodo allora errore es: int a a()
+                        } else {
+                            try {
+                                throw new Exception("Esiste già una funzione con lo stesso nome: " + node.idInitObb.get(i).id.val);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
                 } else {
                     try {
 
-                        throw new Exception("Esiste già una funzione con lo stesso nome: " + node.idInitObb.get(i).id.val);
+                        throw new Exception("Dichiarazione multipla");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
             }
-
-        } else {
-            try {
-
-                throw new Exception("Dichiarazione multipla");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
-    }
-}
 
         return null;
     }
@@ -269,28 +274,21 @@ if(node.idInitObb != null) {
 
         top = new Env(top);
 
-        for(int i=0; i< parDecls.size();i++){
+        for(int i=0; i<parDecls.size();i++){
             parDecls.get(i).accept(this);
-
-
         }
-
 
         for(int i=0; i< body.listaVar.size(); i++){
             body.listaVar.get(i).accept(this);
         }
 
-            for (int i = 0; i < body.listaStat.size(); i++) {
-                if(body.listaStat.get(i)!=null) {
-                    body.listaStat.get(i).accept(this);
-                }
+        for (int i = 0; i < body.listaStat.size(); i++) {
+            if(body.listaStat.get(i)!=null) {
+                body.listaStat.get(i).accept(this);
             }
-
+        }
 
         body.currentEnv = top;
-
-
-
         top = top.prev;
 
 
@@ -315,6 +313,7 @@ if(node.idInitObb != null) {
     }
     @Override
     public String visit(WhileStat whileStat) {
+
         whileStat.body.accept(this);
 
         return null;
@@ -323,7 +322,7 @@ if(node.idInitObb != null) {
     @Override
     public String visit(ForStat forStat) {
 
-    forStat.body.accept(this);
+        forStat.body.accept(this);
 
         return null;
     }
@@ -374,7 +373,6 @@ if(node.idInitObb != null) {
             Class classe = programRoot.declist1.get(i).getClass();
             if(classe == FunDecl.class){
                 FunDecl fundecl =(FunDecl) programRoot.declist1.get(i);
-
                 if(top.getInThisTable(fundecl.id.val) == null){
                     for(int j=0;j<fundecl.listaPar.size();j++){
 
@@ -384,13 +382,7 @@ if(node.idInitObb != null) {
                         }
                     }
 
-
                     top.put(fundecl.id.val, "func", listaparametri1, fundecl.type);
-
-
-
-
-
 
                 }else{
                     try {
@@ -416,7 +408,6 @@ if(node.idInitObb != null) {
                             listaparametri2.add(0,fundecl.listaPar.get(j).type);
                         }
 
-
                     }
 
                     top.put(fundecl.id.val, "func", listaparametri2, fundecl.type);
@@ -434,10 +425,9 @@ if(node.idInitObb != null) {
 
         //richiamo accept su i fundecl di declist1
         for(int i=0; i<programRoot.declist1.size();i++){
-            Class classe = programRoot.declist1.get(i).getClass();
+             Class classe = programRoot.declist1.get(i).getClass();
              if(classe == FunDecl.class){
                 FunDecl fundecl =(FunDecl) programRoot.declist1.get(i);
-
                 fundecl.accept(this);
                 //sovrascrivo recordsymboltable
                  for(int j=0;j<fundecl.listaPar.size();j++){
@@ -449,9 +439,7 @@ if(node.idInitObb != null) {
 //
 //                     }
 
-
                  }
-
             }
         }
 
@@ -464,8 +452,6 @@ if(node.idInitObb != null) {
             if(classe == FunDecl.class){
                 FunDecl funDecl =(FunDecl) programRoot.declist2.get(i);
                 funDecl.accept(this);
-
-
                 for(int j=0;j<funDecl.listaPar.size();j++){
 
                     top.getInThisTable(funDecl.id.val).parDecls=funDecl.listaPar;
@@ -474,7 +460,6 @@ if(node.idInitObb != null) {
 //
 //
 //                    }
-
 
                 }
             }
@@ -492,11 +477,9 @@ if(node.idInitObb != null) {
             }
         }
 
+
         printSymbleTable();
-
         programRoot.currentEnv=top;
-
-
         return null;
     }
 
