@@ -5,10 +5,10 @@
 #include <math.h>
 //prototipi funzioni
 void elaboraScelta(int operazione);
-void somma(float numB,float numA,float* result);
-void sottrazione(float numB,float numA,float* result);
-void divisione(float numB,float numA,float* result);
-void moltiplicazione(float numB,float numA,float* result);
+void somma(float numA,float numB,float* result);
+void sottrazione(float numA,float numB,float* result);
+void divisione(float numA,float numB,float* result);
+void moltiplicazione(float numA,float numB,float* result);
 void test();
 
 char supporto[100];
@@ -17,7 +17,7 @@ void elaboraScelta(int operazione){
 	float result,numB,numA;
 	if(operazione == 4){
 	if(numB != 0){
-	divisione(numA,numB,&result);
+	divisione(&numA,numB,result);
 }
 else{
 		printf("%s ", "Divisione impossibile, il denomitaore non può essere 0");
@@ -25,15 +25,15 @@ else{
 }
 	if(operazione == 3){
 		printf("%s %f ", "il risultato della moltiplicazione  è :  ", result);
-	moltiplicazione(numA,numB,&result);
+	moltiplicazione(&numA,numB,result);
 }
 	if(operazione == 2){
 		printf("%s %f ", "il risultato della sottrazione  è :  ", result);
-	sottrazione(numA,numB,&result);
+	sottrazione(&numA,numB,result);
 }
 	if(operazione == 1){
 		printf("%s %f ", "il risultato della somma  è :  ", result);
-	somma(numA,numB,&result);
+	somma(&numA,numB,result);
 }
 	printf("inserisci il secondo numero");
 	scanf("%f",&numB);
@@ -43,16 +43,16 @@ else{
 numB = 0.0;
 result = 0.0;
 }
-void somma(float* result,float numA,float numB){
+void somma(float numA,float numB,float* result){
 	*result = numA + numB;
 }
-void sottrazione(float* result,float numA,float numB){
+void sottrazione(float numA,float numB,float* result){
 	*result = numA - numB;
 }
-void divisione(float* result,float numA,float numB){
+void divisione(float numA,float numB,float* result){
 	*result = numA / numB;
 }
-void moltiplicazione(float* result,float numA,float numB){
+void moltiplicazione(float numA,float numB,float* result){
 	*result = numA * numB;
 }
 void test(){

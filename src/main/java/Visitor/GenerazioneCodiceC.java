@@ -373,7 +373,7 @@ public class GenerazioneCodiceC implements Visitatore{
         this.content="";
 
 
-        Collections.reverse(node.listaID);
+       // Collections.reverse(node.listaID);
 
         if(node.nomeNodo.equalsIgnoreCase("ParDeclOP")) {
             for (int i = 0; i < node.listaID.size(); i++) {
@@ -628,6 +628,7 @@ public class GenerazioneCodiceC implements Visitatore{
                 content += node.listaStat.get(i).accept(this);
             }
         }
+
         this.content +="}\n";
         top= top.prev;
         return content;
@@ -729,6 +730,7 @@ public class GenerazioneCodiceC implements Visitatore{
             if(i != node.listaPar.size()-1)
                 this.content+=",";
         }
+        Collections.reverse(node.listaPar);
         this.content += ")";
         this.content+=node.body.accept(this);
 
