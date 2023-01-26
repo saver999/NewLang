@@ -348,6 +348,8 @@ public class ScopingVisitor implements Visitatore{
         * successivamente andiamo ad inserire nella tabella global i record relativi alle funzioni sia di declist 1 che declist 2 cosi che
         * ogni funzione sia poi visibile ad ogni altra
         * dopo queste operazioni preleminari posso chiamare gli accept dei fundecl i quali andranno a creare lo scope relativo
+        *
+        * Non è possibile dichiarare una funzione che si chiama main, nenache il main stesso!
         * */
 
         top = new Env(top);
@@ -378,7 +380,7 @@ public class ScopingVisitor implements Visitatore{
             Class classe = programRoot.declist1.get(i).getClass();
             if(classe == FunDecl.class){
                 FunDecl fundecl =(FunDecl) programRoot.declist1.get(i);
-                if(top.getInThisTable(fundecl.id.val) == null){
+                if(top.getInThisTable(fundecl.id.val) == null && !fundecl.id.val.equalsIgnoreCase("main") ){
                     for(int j=0;j<fundecl.listaPar.size();j++){
 
                         for(int k = 0; k < fundecl.listaPar.get(j).listaID.size(); k++) {
@@ -405,7 +407,7 @@ public class ScopingVisitor implements Visitatore{
             if(classe == FunDecl.class){
                 FunDecl fundecl =(FunDecl) programRoot.declist2.get(i);
 
-                if(top.getInThisTable(fundecl.id.val) == null) {
+                if(top.getInThisTable(fundecl.id.val) == null&& !fundecl.id.val.equalsIgnoreCase("main")  ) {
 
                     for (int j = 0; j < fundecl.listaPar.size(); j++) {
                         for (int k = 0; k < fundecl.listaPar.get(j).listaID.size(); k++) {
@@ -472,7 +474,7 @@ public class ScopingVisitor implements Visitatore{
 
         // aggiungo id del main alla tabella global
         programRoot.mainFun.accept(this);
-        if(top.getInThisTable(programRoot.mainFun.fundecl.id.val)==null){
+        if(top.getInThisTable(programRoot.mainFun.fundecl.id.val)==null&& !programRoot.mainFun.fundecl.id.val.equalsIgnoreCase("main")  ){
             top.put(programRoot.mainFun.fundecl.id.val,"mainFunc",new ArrayList<String>(),programRoot.mainFun.fundecl.type);
         }else{
             try {

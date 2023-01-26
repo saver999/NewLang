@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="fibonacci" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="esercitazione5.Main" />
+    <module name="de-stefano-napolitano_es5" />
+    <option name="PROGRAM_PARAMETERS" value="test/fibonacci" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
