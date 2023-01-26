@@ -17,8 +17,9 @@ real f << 8.0;
 
 
 }
-def test2(real ok): void{
-
+def test2( real ok): void{
+    real c<<0.0;
+     c << ok;
 }
 
 

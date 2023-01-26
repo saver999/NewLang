@@ -26,6 +26,7 @@ public class Env {
         return null;
     }
 
+
     public RecordSymbolTable getInThisTable(String s) {
         RecordSymbolTable found = (RecordSymbolTable)(table.get(s));
 

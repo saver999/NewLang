@@ -750,6 +750,67 @@ public class GenerazioneCodiceC implements Visitatore{
         this.content += "#include <string.h>\n";
         this.content += "#include <stdbool.h>\n";
         this.content += "#include <math.h>\n";
+        this.content += "//prototipi funzioni\n";
+
+        //scorro la env global per scrivere i prototipi
+        if(node.declist1.size() >= 1) {
+
+
+            for (int i = 0; i < node.declist1.size(); i++) {
+                Class classe = node.declist1.get(i).getClass();
+
+                if (classe == FunDecl.class) {
+                    String prototipo="";
+                    String contentTemp="";
+                    FunDecl nodo = (FunDecl) node.declist1.get(i);
+                    contentTemp=this.content;
+                    prototipo += nodo.accept(this);
+
+                    prototipo=prototipo.substring(0,prototipo.indexOf("{"));
+                    prototipo +=";\n";
+
+                    this.content =contentTemp;
+                    this.content+=prototipo;
+                }
+            }
+        }
+        if(node.declist2.size() >= 1) {
+
+
+
+            for (int i = 0; i < node.declist2.size(); i++) {
+                Class classe = node.declist2.get(i).getClass();
+
+                if (classe == FunDecl.class) {
+
+                    String prototipo="";
+                    String contentTemp="";
+                    FunDecl nodo = (FunDecl) node.declist2.get(i);
+                    contentTemp=this.content;
+                    prototipo += nodo.accept(this);
+
+                    prototipo=prototipo.substring(0,prototipo.indexOf("{"));
+                    prototipo +=";\n";
+                    this.content =contentTemp;
+                    this.content+=prototipo;
+
+                }
+            }
+        }
+
+        String prototipo="";
+        String contentTemp="";
+        contentTemp=this.content;
+        prototipo +=node.mainFun.fundecl.accept(this);
+        prototipo=prototipo.substring(0,prototipo.indexOf("{"));
+        prototipo +=";\n";
+        this.content =contentTemp;
+        this.content+=prototipo;
+
+
+
+        //fine scorrimento per scrittura prototipi
+
         this.content += "char supporto[100];\n";
 
 
