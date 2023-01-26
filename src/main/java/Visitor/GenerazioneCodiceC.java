@@ -282,12 +282,12 @@ public class GenerazioneCodiceC implements Visitatore{
 
 
             }
-            this.content += "\n\"";
+            this.content += "\"";
             for(int i=0;i<node.listaExpr.size();i++) {
                 this.content +=", ";
                 this.content += node.listaExpr.get(i).accept(this);
             }
-            this.content += ")";
+            this.content += ");\n";
         }else{
             this.content+= "printf(\"";
             for(int i=0;i<node.listaExpr.size();i++) {
@@ -327,13 +327,14 @@ public class GenerazioneCodiceC implements Visitatore{
     @Override
     public String visit(ReadStat node) {
         this.content ="";
-        if(node.val!=null){
+        if(node.val.val!=null){
             this.content+="printf(";
+
             this.content+= node.val.accept(this);
             this.content+=");";
             this.content+="\n";
         }
-        this.content+="scanf(\"";
+        this.content+="\tscanf(\"";
         for(int i =0;i<node.idList.size();i++){
             switch (node.idList.get(i).typeNode){
                 case "INTEGER":
@@ -361,7 +362,7 @@ public class GenerazioneCodiceC implements Visitatore{
             this.content += node.idList.get(i).val;
 
         }
-        this.content += ");";
+        this.content += ");\n";
 
         return content;
     }
@@ -463,7 +464,7 @@ public class GenerazioneCodiceC implements Visitatore{
 
     @Override
     public String visit(VarDecl node) {
-        this.content = "";
+        this.content = "\t";
 
         if(node.nomeNodo.equalsIgnoreCase("VarDeclObb")){
             for(int i=0; i<node.idInitObb.size(); i++){
@@ -571,7 +572,7 @@ public class GenerazioneCodiceC implements Visitatore{
 
     @Override
     public String visit(Stat node) {
-        this.content = "";
+        this.content = "\t";
 
         Class classe = node.nodo.getClass();
 
@@ -616,13 +617,16 @@ public class GenerazioneCodiceC implements Visitatore{
         top= node.currentEnv;
         this.content +="{\n";
         for(int i=0;i<node.listaVar.size();i++){
+         //   this.content ="\t";
             content+= node.listaVar.get(i).accept(this);
 
         }
         Collections.reverse(node.listaStat);
         for(int i=0;i<node.listaStat.size();i++){
-            if(node.listaStat.get(i) != null)
-            content+= node.listaStat.get(i).accept(this);
+            if(node.listaStat.get(i) != null) {
+
+                content += node.listaStat.get(i).accept(this);
+            }
         }
         this.content +="}\n";
         top= top.prev;
@@ -650,9 +654,10 @@ public class GenerazioneCodiceC implements Visitatore{
     @Override
     public String visit(WhileStat node) {
         this.content = "";
-        this.content += "while (";
+        this.content += "   while (";
         content+=node.nodeEx.accept(this);
         this.content += ")";
+
         this.content+=node.body.accept(this);
 
         return content;
@@ -807,11 +812,11 @@ public class GenerazioneCodiceC implements Visitatore{
         this.content =contentTemp;
         this.content+=prototipo;
 
-
+        this.content +="\n";
 
         //fine scorrimento per scrittura prototipi
 
-        this.content += "char supporto[100];\n";
+        this.content += "char supporto[100];\n\n";
 
 
         //dichiarazioni di variabili globali tutte all'inizio
