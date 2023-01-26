@@ -207,6 +207,7 @@ public class GenerazioneCodiceC implements Visitatore{
 
 
         if (recordSymbolTable.parDecls != null){
+            Collections.reverse(recordSymbolTable.parDecls);
             for (int i = 0; i < recordSymbolTable.parDecls.size(); i++) {
                 for (int j = 0; j < recordSymbolTable.parDecls.get(i).listaID.size(); j++) {
                     if (recordSymbolTable.parDecls.get(i).isOut) {
@@ -227,9 +228,11 @@ public class GenerazioneCodiceC implements Visitatore{
                     this.content += ",";
 
             }
+            Collections.reverse(recordSymbolTable.parDecls);
     }
 
-        this.content += ");\n";
+
+        this.content += ")";
 
 
         return content;
@@ -284,7 +287,7 @@ public class GenerazioneCodiceC implements Visitatore{
 
 
             }
-            this.content += "\"";
+            this.content += "\\n\"";
             for(int i=0;i<node.listaExpr.size();i++) {
                 this.content +=", ";
                 this.content += node.listaExpr.get(i).accept(this);
@@ -314,7 +317,7 @@ public class GenerazioneCodiceC implements Visitatore{
 
 
             }
-            this.content += "\"";
+            this.content += "\\n\"";
             for(int i=0;i<node.listaExpr.size();i++) {
                 this.content +=", ";
                 this.content += node.listaExpr.get(i).accept(this);
@@ -410,7 +413,7 @@ public class GenerazioneCodiceC implements Visitatore{
             for (int i = 0; i < node.listaID.size(); i++) {
                 switch (node.type) {
                     case "STRING":
-                        this.content += "char *";
+                        this.content += "char **";
                         break;
 
                     case "BOOL":
@@ -593,6 +596,7 @@ public class GenerazioneCodiceC implements Visitatore{
         }else if(classe == FuncallNode.class){
             FuncallNode nodo =(FuncallNode) node.nodo;
             this.content += nodo.accept(this);
+            this.content +=";\n";
         }else if(classe == WhileStat.class){
             WhileStat nodo =(WhileStat) node.nodo;
             this.content += nodo.accept(this);
@@ -601,11 +605,11 @@ public class GenerazioneCodiceC implements Visitatore{
             this.content += nodo.accept(this);
         }else if(classe == ExprNode.class){
             ExprNode nodo =(ExprNode) node.nodo;
-            this.content += "return";
+            this.content += "return ";
             this.content += nodo.accept(this);
             this.content += ";\n";
         }else if(node.nameStat.equalsIgnoreCase("returnVoid")){
-            this.content += "return";
+            this.content += "return ";
             this.content += ";\n";
 
         }
@@ -630,6 +634,7 @@ public class GenerazioneCodiceC implements Visitatore{
                 content += node.listaStat.get(i).accept(this);
             }
         }
+        Collections.reverse(node.listaStat);
 
         this.content +="}\n";
         top= top.prev;

@@ -10,9 +10,10 @@ start: def test(): void{
        ("se vuoi fare la sottrazione scrivi 2 ") -->!;
        ("se vuoi fare la moltiplicazione scrivi 3 ") -->!;
        ("se vuoi fare la divisione  scrivi 4 ") -->!;
-       operazione <-- "inserisci la tua scelta qui (1,2,3,4)";
+        ("se vuoi fare la potenza  scrivi 5 ") -->!;
+       operazione <-- "inserisci la tua scelta qui (1,2,3,4,5)";
 
-       if operazione = 1 or operazione = 2 or operazione = 3 or operazione =  4 then {
+       if operazione = 1 or operazione = 2 or operazione = 3 or operazione =  4 or operazione =  5 then {
            elaboraScelta(operazione);
 
        }
@@ -46,10 +47,15 @@ def elaboraScelta(integer operazione ): void{
         if operazione = 4 then {
             if numB <> 0 then {
                 divisione(numA, numB, result);
+                ("il risultato della divisione  è :  " , result)-->!;
             }else{
                 ("Divisione impossibile, il denomitaore non può essere 0") -->!;
             }
         }
+        if operazione = 5 then {
+                        potenza(numA, numB, result);
+                        ("il risultato della potenza  è :  " , result)-->!;
+                    }
 
 
 }
@@ -68,6 +74,9 @@ def divisione( real numA, numB | out real result): void {
 }
 def moltiplicazione( real numA, numB | out real result): void {
      result << numA * numB;
+}
+def potenza( real numA, numB | out real result): void {
+     result << numA^numB;
 }
 
 

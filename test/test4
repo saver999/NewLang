@@ -1,8 +1,9 @@
 
 
- def test1(integer a, b | out real c, d,f): void{
+ def test1(integer a |  string refstringa,stringa): string{
 
-        test();
+    refstringa << stringa&" napolitano";
+return refstringa;
 
 
 
@@ -10,17 +11,15 @@
 
 start: def test(): void{
 
-real c << 5.0;
-real d << 8.0;
-real f << 8.0;
+ string stringa << "saverio";
+ string stringa2 ;
 
-
+stringa2<<test1(1,stringa2,stringa);
+("la stringa concatenata è :  " , stringa2)-->!;
 
 
 }
-def test2( real ok): void{
-    test();
-}
+
 
 
 
