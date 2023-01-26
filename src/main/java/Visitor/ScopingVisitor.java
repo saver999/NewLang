@@ -344,6 +344,11 @@ public class ScopingVisitor implements Visitatore{
 
     @Override
     public String visit(ProgramRoot programRoot) {
+        /*in questo metodo chiamiamo prima tutti i vardecl affinchè siano visibili alle funzioni
+        * successivamente andiamo ad inserire nella tabella global i record relativi alle funzioni sia di declist 1 che declist 2 cosi che
+        * ogni funzione sia poi visibile ad ogni altra
+        * dopo queste operazioni preleminari posso chiamare gli accept dei fundecl i quali andranno a creare lo scope relativo
+        * */
 
         top = new Env(top);
 
