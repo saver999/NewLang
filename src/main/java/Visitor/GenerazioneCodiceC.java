@@ -459,8 +459,9 @@ public class GenerazioneCodiceC implements Visitatore{
 
     @Override
     public String visit(IDInitObb node) {
-        this.content="";
+        this.content=" ";
         this.content += node.id.accept(this);
+        this.content+=" = ";
         this.content += node.cost.accept(this);
 
 

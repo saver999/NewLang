@@ -15,6 +15,17 @@ StringBuffer string = new StringBuffer();
 
 // Abbreviations for regular expressions
 
+ /* comments */
+
+LineTerminator = \r|\n|\r\n
+ InputCharacter = [^\r\n]
+Comment = {TraditionalComment} | {EndOfLineComment} | {DocumentationComment}
+
+TraditionalComment   = "/*" [^*] ~"*/" | "/*" "*"+ "/"
+// Comment can be the last line of the file, without line terminator.
+EndOfLineComment     = "//" {InputCharacter}* {LineTerminator}?
+DocumentationComment = "/**" {CommentContent} "*"+ "/"
+CommentContent       = ( [^*] | \*+ [^/*] )*
 
 whitespace = [ \r\n\t\f]
 
@@ -92,7 +103,7 @@ id = {symbol}({all_symbol})*
 
  {integer} {return new Symbol(sym.INTEGER_CONST, Integer.parseInt(yytext().toString()));}
  {real} {return new Symbol(sym.REAL_CONST, Float.parseFloat(yytext().toString()));}
-
+ {Comment}   { /* ignore */ }
  {whitespace} { /* ignore */ }
  }
 <STRING> {

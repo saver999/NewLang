@@ -1,9 +1,9 @@
-integer i<<30;
-var a<< true;
+char s<<'a';
+integer i;
 start: def test(): void{
-
+/*dsfdf*/
     for i<<8 to 7 loop {
     ("se vuoi fare la somma scrivi 1 ") -->!;
     }
-    ("fuori for ",i) -->!;
+    ("fuori for ") -->!;
 }
