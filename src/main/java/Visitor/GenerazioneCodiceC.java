@@ -481,7 +481,7 @@ public class GenerazioneCodiceC implements Visitatore{
                         break;
 
                     case "BOOL":
-                        this.content += node.type.toLowerCase();
+                        this.content += node.idInitObb.get(i).cost.typeNode.toLowerCase();
                         this.content += " ";
                         break;
                     case "REAL":
@@ -491,7 +491,7 @@ public class GenerazioneCodiceC implements Visitatore{
                         this.content += "int";
                         break;
                     case "CHAR":
-                        this.content += node.type.toLowerCase();
+                        this.content += node.idInitObb.get(i).cost.typeNode.toLowerCase();
                         this.content += " ";
                         break;
 

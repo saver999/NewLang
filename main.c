@@ -4,24 +4,19 @@
 #include <stdbool.h>
 #include <math.h>
 //prototipi funzioni
-void main2();
+void test();
 
 char supporto[100];
 
-void main2(){
-	int f,i,penultimo,ultimo;
-	penultimo = 0;
-		printf("%d \n", penultimo);
-	ultimo = 1;
-		printf("%d \n", ultimo);
-	for (int i = 2;i <= 100;i++){
-	f = ultimo + penultimo;
-		printf("%d \n", f);
-	penultimo = ultimo;
-	ultimo = f;
+	int i=30;
+	bool atrue;
+void test(){
+	for (int i = 8;i <= 7;i++){
+		printf("%s \n", "se vuoi fare la somma scrivi 1 ");
 }
+		printf("%s %d \n", "fuori for ", i);
 }
 int main(){
-main2();
+test();
 return 0;
 }

@@ -815,9 +815,9 @@ if(node.idInitObb != null) {
             }
         }
 
-
         return null;
     }
+
     public String  printSymbleTable(){
         int num = 0;
         String tabella = "";

@@ -1,0 +1,39 @@
+
+
+ def test1(integer a |  string refstringa,stringa): string{
+
+    refstringa << stringa&" napolitano";
+
+return refstringa;
+
+
+
+}
+
+start: def test(): void{
+
+ string stringa << "saverio";
+ string stringa2 ;
+
+stringa2<<test1(1,stringa2,stringa);
+if stringa2 > stringa then{
+ ("la stringa concatenata è :  " , stringa2)-->!;
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
