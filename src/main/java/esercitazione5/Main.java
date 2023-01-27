@@ -7,6 +7,7 @@ import Visitor.ScopingVisitor;
 import Visitor.TreeMaker;
 import nodi.*;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.InputStreamReader;
 
@@ -38,10 +39,41 @@ public class Main {
             pr.accept(gc);//generazione codice C
             System.out.println("##### GENERAZIONE CODICE C #####");
             gc.saveFileC();
+            //runProgramInC();
         }else {
             System.out.println("NO");
         }
     }
+
+//    public static void runProgramInC(){
+//
+//
+//        try {
+//            Process p = Runtime.getRuntime().exec("gcc -v");
+//            BufferedReader in = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+//            String line = null;
+//            while ((line = in.readLine()) != null) {
+//                System.out.println(line);
+//            }
+//        } catch (Exception e) {
+//            System.out.println("GCC is not installed on this system.");
+//            e.printStackTrace();
+//        }
+//
+//
+//
+//            try {
+//
+//                Runtime rt = Runtime.getRuntime();
+//                Process processGCC = rt.exec("gcc output/main.c -o output/executableMain.o");
+//                processGCC.waitFor();
+//                Process processEXE = Runtime.getRuntime().exec("cmd /k start cmd.exe @cmd /k output\\TranslatedCodeInC.exe");
+//                processEXE.waitFor();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//
+//    }
 
 
 

@@ -667,12 +667,14 @@ if(node.idInitObb != null) {
 
     @Override
     public String visit(ForStat node) {
+        top = node.body.currentEnv;
         int flag=0;
 
         node.id.accept(this);
         node.val1.accept(this);
         node.val2.accept(this);
         node.body.accept(this);
+
 
         if(node.id.typeNode.equalsIgnoreCase("error"))
             flag=1;

@@ -1,35 +1,75 @@
 
 
- def test1(integer a |  string refstringa,stringa): string{
-
-    refstringa << stringa&" napolitano";
-return refstringa;
-
+def sommac(integer a, d | real b | out string size): real
+{
+	real result;
 
 
+	result  <<  a + b + c + d;
+
+	if result > 100 then{
+		var valore << "grande";
+ 		size << valore; }
+	else {
+		var valore << "piccola";
+ 		size << valore;
+	}
+
+	return result;
 }
 
-start: def test(): void{
 
- string stringa << "saverio";
- string stringa2 ;
-
-stringa2<<test1(1,stringa2,stringa);
-("la stringa concatenata è :  " , stringa2)-->!;
+var c << 1;
 
 
+
+def esercizio() : void {
+
+
+    var a << 1, b << 2.2, x << 3;
+
+    string taglia, ans1;
+    var ans << "no";
+    real risultato << sommac(a, x, b, taglia);
+
+
+    stampa("la somma  incrementata  è " );
+    (taglia) -->!;
+     stampa(" ed è pari a " );
+     (risultato) -->!;
+
+	("vuoi continuare? (si/no) - inserisci due volte la risposta")  -->! ;
+	ans, ans1 <--;
+    while ans = "si" loop {
+
+        a <-- "inserisci un intero:";
+        b <-- "inserisci un reale:";
+        risultato << sommac(a, x, b, taglia);
+        stampa("la somma  incrementata  è " );
+        (taglia) -->!;
+        stampa(" ed è pari a " );
+        (risultato) -->!;
+        ans <-- "vuoi continuare? (si/no):";
+    }
+
+    ("") -->! ;
+    ("ciao") -->;
 }
 
 
 
+start:
+def stampa(string messaggio): void {
 
+    integer a;
+    integer i;
+    integer x;
+	for x << 4 to 1 loop {
+		("") -->! ;
+	}
 
+	(messaggio) -->! ;
 
-
-
-
-
-
-
+}
 
 

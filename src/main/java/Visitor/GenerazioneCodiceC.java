@@ -910,7 +910,7 @@ public class GenerazioneCodiceC implements Visitatore{
         Writer writer = null;
 
         try {
-            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("main.c"), "utf-8"));
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("output/main.c"), "utf-8"));
             writer.write(this.content);
             writer.close();
         } catch (IOException ex) {

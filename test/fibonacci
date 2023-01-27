@@ -1,5 +1,5 @@
 start: def main2(): void{
-    integer ultimo, penultimo,i,f;
+    integer ultimo, penultimo,f;
 
     penultimo<<0;
 (penultimo)-->!;

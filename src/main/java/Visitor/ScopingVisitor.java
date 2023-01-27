@@ -253,6 +253,9 @@ public class ScopingVisitor implements Visitatore{
     public String visit(Body body) {
         top = new Env(top);
 
+        if(body.idfor != null)
+            top.put(body.idfor, "var", null,"INTEGER");
+
         for(int i=0; i< body.listaVar.size(); i++){
             body.listaVar.get(i).accept(this);
         }
@@ -323,6 +326,7 @@ public class ScopingVisitor implements Visitatore{
     @Override
     public String visit(ForStat forStat) {
 
+        forStat.body.idfor = forStat.id.val;
         forStat.body.accept(this);
 
         return null;

@@ -15,6 +15,8 @@ public   class Body extends Node{
 
     public Env currentEnv;
 
+    public String idfor;
+
     public Body(String nomeNodo, ArrayList<VarDecl> listaVar, ArrayList<Stat> listaStat){
         this.nomeNodo = nomeNodo;
         this.listaVar = listaVar;
