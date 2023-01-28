@@ -204,7 +204,7 @@ public class AnalisiSemantica implements Visitatore{
             } else {
                 node.typeNode = "error";
                 try {
-                    throw new Exception("Numero di parametri errato" + node.nomeNodo);
+                    throw new Exception("Numero di parametri errato " + node.id.val);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -264,7 +264,7 @@ public class AnalisiSemantica implements Visitatore{
                     RecordSymbolTable record = top.getInTypeEnviroment(node.idList.get(i).val);
 
                     if (!((record.typeRitorno).equals(typeExprFinale.get(i)))) {
-                       // if (!(record.typeRitorno.equals("REAL") && typeExprFinale.get(i).equals("INTEGER"))) {
+                        if (!(record.typeRitorno.equals("REAL") && typeExprFinale.get(i).equals("INTEGER"))) {
                             node.typeNode = "error";
                             try {
                                 throw new Exception("Assegnazione non consentita " + node.nomeNodo + node.idList.get(i).val + node.exprList.get(i).nodo1.toString());
@@ -272,7 +272,7 @@ public class AnalisiSemantica implements Visitatore{
                                 e.printStackTrace();
                             }
                             break;
-                      //  }
+                        }
                     }
                 }
             }else{
@@ -374,8 +374,13 @@ public class AnalisiSemantica implements Visitatore{
         if(node.expr != null){
             node.expr.accept(this);
             if(node.id.typeNode.equals(node.expr.typeNode)){
+                 node.typeNode = "notype";
+            }else
+            if(node.id.typeNode.equals("REAL") && node.expr.typeNode.equals("INTEGER")){
                 node.typeNode = "notype";
-            }else {
+            }
+            else
+            {
                 node.typeNode ="error";
                 try {
                     throw new Exception("errore inizializzazione");
@@ -475,47 +480,49 @@ public class AnalisiSemantica implements Visitatore{
 
     @Override
     public String visit(Stat node) {
-        Class classe = node.nodo.getClass();
+        if(node.nodo != null) {
+            Class classe = node.nodo.getClass();
 
-        if (classe == IfStat.class) {
-            IfStat nodo = (IfStat) node.nodo;
-            nodo.accept(this);
-            node.typeNode = nodo.typeNode;
+            if (classe == IfStat.class) {
+                IfStat nodo = (IfStat) node.nodo;
+                nodo.accept(this);
+                node.typeNode = nodo.typeNode;
 
-        }else if(classe == ForStat.class){
-            ForStat nodo =(ForStat) node.nodo;
-            nodo.accept(this);
-            node.typeNode = nodo.typeNode;
+            } else if (classe == ForStat.class) {
+                ForStat nodo = (ForStat) node.nodo;
+                nodo.accept(this);
+                node.typeNode = nodo.typeNode;
 
-        }else if(classe == WriteStat.class){
-            WriteStat nodo =(WriteStat) node.nodo;
-            nodo.accept(this);
-            node.typeNode = nodo.typeNode;
+            } else if (classe == WriteStat.class) {
+                WriteStat nodo = (WriteStat) node.nodo;
+                nodo.accept(this);
+                node.typeNode = nodo.typeNode;
 
-        }else if(classe == AssignStat.class){
-            AssignStat nodo =(AssignStat) node.nodo;
-            nodo.accept(this);
-            node.typeNode = nodo.typeNode;
-        }else if(classe == FuncallNode.class){
-            FuncallNode nodo =(FuncallNode) node.nodo;
-            nodo.accept(this);
-            node.typeNode = nodo.typeNode;
-        }else if(classe == WhileStat.class){
-            WhileStat nodo =(WhileStat) node.nodo;
-            nodo.accept(this);
-            node.typeNode = nodo.typeNode;
+            } else if (classe == AssignStat.class) {
+                AssignStat nodo = (AssignStat) node.nodo;
+                nodo.accept(this);
+                node.typeNode = nodo.typeNode;
+            } else if (classe == FuncallNode.class) {
+                FuncallNode nodo = (FuncallNode) node.nodo;
+                nodo.accept(this);
+                node.typeNode = nodo.typeNode;
+            } else if (classe == WhileStat.class) {
+                WhileStat nodo = (WhileStat) node.nodo;
+                nodo.accept(this);
+                node.typeNode = nodo.typeNode;
 
-        }else if(classe == ReadStat.class){
-            ReadStat nodo =(ReadStat) node.nodo;
-            nodo.accept(this);
-            node.typeNode = nodo.typeNode;
-        }else if(classe == ExprNode.class){
-            ExprNode nodo =(ExprNode) node.nodo;
-            nodo.accept(this);
-            node.typeNode = nodo.typeNode;
-            node.tipoRitorno = nodo.typeNode;
+            } else if (classe == ReadStat.class) {
+                ReadStat nodo = (ReadStat) node.nodo;
+                nodo.accept(this);
+                node.typeNode = nodo.typeNode;
+            } else if (classe == ExprNode.class) {
+                ExprNode nodo = (ExprNode) node.nodo;
+                nodo.accept(this);
+                node.typeNode = nodo.typeNode;
+                node.tipoRitorno = nodo.typeNode;
+            }
+
         }
-
 
         return null;
     }

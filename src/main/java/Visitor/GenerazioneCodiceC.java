@@ -72,7 +72,16 @@ public class GenerazioneCodiceC implements Visitatore{
                     this.content += tmp;
                     flagOPString = 1;
                 }
-            }else if(node.nomeNodo.equalsIgnoreCase("PowOp")){
+            }else if(node.nomeNodo.equalsIgnoreCase("StrConcatOp")&& node.nodo2!=null){
+                if(nodo.typeNode.equalsIgnoreCase("integer")){
+
+                    this.content += "strcat(strcpy(supporto,conversioneInt("+nodo.accept(this)+")),";
+                }else if(nodo.typeNode.equalsIgnoreCase("real")){
+
+                    this.content += "strcat(strcpy(supporto,conversioneFloat("+nodo.accept(this)+")),";
+                }
+
+           } else if(node.nomeNodo.equalsIgnoreCase("PowOp")){
                 this.content+= "pow(";
                 this.content += nodo.accept(this);
                 this.content+= ",";
@@ -144,8 +153,18 @@ public class GenerazioneCodiceC implements Visitatore{
                         this.content += nodo2.accept(this);
                         this.content += ")";
                     } else if (node.nomeNodo.equalsIgnoreCase("StrConcatOp")) {
-                        this.content += nodo2.accept(this);
-                        this.content += ")";
+
+                        if(nodo2.typeNode.equalsIgnoreCase("string")) {
+                            this.content += nodo2.accept(this);
+                            this.content += ")";
+                        }else  if(nodo2.typeNode.equalsIgnoreCase("real")){
+                            this.content += "conversioneFloat("+nodo2.accept(this)+")";
+                            this.content += ")";
+
+                        }else  if(nodo2.typeNode.equalsIgnoreCase("integer")){
+                            this.content += "conversioneInt("+nodo2.accept(this)+")";
+                            this.content += ")";
+                        }
 
                     } else {
                         this.content += nodo2.accept(this);
@@ -578,6 +597,9 @@ public class GenerazioneCodiceC implements Visitatore{
                 if(node.type.equals("STRING"))
                     this.content += "*";
 
+
+               // node.listaID.get(i).expr.nomeNodo;
+
                 this.content += node.listaID.get(i).accept(this);
 
                 if (i != node.listaID.size() - 1)
@@ -626,39 +648,41 @@ public class GenerazioneCodiceC implements Visitatore{
     public String visit(Stat node) {
         this.content = "\t";
 
-        Class classe = node.nodo.getClass();
+        if(node.nodo != null) {
+            Class classe = node.nodo.getClass();
 
-        if (classe == IfStat.class) {
-            IfStat nodo = (IfStat) node.nodo;
-            this.content += nodo.accept(this);
-        }else if(classe == ForStat.class){
-            ForStat nodo =(ForStat) node.nodo;
-            this.content += nodo.accept(this);
-        }else if(classe == WriteStat.class){
-            WriteStat nodo =(WriteStat) node.nodo;
-            this.content += nodo.accept(this);
-        }else if(classe == AssignStat.class){
-            AssignStat nodo =(AssignStat) node.nodo;
-            this.content += nodo.accept(this);
-        }else if(classe == FuncallNode.class){
-            FuncallNode nodo =(FuncallNode) node.nodo;
-            this.content += nodo.accept(this);
-            this.content +=";\n";
-        }else if(classe == WhileStat.class){
-            WhileStat nodo =(WhileStat) node.nodo;
-            this.content += nodo.accept(this);
-        }else if(classe == ReadStat.class){
-            ReadStat nodo =(ReadStat) node.nodo;
-            this.content += nodo.accept(this);
-        }else if(classe == ExprNode.class){
-            ExprNode nodo =(ExprNode) node.nodo;
-            this.content += "return ";
-            this.content += nodo.accept(this);
-            this.content += ";\n";
-        }else if(node.nameStat.equalsIgnoreCase("returnVoid")){
-            this.content += "return ";
-            this.content += ";\n";
+            if (classe == IfStat.class) {
+                IfStat nodo = (IfStat) node.nodo;
+                this.content += nodo.accept(this);
+            } else if (classe == ForStat.class) {
+                ForStat nodo = (ForStat) node.nodo;
+                this.content += nodo.accept(this);
+            } else if (classe == WriteStat.class) {
+                WriteStat nodo = (WriteStat) node.nodo;
+                this.content += nodo.accept(this);
+            } else if (classe == AssignStat.class) {
+                AssignStat nodo = (AssignStat) node.nodo;
+                this.content += nodo.accept(this);
+            } else if (classe == FuncallNode.class) {
+                FuncallNode nodo = (FuncallNode) node.nodo;
+                this.content += nodo.accept(this);
+                this.content += ";\n";
+            } else if (classe == WhileStat.class) {
+                WhileStat nodo = (WhileStat) node.nodo;
+                this.content += nodo.accept(this);
+            } else if (classe == ReadStat.class) {
+                ReadStat nodo = (ReadStat) node.nodo;
+                this.content += nodo.accept(this);
+            } else if (classe == ExprNode.class) {
+                ExprNode nodo = (ExprNode) node.nodo;
+                this.content += "return ";
+                this.content += nodo.accept(this);
+                this.content += ";\n";
+            } else if (node.nameStat.equalsIgnoreCase("returnVoid")) {
+                this.content += "return ";
+                this.content += ";\n";
 
+            }
         }
 
         return content;
@@ -794,9 +818,77 @@ public class GenerazioneCodiceC implements Visitatore{
 
     @Override
     public String visit(MainFunDecl node) {
+        RecordSymbolTable recordSymbolTable = top.getInTypeEnviroment(node.fundecl.id.val);
+        int tmp=0;
+
         this.content = "";
         this.content += "int main(){\n";
-        this.content += node.fundecl.id.accept(this)+"();\n";
+        this.content += "int intero=0;\n";
+        this.content += "char carattere=' ';\n";
+        this.content += "float float1=0;\n";
+        this.content += "char *stringa=\"\";\n";
+        this.content += "bool booleano=false;\n";
+        this.content += node.fundecl.id.accept(this)+"(";
+        if (recordSymbolTable.parDecls != null){
+            Collections.reverse(recordSymbolTable.parDecls);
+            for (int i = 0; i < recordSymbolTable.parDecls.size(); i++) {
+                for (int j = 0; j < recordSymbolTable.parDecls.get(i).listaID.size(); j++) {
+                    if (recordSymbolTable.parDecls.get(i).isOut) {
+                        this.content += "&";
+                       switch (recordSymbolTable.parDecls.get(i).listaID.get(j).typeNode){
+                           case "INTEGER":
+                               this.content+= "intero ";
+                               break;
+                           case "REAL":
+                               this.content+= "float ";
+                               break;
+                           case "STRING":
+                               this.content+="stringa ";
+                               break;
+                           case "CHAR":
+                               this.content+="carattere ";
+                               break;
+                           case "BOOL":
+                               this.content+="booleano ";
+                               break;
+                       }
+
+                        if (j != recordSymbolTable.parDecls.get(i).listaID.size() - 1)
+                            this.content += ",";
+                    } else {
+                        switch (recordSymbolTable.parDecls.get(i).listaID.get(j).typeNode){
+                            case "INTEGER":
+                                this.content+= "intero ";
+                                break;
+                            case "REAL":
+                                this.content+= "float ";
+                                break;
+                            case "STRING":
+                                this.content+="stringa ";
+                                break;
+                            case "CHAR":
+                                this.content+="carattere ";
+                                break;
+                            case "BOOL":
+                                this.content+="booleano ";
+                                break;
+                        }
+                        if (j != recordSymbolTable.parDecls.get(i).listaID.size() - 1)
+                            this.content += ",";
+                    }
+
+                    tmp++;
+                }
+
+                if (i != recordSymbolTable.parDecls.size() - 1)
+                    this.content += ",";
+
+            }
+            Collections.reverse(recordSymbolTable.parDecls);
+        }
+
+
+        this.content += ");\n";
         this.content += "return 0;\n";
         this.content += "}\n";
 
@@ -872,6 +964,18 @@ public class GenerazioneCodiceC implements Visitatore{
         this.content +="\n";
 
         //fine scorrimento per scrittura prototipi
+        this.content += "\n" +
+                "char  *conversioneFloat(float number){\n" +
+                "  \n" +
+                " char *buf = malloc(10*sizeof(char));\n" +
+                " sprintf (buf, \"%f\", number);\n" +
+                "  return buf;\n" +
+                "}\n" +
+                "char * conversioneInt(int number){\n" +
+                " char *buf = malloc(10*sizeof(char));\n" +
+                " sprintf (buf, \"%d\", number);\n" +
+                "  return buf;\n" +
+                "}";
 
         this.content += "char supporto[100];\n\n";
 

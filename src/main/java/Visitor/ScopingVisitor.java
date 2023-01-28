@@ -218,32 +218,34 @@ public class ScopingVisitor implements Visitatore{
     @Override
     public String visit(Stat node) {
 
-        Class classe = node.nodo.getClass();
+        if(node.nodo != null) {
+            Class classe = node.nodo.getClass();
 
-        if (classe == IfStat.class) {
-            IfStat nodo = (IfStat) node.nodo;
-             nodo.accept(this);
-        }else if(classe == ForStat.class){
-            ForStat nodo =(ForStat) node.nodo;
-            nodo.accept(this);
-        }else if(classe == WriteStat.class){
-            WriteStat nodo =(WriteStat) node.nodo;
-            nodo.accept(this);
-        }else if(classe == AssignStat.class){
-            AssignStat nodo =(AssignStat) node.nodo;
-            nodo.accept(this);
-        }else if(classe == FuncallNode.class){
-            FuncallNode nodo =(FuncallNode) node.nodo;
-            nodo.accept(this);
-        }else if(classe == WhileStat.class){
-            WhileStat nodo =(WhileStat) node.nodo;
-            nodo.accept(this);
-        }else if(classe == ReadStat.class){
-            ReadStat nodo =(ReadStat) node.nodo;
-            nodo.accept(this);
-        }else if(classe == ExprNode.class){
-            ExprNode nodo =(ExprNode) node.nodo;
-            nodo.accept(this);
+            if (classe == IfStat.class) {
+                IfStat nodo = (IfStat) node.nodo;
+                nodo.accept(this);
+            } else if (classe == ForStat.class) {
+                ForStat nodo = (ForStat) node.nodo;
+                nodo.accept(this);
+            } else if (classe == WriteStat.class) {
+                WriteStat nodo = (WriteStat) node.nodo;
+                nodo.accept(this);
+            } else if (classe == AssignStat.class) {
+                AssignStat nodo = (AssignStat) node.nodo;
+                nodo.accept(this);
+            } else if (classe == FuncallNode.class) {
+                FuncallNode nodo = (FuncallNode) node.nodo;
+                nodo.accept(this);
+            } else if (classe == WhileStat.class) {
+                WhileStat nodo = (WhileStat) node.nodo;
+                nodo.accept(this);
+            } else if (classe == ReadStat.class) {
+                ReadStat nodo = (ReadStat) node.nodo;
+                nodo.accept(this);
+            } else if (classe == ExprNode.class) {
+                ExprNode nodo = (ExprNode) node.nodo;
+                nodo.accept(this);
+            }
         }
 
         return null;
@@ -479,8 +481,18 @@ public class ScopingVisitor implements Visitatore{
 
         // aggiungo id del main alla tabella global
         programRoot.mainFun.accept(this);
+        ArrayList<String> listaparametri3 = new ArrayList<String>();
+        for (int j = 0; j < programRoot.mainFun.fundecl.listaPar.size(); j++) {
+            for (int k = 0; k < programRoot.mainFun.fundecl.listaPar.get(j).listaID.size(); k++) {
+
+                listaparametri3.add(0,programRoot.mainFun.fundecl.listaPar.get(j).type);
+            }
+
+        }
+
         if(top.getInThisTable(programRoot.mainFun.fundecl.id.val)==null&& !programRoot.mainFun.fundecl.id.val.equalsIgnoreCase("main")  ){
-            top.put(programRoot.mainFun.fundecl.id.val,"mainFunc",new ArrayList<String>(),programRoot.mainFun.fundecl.type);
+            top.put(programRoot.mainFun.fundecl.id.val,"mainFunc",listaparametri3,programRoot.mainFun.fundecl.type);
+            top.getInThisTable(programRoot.mainFun.fundecl.id.val).parDecls=programRoot.mainFun.fundecl.listaPar;
         }else{
             try {
                 throw new Exception("Identificativo main già dichiarato");

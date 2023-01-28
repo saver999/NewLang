@@ -59,34 +59,36 @@ public String content= "";
     public String visit(Stat node) {
         this.content = "";
 
-        Class classe = node.nodo.getClass();
+        if(node.nodo != null) {
+            Class classe = node.nodo.getClass();
 
-        if (classe == IfStat.class) {
-            IfStat nodo = (IfStat) node.nodo;
-            this.content += nodo.accept(this);
-        }else if(classe == ForStat.class){
-            ForStat nodo =(ForStat) node.nodo;
-            this.content += nodo.accept(this);
-        }else if(classe == WriteStat.class){
-            WriteStat nodo =(WriteStat) node.nodo;
-            this.content += nodo.accept(this);
-        }else if(classe == AssignStat.class){
-            AssignStat nodo =(AssignStat) node.nodo;
-            this.content += nodo.accept(this);
-        }else if(classe == FuncallNode.class){
-            FuncallNode nodo =(FuncallNode) node.nodo;
-            this.content += nodo.accept(this);
-        }else if(classe == WhileStat.class){
-            WhileStat nodo =(WhileStat) node.nodo;
-            this.content += nodo.accept(this);
-        }else if(classe == ReadStat.class){
-            ReadStat nodo =(ReadStat) node.nodo;
-            this.content += nodo.accept(this);
-        }else if(classe == ExprNode.class){
-            ExprNode nodo =(ExprNode) node.nodo;
-            this.content += nodo.accept(this);
+            if (classe == IfStat.class) {
+                IfStat nodo = (IfStat) node.nodo;
+                this.content += nodo.accept(this);
+            } else if (classe == ForStat.class) {
+                ForStat nodo = (ForStat) node.nodo;
+                this.content += nodo.accept(this);
+            } else if (classe == WriteStat.class) {
+                WriteStat nodo = (WriteStat) node.nodo;
+                this.content += nodo.accept(this);
+            } else if (classe == AssignStat.class) {
+                AssignStat nodo = (AssignStat) node.nodo;
+                this.content += nodo.accept(this);
+            } else if (classe == FuncallNode.class) {
+                FuncallNode nodo = (FuncallNode) node.nodo;
+                this.content += nodo.accept(this);
+            } else if (classe == WhileStat.class) {
+                WhileStat nodo = (WhileStat) node.nodo;
+                this.content += nodo.accept(this);
+            } else if (classe == ReadStat.class) {
+                ReadStat nodo = (ReadStat) node.nodo;
+                this.content += nodo.accept(this);
+            } else if (classe == ExprNode.class) {
+                ExprNode nodo = (ExprNode) node.nodo;
+                this.content += nodo.accept(this);
+            }
+
         }
-
         return content;
     }
 

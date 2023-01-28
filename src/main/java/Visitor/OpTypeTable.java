@@ -73,6 +73,11 @@ public class OpTypeTable {
 
 
         listaOpType.add(new OpType("StrConcatOp", "STRING", "STRING", "STRING"));
+        listaOpType.add(new OpType("StrConcatOp", "STRING", "INTEGER", "STRING"));
+        listaOpType.add(new OpType("StrConcatOp", "STRING", "REAL", "STRING"));
+        listaOpType.add(new OpType("StrConcatOp", "INTEGER", "STRING", "STRING"));
+        listaOpType.add(new OpType("StrConcatOp", "REAL", "STRING", "STRING"));
+
         listaOpType.add(new OpType("LtOp", "STRING", "STRING", "BOOL"));
         listaOpType.add(new OpType("LeOp", "STRING", "STRING", "BOOL"));
         listaOpType.add(new OpType("EqOp", "STRING", "STRING", "BOOL"));

@@ -2,56 +2,14 @@
 
 start: def test(): void{
 
-    integer condizione << 1, operazione ;
-
-    while condizione = 1 loop {
-
-       ("quale operazione aritmetica vuoi scegliere?") -->!;
-       ("se vuoi fare la somma scrivi 1 ") -->!;
-       ("se vuoi fare la sottrazione scrivi 2 ") -->!;
-       ("se vuoi fare la moltiplicazione scrivi 3 ") -->!;
-       ("se vuoi fare la divisione  scrivi 4 ") -->!;
-        ("se vuoi fare la potenza  scrivi 5 ") -->!;
-       operazione <-- "inserisci la tua scelta qui (1,2,3,4,5)";
-
-       if operazione = 1 or operazione = 2 or operazione = 3 or operazione =  4 or operazione =  5 then {
-           elaboraScelta(operazione);
-
-       }
-
-       ("vuoi continuare? scrivi 1, vuoi stopparti scrivi 0") -->!;
-       condizione <--;
-   }
-}
 
 
-def elaboraScelta(integer operazione ): void{
-
-    real numA, numB, result;
-
-    numA, numB, result << 0.0, 0.0, 0.0;
-
-    numA <-- "inserisci il primo numero";
-    numB <-- "inserisci il secondo numero";
-
-    if operazione = 1 then {
-               somma(numA, numC, result);
-               ("il risultato della somma  è :  " , result)-->!;
-           }
-
-
-
-}
-
-def somma( real numA, numC | out real result): void {
-   result << numA + numC;
-}
-
-
-
-real numC;
-
-
+       ( "stringa  " & "stringa")-->;
+       ( "stringa  " & 2)-->;
+       ( "float " & 0.0)-->;
+       ( "3 " & " stringa")-->;
+       ( "0.0 " & " stringa")-->;
+  }
 
 
 
