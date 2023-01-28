@@ -404,48 +404,42 @@ public class AnalisiSemantica implements Visitatore{
     @Override
     public String visit(VarDecl node) {
 
-
         int flag=0;
-if(node.listaID !=null) {
-    for (int i = 0; i < node.listaID.size(); i++) {
+        if(node.listaID !=null) {
 
-        node.listaID.get(i).accept(this);
-    }
+            for (int i = 0; i < node.listaID.size(); i++) {
+                node.listaID.get(i).accept(this);
+            }
 
+            for (int i = 0; i < node.listaID.size(); i++) {
+                if (node.listaID.get(i).typeNode.equals("error"))
+                    flag = 1;
+            }
 
-    for (int i = 0; i < node.listaID.size(); i++) {
-        if (node.listaID.get(i).typeNode.equals("error"))
-            flag = 1;
-    }
-}
-            // idinitobblist
-if(node.idInitObb != null) {
-    for (int i = 0; i < node.idInitObb.size(); i++) {
-        node.idInitObb.get(i).accept(this);
-    }
+        }
+        // idinitobblist
+        if(node.idInitObb != null) {
+            for (int i = 0; i < node.idInitObb.size(); i++) {
+                node.idInitObb.get(i).accept(this);
+            }
 
-
-    for (int i = 0; i < node.idInitObb.size(); i++) {
-
-        if (node.idInitObb.get(i).typeNode.equals("error"))
-            flag = 1;
+            for (int i = 0; i < node.idInitObb.size(); i++) {
+                if (node.idInitObb.get(i).typeNode.equals("error"))
+                    flag = 1;
+            }
 
         }
 
-
-    }
-
-
-            if (flag == 0) {
-                node.typeNode = "notype";
-            } else {
-                node.typeNode = "error";
-                try {
-                    throw new Exception("Errore in var decl");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        if (flag == 0) {
+            node.typeNode = "notype";
+        } else {
+            node.typeNode = "error";
+            try {
+                throw new Exception("Errore in var decl");
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+        }
 
         return null;
     }

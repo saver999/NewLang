@@ -37,15 +37,15 @@ void esercizio(){
 float b = 2.2;
 int a = 1;
 	char *ans1,*taglia;
-	int ans = 0;
+	char * ans = "no";
 	float risultato=sommac(a,x,b,&taglia);
 	stampa("la somma  incrementata  è ");
 		printf("%s \n", taglia);
 	stampa(" ed è pari a ");
 		printf("%f \n", risultato);
 		printf("%s \n", "vuoi continuare? (si/no) - inserisci due volte la risposta");
-		scanf("%d%s",&ans,ans1);
-	   while (ans == 1){
+		scanf("%s%s",ans,ans1);
+	   while (strcmp(ans, ans"si") == 0){
 	printf("inserisci un intero:");
 	scanf("%d",&a);
 	printf("inserisci un reale:");
@@ -56,7 +56,7 @@ int a = 1;
 	stampa(" ed è pari a ");
 		printf("%f \n", risultato);
 	printf("vuoi continuare? (si/no):");
-	scanf("%d",&ans);
+	scanf("%s",ans);
 }
 		printf("%s \n", "");
 		printf("%s \n", "ciao");

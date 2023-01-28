@@ -32,7 +32,7 @@ def esercizio() : void {  || funzione principale
     var a << 1, b << 2.2, x << 3;
 
     string taglia, ans1;
-    var ans << 0;
+    var ans << "no";
     real risultato << sommac(a, x, b, taglia);
 
 
@@ -43,7 +43,7 @@ def esercizio() : void {  || funzione principale
 
 	("vuoi continuare? (si/no) - inserisci due volte la risposta")  -->! ;
 	ans, ans1 <--;
-    while ans = 1 loop {
+    while ans = "si" loop {
 
         a <-- "inserisci un intero:";
         b <-- "inserisci un reale:";

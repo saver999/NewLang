@@ -13,8 +13,10 @@ public class GenerazioneCodiceC implements Visitatore{
     @Override
     public String visit(ExprNode node) {
         this.content ="";
-        ExprNode nodotmp;
-        String support="";
+        String tmp="";
+        String copyContent="";
+        int flagOPString=0;
+
 
         //controllo se è un operazione unaria per mettere prima il simbolo
         switch (node.nomeNodo){
@@ -57,33 +59,36 @@ public class GenerazioneCodiceC implements Visitatore{
         } else if(classe == ExprNode.class) {
             ExprNode nodo = (ExprNode) node.nodo1;
 
-//            copyContent = this.content;
-//            tmp += nodo.accept(this);
-//            this.content = copyContent;
+            if(nodo.typeNode.equalsIgnoreCase("string")&& node.nodo2!=null){
+                if(node.nomeNodo.equalsIgnoreCase("StrConcatOp")){
+                    this.content += "strcat(strcpy(supporto,"+nodo.accept(this)+"),";
 
-            if(node.nomeNodo.equalsIgnoreCase("PowOp")){
+                }else{
+                    //GESTIONE strcmp
+                    copyContent = this.content;
+                    tmp += nodo.accept(this);
+                    this.content = copyContent;
+                    this.content+="strcmp(";
+                    this.content += tmp;
+                    flagOPString = 1;
+                }
+            }else if(node.nomeNodo.equalsIgnoreCase("PowOp")){
                 this.content+= "pow(";
                 this.content += nodo.accept(this);
                 this.content+= ",";
-            }else if(node.nomeNodo.equalsIgnoreCase("StrConcatOp")){
-                this.content += "strcat(strcpy(supporto,"+nodo.accept(this)+"),";
-
-
-
-            }else{
-            this.content += nodo.accept(this);
-            if(node.nodo2 == null && node.nomeNodo.equalsIgnoreCase("InparOp")){ //controlli per chiudere le parentesi di inparOP
-                this.content += ")";
-            }
+            } else{
+                this.content += nodo.accept(this);
+                if(node.nodo2 == null && node.nomeNodo.equalsIgnoreCase("InparOp")){ //controlli per chiudere le parentesi di inparOP
+                    this.content += ")";
+                }
             }
 
         }
 
-            if(node.nodo2 != null){ //nodo2 non è null se operazione non è unaria
+        if(node.nodo2 != null) { //nodo2 non è null se operazione non è unaria
 
-
-                classe = node.nodo2.getClass();
-
+            classe = node.nodo2.getClass();
+            if (flagOPString == 0) {
                 switch (node.nomeNodo) {
                     case "AddOp":
                         this.content += " + ";
@@ -128,32 +133,56 @@ public class GenerazioneCodiceC implements Visitatore{
                         this.content += " != ";
                         break;
                 }
+            }
 
 
-
-                if (classe == ExprNode.class) {
-                    ExprNode nodo2 = (ExprNode) node.nodo2;
-
-                    if(node.nomeNodo.equalsIgnoreCase("PowOp")){
+            if (classe == ExprNode.class) {
+                ExprNode nodo2 = (ExprNode) node.nodo2;
+                if (flagOPString == 0) {
+                    if (node.nomeNodo.equalsIgnoreCase("PowOp")) {
 
                         this.content += nodo2.accept(this);
-                        this.content+= ")";
-                    }else if(node.nomeNodo.equalsIgnoreCase("StrConcatOp")){
+                        this.content += ")";
+                    } else if (node.nomeNodo.equalsIgnoreCase("StrConcatOp")) {
                         this.content += nodo2.accept(this);
                         this.content += ")";
 
-                    }else {this.content += nodo2.accept(this);}
-
-
+                    } else {
+                        this.content += nodo2.accept(this);
                     }
+                } else {
+                    copyContent = this.content;
+                    tmp += nodo2.accept(this);
+                    this.content = copyContent;
+                    this.content += ", ";
+                    this.content += tmp;
+                    this.content += ")";
+                }
 
-
-
-
-
-
+                if (flagOPString == 1) { //se operazione su stringhe
+                    switch (node.nomeNodo) {
+                        case "GtOp":
+                            this.content += " > 0";
+                            break;
+                        case "GeOp":
+                            this.content += " >= 0";
+                            break;
+                        case "LtOp":
+                            this.content += " < 0";
+                            break;
+                        case "LeOp":
+                            this.content += " <= 0";
+                            break;
+                        case "EqOp":
+                            this.content += " == 0";
+                            break;
+                        case "NeOp":
+                            this.content += " != 0";
+                            break;
+                    }
+                }
             }
-
+        }
         return content;
     }
 

@@ -1,4 +1,3 @@
-esercitazione5\parser$CUP$parser$actions.class
 nodi\ForStat.class
 nodi\IDInitObb.class
 nodi\StringConst.class
@@ -7,12 +6,9 @@ Visitor\Visitatore.class
 nodi\DecList.class
 Visitor\RecordSymbolTable.class
 nodi\ParDecl.class
-Visitor\TreeMaker.class
 nodi\AssignStat.class
 nodi\VarDecl.class
 Visitor\Env.class
-esercitazione5\parser.class
-esercitazione5\Yylex.class
 nodi\ProgramRoot.class
 nodi\WhileStat.class
 nodi\Body.class
@@ -23,7 +19,6 @@ nodi\ElseStat.class
 nodi\Stat.class
 nodi\IdVal.class
 Visitor\ScopingVisitor.class
-esercitazione5\Main.class
 Visitor\OpTypeTable.class
 nodi\ExprNode.class
 Visitor\AnalisiSemantica.class
