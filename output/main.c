@@ -45,7 +45,7 @@ int a = 1;
 		printf("%f \n", risultato);
 		printf("%s \n", "vuoi continuare? (si/no) - inserisci due volte la risposta");
 		scanf("%s%s",ans,ans1);
-	   while (strcmp(ans, ans"si") == 0){
+	   while (strcmp(ans, "si") == 0){
 	printf("inserisci un intero:");
 	scanf("%d",&a);
 	printf("inserisci un reale:");

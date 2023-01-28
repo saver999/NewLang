@@ -151,6 +151,7 @@ public class GenerazioneCodiceC implements Visitatore{
                         this.content += nodo2.accept(this);
                     }
                 } else {
+                    tmp="";
                     copyContent = this.content;
                     tmp += nodo2.accept(this);
                     this.content = copyContent;
