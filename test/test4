@@ -3,6 +3,7 @@
 |
 
 
+
 def sommac(integer a, d | real b | out string size): real
 {
 	real result;
