@@ -477,11 +477,18 @@ public class GenerazioneCodiceC implements Visitatore{
     @Override
     public String visit(IDInit node) {
         this.content="";
-        this.content += node.id.accept(this);
-
-        if(node.expr != null){
-            this.content += "=";
-            this.content += node.expr.accept(this);
+        if(!node.id.typeNode.equalsIgnoreCase("string")) {
+            this.content += node.id.accept(this);
+            if (node.expr != null) {
+                this.content += "=";
+                this.content += node.expr.accept(this);
+            }
+        }else{
+            this.content += node.id.accept(this);
+            this.content += " = (char*) malloc(sizeof(char) * 100) ";
+            if (node.expr != null) {
+                this.content += "strcpy(" + node.id.val + " , " + node.expr.accept(this) + ")";
+            }
         }
 
 
@@ -491,10 +498,15 @@ public class GenerazioneCodiceC implements Visitatore{
     @Override
     public String visit(IDInitObb node) {
         this.content=" ";
-        this.content += node.id.accept(this);
-        this.content+=" = ";
-        this.content += node.cost.accept(this);
-
+        if(!node.cost.typeNode.equalsIgnoreCase("string")) {
+            this.content += node.id.accept(this);
+            this.content += " = ";
+            this.content += node.cost.accept(this);
+        }else{
+            this.content += node.id.accept(this);
+            this.content += " = (char*) malloc(sizeof(char) * 100);\n";
+            this.content+="strcpy("+node.id.val+" , "+node.cost.accept(this)+")";
+        }
 
         return content;
     }

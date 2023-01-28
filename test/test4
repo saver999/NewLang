@@ -32,7 +32,7 @@ def esercizio() : void {  || funzione principale
     var a << 1, b << 2.2, x << 3;
 
     string taglia, ans1;
-    var ans << "no";
+    var ans << "no", an3<<"no";
     real risultato << sommac(a, x, b, taglia);
 
 

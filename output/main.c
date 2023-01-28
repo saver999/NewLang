@@ -15,11 +15,13 @@ float sommac(int a,int d,float b,char ** size){
 	float result;
 	result = a + b + c + d;
 	if(result > 100){
-	char * valore = "grande";
+	char * valore = (char*) malloc(sizeof(char) * 100);
+strcpy(valore , "grande");
 	*size = valore;
 }
 else{
-	char * valore = "piccola";
+	char * valore = (char*) malloc(sizeof(char) * 100);
+strcpy(valore , "piccola");
 	*size = valore;
 }
 	return result;
@@ -36,8 +38,11 @@ void esercizio(){
 	int x = 3;
 float b = 2.2;
 int a = 1;
-	char *ans1,*taglia;
-	char * ans = "no";
+	char *ans1 = (char*) malloc(sizeof(char) * 100) ,*taglia = (char*) malloc(sizeof(char) * 100) ;
+	char * an3 = (char*) malloc(sizeof(char) * 100);
+strcpy(an3 , "no");
+char * ans = (char*) malloc(sizeof(char) * 100);
+strcpy(ans , "no");
 	float risultato=sommac(a,x,b,&taglia);
 	stampa("la somma  incrementata  è ");
 		printf("%s \n", taglia);
