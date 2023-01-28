@@ -1,3 +1,6 @@
+|*
+ Programma esemplificativo del linguaggio NewLang
+|
 
 
 def sommac(integer a, d | real b | out string size): real
@@ -22,14 +25,14 @@ def sommac(integer a, d | real b | out string size): real
 var c << 1;
 
 
-
-def esercizio() : void {
+start:
+def esercizio() : void {  || funzione principale
 
 
     var a << 1, b << 2.2, x << 3;
 
     string taglia, ans1;
-    var ans << "no";
+    var ans << 0;
     real risultato << sommac(a, x, b, taglia);
 
 
@@ -40,7 +43,7 @@ def esercizio() : void {
 
 	("vuoi continuare? (si/no) - inserisci due volte la risposta")  -->! ;
 	ans, ans1 <--;
-    while ans = "si" loop {
+    while ans = 1 loop {
 
         a <-- "inserisci un intero:";
         b <-- "inserisci un reale:";
@@ -57,13 +60,10 @@ def esercizio() : void {
 }
 
 
-
-start:
-def stampa(string messaggio): void {
+def stampa(string messaggio): void {  || funzione di stampa
 
     integer a;
     integer i;
-    integer x;
 	for x << 4 to 1 loop {
 		("") -->! ;
 	}

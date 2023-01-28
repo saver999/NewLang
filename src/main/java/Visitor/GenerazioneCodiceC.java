@@ -322,7 +322,7 @@ public class GenerazioneCodiceC implements Visitatore{
                 this.content +=", ";
                 this.content += node.listaExpr.get(i).accept(this);
             }
-            this.content += ")";
+            this.content += ");\n";
         }
 
 
@@ -363,7 +363,8 @@ public class GenerazioneCodiceC implements Visitatore{
         this.content+="\"";
         for(int i =0;i<node.idList.size();i++) {
             this.content += ",";
-            this.content += "&";
+            if(!node.idList.get(i).typeNode.equals("STRING"))
+                this.content += "&";
             this.content += node.idList.get(i).val;
 
         }
@@ -501,7 +502,7 @@ public class GenerazioneCodiceC implements Visitatore{
                 this.content += node.idInitObb.get(i).accept(this);
 
                 if( i != node.idInitObb.size()-1)
-                    this.content += ",";
+                    this.content += ";\n";
 
 
 
@@ -511,7 +512,7 @@ public class GenerazioneCodiceC implements Visitatore{
         }else{
             switch (node.type){
                 case "STRING":
-                    this.content += "char *";
+                    this.content += "char ";
                     break;
 
                 case "BOOL":
@@ -531,6 +532,9 @@ public class GenerazioneCodiceC implements Visitatore{
 
             }
             for(int i=0; i<node.listaID.size();i++) {
+
+                if(node.type.equals("STRING"))
+                    this.content += "*";
 
                 this.content += node.listaID.get(i).accept(this);
 
@@ -624,7 +628,8 @@ public class GenerazioneCodiceC implements Visitatore{
         top= node.currentEnv;
         this.content +="{\n";
         for(int i=0;i<node.listaVar.size();i++){
-         //   this.content ="\t";
+
+           // this.content +="\t";
             content+= node.listaVar.get(i).accept(this);
 
         }
