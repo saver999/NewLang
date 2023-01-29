@@ -3,21 +3,21 @@
 
 
 
-def somma(float a, b): float ||Funzione che calcola la somma
+def somma(real a, b): real ||Funzione che calcola la somma
 {
 	return a+b;
 }
 
 
-def differenza(float a | float b): float ||Funzione che calcola la differenza
+def differenza(real a | real b): real ||Funzione che calcola la differenza
 {
 	return a-b;
 }
 
 
-def prodotto(float a, b): float ||Funzione che calcola il prodotto
+def prodotto(real a, b): real ||Funzione che calcola il prodotto
 {
-    float prod<<0;
+    real prod<<0;
     integer i<<1;
     while i<=b loop {
         prod<<prod+a;
@@ -27,18 +27,18 @@ def prodotto(float a, b): float ||Funzione che calcola il prodotto
 }
 
 
-def divisione(float a, b): float ||Funzione che calcola la divisione
+def divisione(real a, b): real ||Funzione che calcola la divisione
 {
 	return a/b;
 }
 
-def potenza(float a, b): float ||Funzione che calcola la potenza
+def potenza(real a, b): real ||Funzione che calcola la potenza
 {
 
 	return a^b;
 }
 
-def succ_fibonacci(float i): float { ||
+def succ_fibonacci(real i): real { ||
 
     if i<0 then{
         return 0;
@@ -64,7 +64,7 @@ start:
 def esempio() : void {  ||Funzione main
 
     integer op,comando<<-1;
-    float risultato,a,b;
+    real risultato,a,b;
 
     while comando!=0 loop {
 

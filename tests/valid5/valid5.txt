@@ -17,7 +17,7 @@ def esempio() : void {
 
     string taglia, ans1;
     var ans << "no";
-    float risultato << sommac(a, x, b, taglia);
+    real risultato << sommac(a, x, b, taglia);
 
 
     stampa("la somma di " & a & " e " & b & " incrementata di " & c & " è " & taglia);
@@ -53,9 +53,9 @@ def stampa(string messaggio): void {
 }
 
 
-def sommac(integer a, d | float b | out string size): float
+def sommac(integer a, d | real b | out string size): real
 {
-	float result;
+	real result;
 
 
 	result  <<  a + b + c + d;

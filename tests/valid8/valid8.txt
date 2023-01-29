@@ -3,30 +3,30 @@
 
 
 
-def somma(float a, b): float
+def somma(real a, b): real
 {
 	return a+b;
 }
 
 
-def differenza(float a | float b): float
+def differenza(real a | real b): real
 {
 	return a-b;
 }
 
 
-def prodotto(float a, b): float
+def prodotto(real a, b): real
 {
 	return a*b;
 }
 
 
-def divisione(float a, b): float
+def divisione(real a, b): real
 {
 	return a/b;
 }
 
-def potenza(float a, b): float
+def potenza(real a, b): real
 {
 
 	return a^b;
@@ -58,7 +58,7 @@ def succ_fibonacci(integer i): integer {
 def esempio() : void {
 
     integer op,comando<<-1;
-    float risultato,a,b;
+    real risultato,a,b;
     integer c, fibRes;
 
     while comando!=0 loop {
