@@ -1057,11 +1057,11 @@ public class GenerazioneCodiceC implements Visitatore{
         return tabella;
     }
 
-    public void saveFileC(){
+    public String saveFileC(){
         Writer writer = null;
 
         try {
-            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("output/main.c"), "utf-8"));
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("output"+File.separator+"main.c"), "utf-8"));
             writer.write(this.content);
             writer.close();
         } catch (IOException ex) {
@@ -1071,6 +1071,7 @@ public class GenerazioneCodiceC implements Visitatore{
                 System.out.println("Errore durante la chiusura del file");
             }
         }
+     return this.content;
     }
 }
 

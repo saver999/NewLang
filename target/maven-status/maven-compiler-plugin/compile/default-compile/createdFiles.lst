@@ -13,7 +13,6 @@ nodi\ProgramRoot.class
 nodi\WhileStat.class
 nodi\Body.class
 nodi\BoolConst.class
-esercitazione5\TesterLexer.class
 nodi\FuncallNode.class
 nodi\ElseStat.class
 nodi\Stat.class

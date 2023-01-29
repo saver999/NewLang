@@ -9,16 +9,36 @@ import nodi.*;
 
 
 import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 public class Main {
     public static void main(String[] args) throws Exception {
+        if (args.length == 0) {
+            System.err.println("nome file mancante");
+            System.exit(1);
+        }
+        Path inputPath = Paths.get(args[0]);
+        String inputFileName = inputPath.getFileName().toString();
+        if(inputFileName.contains("invalid")) {
+            System.err.println("il file " + inputPath + " contiene un errore");
+            System.exit(2);
+        }
+        int dotIndex = inputFileName.lastIndexOf(".");
+        String cFileName = (dotIndex == -1 ? inputFileName : inputFileName.substring(0, dotIndex)) + ".c";
+        String coutdir = "test_files/c_out";
+        Path cFilePath = Path.of(coutdir, cFileName);
+
         FileReader inFile = new FileReader(args[0]);
+
 
         parser p = new parser(new Yylex(inFile));
 
 
-       ProgramRoot pr = (ProgramRoot) p.parse().value;
+        ProgramRoot pr = (ProgramRoot) p.parse().value;
         TreeMaker ev = new TreeMaker();
         String result = (String) pr.accept(ev);
         System.out.println("result: " + result);
@@ -35,7 +55,15 @@ public class Main {
             GenerazioneCodiceC gc = new GenerazioneCodiceC();
             pr.accept(gc);//generazione codice C
             System.out.println("##### GENERAZIONE CODICE C #####");
-            gc.saveFileC();
+            String codiceC=gc.saveFileC();
+            try {
+                Files.createDirectories(Path.of(coutdir));
+                Files.writeString(cFilePath, codiceC);
+            } catch (IOException e) {
+                System.err.println("impossibile scrivere il file " + cFilePath);
+                System.exit(3);
+            }
+
             //runProgramInC();
         }else {
             System.out.println("NO");
