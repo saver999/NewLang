@@ -693,12 +693,34 @@ public class GenerazioneCodiceC implements Visitatore{
         this.content ="";
         top= node.currentEnv;
         this.content +="{\n";
+
+        ArrayList<VarDecl> vardeclsObb = new ArrayList<>();
+        ArrayList<VarDecl> vardecls = new ArrayList<>();
         for(int i=0;i<node.listaVar.size();i++){
+                if (node.listaVar.get(i).nomeNodo.equalsIgnoreCase("vardeclobb")){
+                    vardeclsObb.add(node.listaVar.get(i));
+                }
+        }
+        for(int i=0;i<node.listaVar.size();i++){
+            if (node.listaVar.get(i).nomeNodo.equalsIgnoreCase("VarDecl")){
+                vardecls.add(node.listaVar.get(i));
+            }
+        }
+
+        for(int i=0;i<vardeclsObb.size();i++){
 
            // this.content +="\t";
-            content+= node.listaVar.get(i).accept(this);
-
+           //content+= node.listaVar.get(i).accept(this);
+            content+=vardeclsObb.get(i).accept(this);
         }
+        for(int i=0;i<vardecls.size();i++){
+
+            // this.content +="\t";
+            //content+= node.listaVar.get(i).accept(this);
+            content+=vardecls.get(i).accept(this);
+        }
+
+
         Collections.reverse(node.listaStat);
         for(int i=0;i<node.listaStat.size();i++){
             if(node.listaStat.get(i) != null) {
