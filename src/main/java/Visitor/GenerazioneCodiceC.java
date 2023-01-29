@@ -533,7 +533,7 @@ public class GenerazioneCodiceC implements Visitatore{
     @Override
     public String visit(VarDecl node) {
         this.content = "\t";
-
+        ArrayList<IDInit> supporto =new ArrayList<>();
         if(node.nomeNodo.equalsIgnoreCase("VarDeclObb")){
             for(int i=0; i<node.idInitObb.size(); i++){
 
@@ -592,7 +592,20 @@ public class GenerazioneCodiceC implements Visitatore{
                     break;
 
             }
+
             for(int i=0; i<node.listaID.size();i++) {
+                if(node.listaID.get(i).expr==null){
+                    supporto.add(0,node.listaID.get(i));
+                }
+
+            }
+            for(int i=0; i<node.listaID.size();i++) {
+                if(node.listaID.get(i).expr!=null){
+                    supporto.add(node.listaID.get(i));
+                }
+            }
+
+            for(int i=0; i<supporto.size();i++) {
 
                 if(node.type.equals("STRING"))
                     this.content += "*";
@@ -600,9 +613,9 @@ public class GenerazioneCodiceC implements Visitatore{
 
                // node.listaID.get(i).expr.nomeNodo;
 
-                this.content += node.listaID.get(i).accept(this);
+                this.content += supporto.get(i).accept(this);
 
-                if (i != node.listaID.size() - 1)
+                if (i != supporto.size() - 1)
                     this.content += ",";
 
             }
@@ -693,17 +706,34 @@ public class GenerazioneCodiceC implements Visitatore{
         this.content ="";
         top= node.currentEnv;
         this.content +="{\n";
+        ArrayList<IDInit> supporto =new ArrayList<>();
 
         ArrayList<VarDecl> vardeclsObb = new ArrayList<>();
-        ArrayList<VarDecl> vardecls = new ArrayList<>();
+        ArrayList<VarDecl> vardeclsFlag1 = new ArrayList<>();
+        ArrayList<VarDecl> vardeclsFlag0 = new ArrayList<>();
         for(int i=0;i<node.listaVar.size();i++){
                 if (node.listaVar.get(i).nomeNodo.equalsIgnoreCase("vardeclobb")){
                     vardeclsObb.add(node.listaVar.get(i));
                 }
         }
         for(int i=0;i<node.listaVar.size();i++){
+            int flag=0;
+
             if (node.listaVar.get(i).nomeNodo.equalsIgnoreCase("VarDecl")){
-                vardecls.add(node.listaVar.get(i));
+                for(int h=0; h<node.listaVar.get(i).listaID.size();h++) {
+
+                    if(node.listaVar.get(i).listaID.get(h).expr!=null){
+                        if(node.listaVar.get(i).listaID.get(h).expr.nomeNodo.equalsIgnoreCase("id")){
+                           flag=1;
+                        }
+                    }
+                }if(flag==1){
+                    vardeclsFlag1.add(node.listaVar.get(i));
+                }else{
+                    vardeclsFlag0.add(node.listaVar.get(i));
+                }
+
+
             }
         }
 
@@ -713,13 +743,18 @@ public class GenerazioneCodiceC implements Visitatore{
            //content+= node.listaVar.get(i).accept(this);
             content+=vardeclsObb.get(i).accept(this);
         }
-        for(int i=0;i<vardecls.size();i++){
+        for(int i=0;i<vardeclsFlag0.size();i++){
 
             // this.content +="\t";
             //content+= node.listaVar.get(i).accept(this);
-            content+=vardecls.get(i).accept(this);
+            content+=vardeclsFlag0.get(i).accept(this);
         }
+        for(int i=0;i<vardeclsFlag1.size();i++){
 
+            // this.content +="\t";
+            //content+= node.listaVar.get(i).accept(this);
+            content+=vardeclsFlag1.get(i).accept(this);
+        }
 
         Collections.reverse(node.listaStat);
         for(int i=0;i<node.listaStat.size();i++){

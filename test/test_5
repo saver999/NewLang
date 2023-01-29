@@ -42,7 +42,7 @@ def esempio() : void {
 
 def stampa(string messaggio): void {
 
-    integer a<<i;
+    integer a<<i, j;
     integer i;
 	for x << 4 to 1 loop {
 		("") -->! ;

@@ -23,8 +23,8 @@ char * conversioneInt(int number){
 
 	int c = 1;
 void stampa(char * messaggio){
-	int a=i;
 	int i;
+	int j,a=i;
 	for (int x = 4;x <= 1;x++){
 		printf("%s \n", "");
 }
@@ -51,7 +51,7 @@ float b = 2.2;
 int a = 1;
 	char * ans = (char*) malloc(sizeof(char) * 100);
 strcpy(ans , "no");
-	char *ans1 = (char*) malloc(sizeof(char) * 100) ,*taglia = (char*) malloc(sizeof(char) * 100) ;
+	char *taglia = (char*) malloc(sizeof(char) * 100) ,*ans1 = (char*) malloc(sizeof(char) * 100) ;
 	float risultato=sommac(a,x,b,&taglia);
 	stampa(strcat(strcpy(supporto,strcat(strcpy(supporto,strcat(strcpy(supporto,strcat(strcpy(supporto,strcat(strcpy(supporto,strcat(strcpy(supporto,strcat(strcpy(supporto,"la somma di "),conversioneInt(a)))," e ")),conversioneFloat(b)))," incrementata di ")),conversioneInt(c)))," è ")),taglia));
 	stampa(strcat(strcpy(supporto,"ed è pari a "),conversioneFloat(risultato)));
