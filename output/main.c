@@ -4,14 +4,9 @@
 #include <stdbool.h>
 #include <math.h>
 //prototipi funzioni
-float somma(float a,float b);
-float differenza(float a,float b);
-float prodotto(float a,float b);
-float divisione(float a,float b);
-float potenza(float a,float b);
-float succ_fibonacci(float i);
-int menu();
-void esempio();
+float sommac(int a,int d,float b,char ** size);
+void stampa(char * messaggio);
+void esercizio();
 
 
 char  *conversioneFloat(float number){
@@ -26,117 +21,66 @@ char * conversioneInt(int number){
   return buf;
 }char supporto[100];
 
-float somma(float a,float b){
-	return a + b;
-}
-float differenza(float a,float b){
-	return a - b;
-}
-float prodotto(float a,float b){
-	float prod=0;
-	int i=1;
-	   while (i <= b){
-	prod = prod + a;
-	i = i + 1;
-}
-	return prod;
-}
-float divisione(float a,float b){
-	return a / b;
-}
-float potenza(float a,float b){
-	return pow(a,b);
-}
-float succ_fibonacci(float i){
-	if(i < 0){
-	return 0;
+	int c = 1;
+float sommac(int a,int d,float b,char ** size){
+	float result;
+	result = a + b + c + d;
+	if(result > 100){
+	char * valore = (char*) malloc(sizeof(char) * 100);
+strcpy(valore , "grande");
+	*size = valore;
 }
 else{
-	if(i == 0){
-	return 0;
+	char * valore = (char*) malloc(sizeof(char) * 100);
+strcpy(valore , "piccola");
+	*size = valore;
 }
-else{
-	if(i == 1){
-	return 1;
+	return result;
 }
+void stampa(char * messaggio){
+	int a=i;
+	int i = 1;
+	for (int x = 4;x <= 1;x++){
+		printf("%s \n", "");
 }
+		printf("%s \n", messaggio);
 }
-	return succ_fibonacci(i - 1) + succ_fibonacci(i - 2);
-}
-int menu(){
-	int op;
-		printf("%s \n", "--------Menu--------");
-		printf("%s \n", "2) Addizione");
-		printf("%s \n", "3) Sottrazione");
-		printf("%s \n", "4) Moltiplicazione");
-		printf("%s \n", "5) Divisione");
-		printf("%s \n", "6) Potenza");
-		printf("%s \n", "7) Fibonacci");
-	printf("Inserisci operazione:");
-	scanf("%d",&op);
-	   while (op < 2 || op > 7){
-	printf("Operazione non valida [2-7], inserisci operazione:");
-	scanf("%d",&op);
-}
-	return op;
-}
-void esempio(){
-	int comando= -1,op;
-	float b,a,risultato;
-	   while (comando != 0){
-		printf("%s \n", "1) Visualizza Menù");
-		printf("%s \n", "0) Termina");
-	printf("Inserisci comando:");
-	scanf("%d",&comando);
-	if(comando == 1){
-	op = menu();
-	if(op != 7){
-	printf("Inserisci il primo intero:");
-	scanf("%f",&a);
-	printf("Inserisci il secondo intero:");
+void esercizio(){
+	int x = 3;
+float b = 2.2;
+int a = 1;
+	char *ans1 = (char*) malloc(sizeof(char) * 100) ,*taglia = (char*) malloc(sizeof(char) * 100) ;
+	char * ans = (char*) malloc(sizeof(char) * 100);
+strcpy(ans , "no");
+	float risultato=sommac(a,x,b,&taglia);
+	stampa("la somma  incrementata  è ");
+		printf("%s \n", taglia);
+	stampa(" ed è pari a ");
+		printf("%f \n", risultato);
+		printf("%s \n", "vuoi continuare? (si/no) - inserisci due volte la risposta");
+		scanf("%s%s",ans,ans1);
+	   while (strcmp(ans, "si") == 0){
+	printf("inserisci un intero:");
+	scanf("%d",&a);
+	printf("inserisci un reale:");
 	scanf("%f",&b);
+	risultato = sommac(a,x,b,&taglia);
+	stampa("la somma  incrementata  è ");
+		printf("%s \n", taglia);
+	stampa(" ed è pari a ");
+		printf("%f \n", risultato);
+	printf("vuoi continuare? (si/no):");
+	scanf("%s",ans);
 }
-else{
-	printf("Inserisci il primo intero:");
-	scanf("%f",&a);
+		printf("%s \n", "");
+		printf("%s \n", "ciao");
 }
-	if(op == 2){
-	risultato = somma(a,b);
-}
-else{
-	if(op == 3){
-	risultato = differenza(a,b);
-}
-else{
-	if(op == 4){
-	risultato = prodotto(a,b);
-}
-else{
-	if(op == 5){
-	risultato = divisione(a,b);
-}
-else{
-	if(op == 6){
-	risultato = potenza(a,b);
-}
-else{
-	risultato = succ_fibonacci(a);
-}
-}
-}
-}
-}
-		printf("%s \n", strcat(strcpy(supporto,"Il risultato dell'operazione scelta è :"),conversioneFloat(risultato)));
-}
-}
-		printf("%s \n", "Ciao");
-	}
 int main(){
 int intero=0;
 char carattere=' ';
 float float1=0;
 char *stringa="";
 bool booleano=false;
-esempio();
+esercizio();
 return 0;
 }
