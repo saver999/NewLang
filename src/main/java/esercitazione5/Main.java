@@ -8,6 +8,7 @@ import Visitor.TreeMaker;
 import nodi.*;
 
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -29,7 +30,7 @@ public class Main {
         }
         int dotIndex = inputFileName.lastIndexOf(".");
         String cFileName = (dotIndex == -1 ? inputFileName : inputFileName.substring(0, dotIndex)) + ".c";
-        String coutdir = "test_files/c_out";
+        String coutdir = "test_files"+ File.separator+"c_out";
         Path cFilePath = Path.of(coutdir, cFileName);
 
         FileReader inFile = new FileReader(args[0]);
