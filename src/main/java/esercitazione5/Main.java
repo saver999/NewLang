@@ -42,7 +42,7 @@ public class Main {
         ProgramRoot pr = (ProgramRoot) p.parse().value;
         TreeMaker ev = new TreeMaker();
         String result = (String) pr.accept(ev);
-        System.out.println("result: " + result);
+       // System.out.println("result: " + result);
         ev.saveFileXML();
 
         ScopingVisitor sv = new ScopingVisitor();
@@ -50,12 +50,12 @@ public class Main {
 
         AnalisiSemantica as = new AnalisiSemantica();
         pr.accept(as);
-        System.out.println("Programma corretto semanticamente? ");
+       // System.out.println("Programma corretto semanticamente? ");
         if(pr.typeNode.equals("notype")) {
-            System.out.println("SI");
+           // System.out.println("SI");
             GenerazioneCodiceC gc = new GenerazioneCodiceC();
             pr.accept(gc);//generazione codice C
-            System.out.println("##### GENERAZIONE CODICE C #####");
+           // System.out.println("##### GENERAZIONE CODICE C #####");
             String codiceC=gc.saveFileC();
             try {
                 Files.createDirectories(Path.of(coutdir));
@@ -67,7 +67,7 @@ public class Main {
 
             //runProgramInC();
         }else {
-            System.out.println("NO");
+           // System.out.println("NO");
         }
     }
 
