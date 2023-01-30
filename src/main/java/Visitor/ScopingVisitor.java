@@ -76,17 +76,17 @@ public class ScopingVisitor implements Visitatore{
 
         String type = parDecl.type;
 
+
         for(int i=0; i < parDecl.listaID.size(); i++){
 
-            //if(top.getInTypeEnviroment(parDecl.listaID.get(i).val) == null){
-                if(parDecl.nomeNodo.equalsIgnoreCase("ParDeclOutOP")) {
-                    top.put(parDecl.listaID.get(i).val, "varOUT", null, type,true);
-                    parDecl.listaID.get(i).isOut=true;
-                    parDecl.isOut=true;
-                }
-                else
-                    top.put(parDecl.listaID.get(i).val, "var",null,type);
-
+            //if(top.getInTypeEnviroment(parDecl.listaID.get(i).val) == null) {
+                if (parDecl.nomeNodo.equalsIgnoreCase("ParDeclOutOP")) {
+                    top.put(parDecl.listaID.get(i).val, "varOUT", null, type, true);
+                    parDecl.listaID.get(i).isOut = true;
+                    parDecl.isOut = true;
+                } else
+                    top.put(parDecl.listaID.get(i).val, "var", null, type);
+           // }
         }
 
         return null;
@@ -293,6 +293,9 @@ public class ScopingVisitor implements Visitatore{
                 body.listaStat.get(i).accept(this);
             }
         }
+
+        printSymbleTable();
+
 
         body.currentEnv = top;
         top = top.prev;
@@ -505,7 +508,7 @@ public class ScopingVisitor implements Visitatore{
 
 
         programRoot.currentEnv=top;
-        printSymbleTable();
+
         return null;
     }
 
