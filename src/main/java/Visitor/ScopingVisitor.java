@@ -419,6 +419,7 @@ public class ScopingVisitor implements Visitatore{
 
                 if(top.getInThisTable(fundecl.id.val) == null&& !fundecl.id.val.equalsIgnoreCase("main")){
 
+
                     for (int j = 0; j < fundecl.listaPar.size(); j++) {
                         for (int k = 0; k < fundecl.listaPar.get(j).listaID.size(); k++) {
 
@@ -428,6 +429,7 @@ public class ScopingVisitor implements Visitatore{
                     }
 
                     top.put(fundecl.id.val, "func", listaparametri2, fundecl.type);
+
 
 
                 }else{
@@ -446,17 +448,10 @@ public class ScopingVisitor implements Visitatore{
              if(classe == FunDecl.class){
                 FunDecl fundecl =(FunDecl) programRoot.declist1.get(i);
                 fundecl.accept(this);
-                //sovrascrivo recordsymboltable
-                 for(int j=0;j<fundecl.listaPar.size();j++){
+
 
                      top.getInThisTable(fundecl.id.val).parDecls=fundecl.listaPar;
-//                     if(fundecl.listaPar.get(j).isOut) {
-//                         top.getInThisTable(fundecl.id.val).isout=true;
-//
-//
-//                     }
 
-                 }
             }
         }
 
@@ -469,16 +464,9 @@ public class ScopingVisitor implements Visitatore{
             if(classe == FunDecl.class){
                 FunDecl funDecl =(FunDecl) programRoot.declist2.get(i);
                 funDecl.accept(this);
-                for(int j=0;j<funDecl.listaPar.size();j++){
 
                     top.getInThisTable(funDecl.id.val).parDecls=funDecl.listaPar;
-//                    if(funDecl.listaPar.get(j).isOut) {
-//                        top.getInThisTable(funDecl.id.val).isout=true;
-//
-//
-//                    }
 
-                }
             }
         }
 
