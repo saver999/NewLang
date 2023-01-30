@@ -398,7 +398,7 @@ public class GenerazioneCodiceC implements Visitatore{
                     this.content += "%f";
                     break;
                 case "STRING":
-                    this.content += "%[^\\n]";
+                    this.content += "%s";
                     break;
                 case "CHAR":
                     this.content += "%c";
