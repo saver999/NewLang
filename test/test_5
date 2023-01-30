@@ -1,17 +1,11 @@
 
 
-
-   def funf(integer f): void{
-     var a<<2;
-        (f)-->;
-       }
-
-     var f<<5;
-
 start: def test(): void{
 
+string stringa;
+   stringa<--;
 
-    funf(4);
+   (stringa)-->!;
 
 
 
