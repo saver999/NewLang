@@ -6,6 +6,16 @@ import java.util.ArrayList;
 
 public class AnalisiSemantica implements Visitatore{
 
+    /*In questa classe viene analizzata la semantica del programma scritto nel linguaggio newLang,
+     * per far ciò viene utilizzato un type enviroment precedentemente popoloato grazie a "ScopingVisitor"
+     * quindi in questa classe ogni oggetto adibito alla creazione di un nuovo scope avrà una sua istanza della tabella
+     * simboli relativa al suo scope, questo è stato possibile grazie al fatto che gli oggetti analizzati dai diversi visitor
+     * sono condivisi tra loro. Quindi l'oggetto "top" di questa classe conterrà la tabella di simboli relativa allo scope che si sta analizzando in quel momento
+     *
+     * Inoltre in questa classe implementa l'inferenza di tipo e il type checking dove si andrà a dare un tipo ad ogni nodo
+     * dell'albero
+    * */
+
     Env top = null; //tabella dei simboli corrente
     ArrayList<Env> stack = new ArrayList<Env>(); //stack per tenere conto di tutte le tabelle dei simboli
     OpTypeTable opTypeTable = new OpTypeTable();

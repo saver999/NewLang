@@ -78,7 +78,7 @@ public class ScopingVisitor implements Visitatore{
 
         for(int i=0; i < parDecl.listaID.size(); i++){
 
-            if(top.getInTypeEnviroment(parDecl.listaID.get(i).val) == null){
+            //if(top.getInTypeEnviroment(parDecl.listaID.get(i).val) == null){
                 if(parDecl.nomeNodo.equalsIgnoreCase("ParDeclOutOP")) {
                     top.put(parDecl.listaID.get(i).val, "varOUT", null, type,true);
                     parDecl.listaID.get(i).isOut=true;
@@ -86,7 +86,7 @@ public class ScopingVisitor implements Visitatore{
                 }
                 else
                     top.put(parDecl.listaID.get(i).val, "var",null,type);
-            }
+
         }
 
         return null;
