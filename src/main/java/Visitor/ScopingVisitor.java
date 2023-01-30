@@ -490,6 +490,7 @@ public class ScopingVisitor implements Visitatore{
 
         }
 
+
         if(top.getInThisTable(programRoot.mainFun.fundecl.id.val)==null&& !programRoot.mainFun.fundecl.id.val.equalsIgnoreCase("main")  ){
             top.put(programRoot.mainFun.fundecl.id.val,"mainFunc",listaparametri3,programRoot.mainFun.fundecl.type);
             top.getInThisTable(programRoot.mainFun.fundecl.id.val).parDecls=programRoot.mainFun.fundecl.listaPar;
