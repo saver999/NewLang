@@ -42,7 +42,7 @@ public class Main {
         ProgramRoot pr = (ProgramRoot) p.parse().value;
         TreeMaker ev = new TreeMaker();
         String result = (String) pr.accept(ev);
-       // System.out.println("result: " + result);
+        System.out.println("result: " + result);
         ev.saveFileXML();
 
         ScopingVisitor sv = new ScopingVisitor();

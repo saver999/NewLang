@@ -414,7 +414,7 @@ public class ScopingVisitor implements Visitatore{
             if(classe == FunDecl.class){
                 FunDecl fundecl =(FunDecl) programRoot.declist2.get(i);
 
-                if(top.getInThisTable(fundecl.id.val) == null&& !fundecl.id.val.equalsIgnoreCase("main")  ) {
+                if(top.getInThisTable(fundecl.id.val) == null&& !fundecl.id.val.equalsIgnoreCase("main")){
 
                     for (int j = 0; j < fundecl.listaPar.size(); j++) {
                         for (int k = 0; k < fundecl.listaPar.get(j).listaID.size(); k++) {
@@ -504,6 +504,7 @@ public class ScopingVisitor implements Visitatore{
 
 
         programRoot.currentEnv=top;
+        printSymbleTable();
         return null;
     }
 
