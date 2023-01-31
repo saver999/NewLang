@@ -1,3 +1,4 @@
+
 start: def main2(): void{
     integer ultimo, penultimo,f;
 
@@ -7,7 +8,7 @@ start: def main2(): void{
     (ultimo)-->!;
 
 
-    for i<<2 to 100 loop {
+    for i<<2 to 10 loop {
     f<<ultimo+penultimo;
     (f)-->!;
     penultimo<<ultimo;

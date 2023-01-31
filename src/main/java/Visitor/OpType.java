@@ -1,6 +1,9 @@
 package Visitor;
 
-
+/*
+* questa classe rappresenta un'operazione verrà poi usata dalla classe OpTypeTable
+*
+* */
 
 public class OpType {
     public String op;

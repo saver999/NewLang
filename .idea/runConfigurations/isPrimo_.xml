@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="testing test sum" type="Application" factoryName="Application">
+  <configuration default="false" name="isPrimo?" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="esercitazione5.Main" />
     <module name="de-stefano-napolitano_es5" />
-    <option name="PROGRAM_PARAMETERS" value="test/test4" />
+    <option name="PROGRAM_PARAMETERS" value="test/isPrimo" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

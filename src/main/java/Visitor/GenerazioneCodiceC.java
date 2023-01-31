@@ -366,7 +366,7 @@ public class GenerazioneCodiceC implements Visitatore{
 
 
             }
-            this.content += "\\n\"";
+            this.content += "\"";
             for(int i=0;i<node.listaExpr.size();i++) {
                 this.content +=", ";
                 this.content += node.listaExpr.get(i).accept(this);
