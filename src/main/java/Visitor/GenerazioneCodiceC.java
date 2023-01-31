@@ -691,11 +691,16 @@ public class GenerazioneCodiceC implements Visitatore{
                 this.content += "return ";
                 this.content += nodo.accept(this);
                 this.content += ";\n";
-            } else if (node.nameStat.equalsIgnoreCase("returnVoid")) {
+            }
+//            else if (node.nameStat.equalsIgnoreCase("returnVoid")) {
+//                this.content += "return ";
+//                this.content += ";\n";
+//
+//            }
+        }else if (node.nameStat.equalsIgnoreCase("returnVoid")) {
                 this.content += "return ";
                 this.content += ";\n";
 
-            }
         }
 
         return content;

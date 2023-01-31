@@ -4,9 +4,13 @@
 #include <stdbool.h>
 #include <math.h>
 //prototipi funzioni
-float sommac(int a,int d,float b,char ** size);
-void stampa(char * messaggio);
-void esercizio();
+void elaboraScelta(int operazione);
+void somma(float numA,float numB,float* result);
+void sottrazione(float numA,float numB,float* result);
+void divisione(float numA,float numB,float* result);
+void moltiplicazione(float numA,float numB,float* result);
+void mol(float numA,float numB,float* result);
+void test();
 
 
 char  *conversioneFloat(float number){
@@ -21,59 +25,73 @@ char * conversioneInt(int number){
   return buf;
 }char supporto[100];
 
-	int c = 1;
-float sommac(int a,int d,float b,char ** size){
-	float result;
-	result = a + b + c + d;
-	if(result > 100){
-	char * valore = (char*) malloc(sizeof(char) * 100);
-strcpy(valore , "grande");
-	*size = valore;
+	int operazione;
+	int prova1;
+	bool  ala = true;
+	int numC=0;
+void elaboraScelta(int operazione){
+	float numA,numB,result;
+	numA = 0;
+numB = 0;
+result = 0;
+	printf("inserisci il primo numero");
+	scanf("%f",&numA);
+	printf("inserisci il secondo numero");
+	scanf("%f",&numB);
+	if(operazione == 1){
+	somma(numA,numB,&result);
+		printf("%s \n", strcat(strcpy(supporto,"il risultato della somma  è :  "),conversioneFloat(result)));
+}
+	if(operazione == 2){
+	sottrazione(numA,numB,&result);
+		printf("%s \n", strcat(strcpy(supporto,"il risultato della sottrazione  è :  "),conversioneFloat(result)));
+}
+	if(operazione == 3){
+	moltiplicazione(numA,numB,&result);
+		printf("%s \n", strcat(strcpy(supporto,"il risultato della moltiplicazione  è :  "),conversioneFloat(result)));
+}
+	if(operazione == 4){
+	if(numB != 0){
+	divisione(numA,numB,&result);
 }
 else{
-	char * valore = (char*) malloc(sizeof(char) * 100);
-strcpy(valore , "piccola");
-	*size = valore;
+		printf("%s \n", "Divisione impossibile, il denomitaore non può essere 0");
 }
-	return result;
 }
-void stampa(char * messaggio){
-	int a;
-	int i;
-	for (int x = 4;x <= 1;x++){
-		printf("%s \n", "");
 }
-		printf("%s \n", messaggio);
+void somma(float numA,float numB,float* result){
+	float numC=0;
+	*result = numA + numB;
 }
-void esercizio(){
-	int x = 3;
-float b = 2.2;
-int a = 1;
-	char * ans = (char*) malloc(sizeof(char) * 100);
-strcpy(ans , "no");
-	char *taglia = (char*) malloc(sizeof(char) * 100) ,*ans1 = (char*) malloc(sizeof(char) * 100) ;
-	float risultato=sommac(a,x,b,&taglia);
-	stampa("la somma  incrementata  è ");
-		printf("%s \n", taglia);
-	stampa(" ed è pari a ");
-		printf("%f \n", risultato);
-		printf("%s \n", "vuoi continuare? (si/no) - inserisci due volte la risposta");
-		scanf("%s%s",ans,ans1);
-	   while (strcmp(ans, "si") == 0){
-	printf("inserisci un intero:");
-	scanf("%d",&a);
-	printf("inserisci un reale:");
-	scanf("%f",&b);
-	risultato = sommac(a,x,b,&taglia);
-	stampa("la somma  incrementata  è ");
-		printf("%s \n", taglia);
-	stampa(" ed è pari a ");
-		printf("%f \n", risultato);
-	printf("vuoi continuare? (si/no):");
-	scanf("%s",ans);
+void sottrazione(float numA,float numB,float* result){
+	*result = numA - numB;
 }
-		printf("%s \n", "");
-		printf("%s \n", "ciao");
+void divisione(float numA,float numB,float* result){
+	*result = numA / numB;
+}
+void moltiplicazione(float numA,float numB,float* result){
+	*result = numA * numB;
+}
+void mol(float numA,float numB,float* result){
+	*result = numA * numB;
+	}
+void test(){
+	int operazione,condizione=1;
+	int prova1=1;
+	   while (condizione == 1){
+		printf("%s \n", "quale operazione aritmetica vuoi scegliere?");
+		printf("%s \n", "se vuoi fare la somma scrivi 1 ");
+		printf("%s \n", "se vuoi fare la sottrazione scrivi 2 ");
+		printf("%s \n", "se vuoi fare la moltiplicazione scrivi 3 ");
+		printf("%s \n", "se vuoi fare la divisione  scrivi 4 ");
+	printf("inserisci la tua scelta qui (1,2,3,4)");
+	scanf("%d",&operazione);
+	if(operazione == 1 || operazione == 2 || operazione == 3 || operazione == 4){
+	elaboraScelta(operazione);
+}
+		printf("%s \n", "vuoi continuare? scrivi 1, vuoi stopparti scrivi 0");
+		scanf("%d",&condizione);
+}
 }
 int main(){
 int intero=0;
@@ -81,6 +99,6 @@ char carattere=' ';
 float float1=0;
 char *stringa="";
 bool booleano=false;
-esercizio();
+test();
 return 0;
 }

@@ -1,17 +1,89 @@
-fun1(){
-var
+ integer  operazione ;
+    integer prova1  ;
+ var ala <<true;
+     integer numC <<0;
+
+
+
+start: def test(): void{
+
+    integer condizione << 1, operazione ;
+    integer prova1 << 1  ;
+
+
+
+    while condizione = 1 loop {
+
+       ("quale operazione aritmetica vuoi scegliere?") -->!;
+       ("se vuoi fare la somma scrivi 1 ") -->!;
+       ("se vuoi fare la sottrazione scrivi 2 ") -->!;
+       ("se vuoi fare la moltiplicazione scrivi 3 ") -->!;
+       ("se vuoi fare la divisione  scrivi 4 ") -->!;
+       operazione <-- "inserisci la tua scelta qui (1,2,3,4)";
+
+       if operazione = 1 or operazione = 2 or operazione = 3 or operazione =  4 then {
+           elaboraScelta(operazione);
+
+       }
+
+       ("vuoi continuare? scrivi 1, vuoi stopparti scrivi 0") -->!;
+       condizione <--;
+   }
+}
+
+
+def elaboraScelta(integer operazione ): void{
+
+    real numA, numB, result;
+    numA, numB, result << 0, 0, 0;
+
+
+
+    numA <-- "inserisci il primo numero";
+    numB <-- "inserisci il secondo numero";
+
+    if operazione = 1 then {
+               somma(numA, numB, result);
+               ("il risultato della somma  è :  " & result)-->!;
+           }
+    if operazione = 2 then {
+            sottrazione(numA,numB, result);
+            ("il risultato della sottrazione  è :  " & result)-->!;
+        }
+        if operazione = 3 then {
+            moltiplicazione(numA, numB, result);
+            ("il risultato della moltiplicazione  è :  " & result)-->!;
+        }
+        if operazione = 4 then {
+            if numB <> 0 then {
+                divisione(numA, numB, result);
+            }else{
+                ("Divisione impossibile, il denomitaore non può essere 0") -->!;
+            }
+        }
+
 
 }
-var
-var
-fun2(){
 
+def somma( real numA, numB | out real result ): void {
+real numC <<0;
 
+   result << numA + numB;
 }
 
-main
+def sottrazione( real numA, numB | out real result ): void {
+     result << numA - numB;
+}
+def divisione( real numA, numB | out real result): void {
 
-fun3(){
+     result << numA / numB;
 
 }
-var
+def moltiplicazione( real numA, numB | out real result   ): void {
+     result << numA * numB;
+
+}
+def mol( real numA, numB | out real result   ): void {
+     result << numA * numB;
+     return;
+}

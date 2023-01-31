@@ -62,6 +62,7 @@ def elaboraScelta(integer operazione ): void{
 
 def somma( real numA, numB | out real result): void {
    result << numA + numB;
+
 }
 
 def sottrazione( real numA, numB | out real result): void {
