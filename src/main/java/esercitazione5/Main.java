@@ -8,9 +8,7 @@ import Visitor.TreeMaker;
 import nodi.*;
 
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -72,7 +70,7 @@ public class Main {
     }
 
 //    public static void runProgramInC(){
-//
+//        String os = System.getProperty("os.name").toLowerCase();
 //
 //        try {
 //            Process p = Runtime.getRuntime().exec("gcc -v");
@@ -87,19 +85,19 @@ public class Main {
 //        }
 //
 //
-//
 //            try {
+//                String gccCommand = "gcc  output/main.c -o main.o";
+//                Process p = Runtime.getRuntime().exec(gccCommand);
+//                p.waitFor();
 //
-//                Runtime rt = Runtime.getRuntime();
-//                Process processGCC = rt.exec("gcc output/main.c -o output/executableMain.o");
-//                processGCC.waitFor();
-//                Process processEXE = Runtime.getRuntime().exec("cmd /k start cmd.exe @cmd /k output\\TranslatedCodeInC.exe");
-//                processEXE.waitFor();
+//                String terminalCommand = "/bin/sh ";
+//                Runtime.getRuntime().exec("./main.o" );
+//
 //            } catch (Exception e) {
 //                e.printStackTrace();
 //            }
-//
-//    }
+//        }
+
 
 
 
