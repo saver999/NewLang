@@ -46,24 +46,20 @@ void stampa(char * messaggio){
 		printf("%s \n", messaggio);
 }
 void esercizio(){
-	int ans = 0;
-	int c = 2;
-	int a,x;
-	float b;
-	char *taglia = (char*) malloc(sizeof(char) * 100) ;
-	float risultato;
-	a = 1;
-b = 2.2;
-x = 3;
-		printf("%d \n", c);
-	risultato = sommac(a,x,b,&taglia);
+	int x = 3;
+float b = 2.2;
+int a = 1;
+	char * ans = (char*) malloc(sizeof(char) * 100);
+strcpy(ans , "no");
+	char *taglia = (char*) malloc(sizeof(char) * 100) ,*ans1 = (char*) malloc(sizeof(char) * 100) ;
+	float risultato=sommac(a,x,b,&taglia);
 	stampa("la somma  incrementata  è ");
 		printf("%s \n", taglia);
 	stampa(" ed è pari a ");
 		printf("%f \n", risultato);
-		printf("%s \n", "vuoi continuare? (1/si 0/no)");
-		scanf("%d",&ans);
-	   while (ans == 1){
+		printf("%s \n", "vuoi continuare? (si/no) - inserisci due volte la risposta");
+		scanf("%s%s",ans,ans1);
+	   while (strcmp(ans, "si") == 0){
 	printf("inserisci un intero:");
 	scanf("%d",&a);
 	printf("inserisci un reale:");
@@ -73,8 +69,8 @@ x = 3;
 		printf("%s \n", taglia);
 	stampa(" ed è pari a ");
 		printf("%f \n", risultato);
-	printf("vuoi continuare? (1/si 0/no):");
-	scanf("%d",&ans);
+	printf("vuoi continuare? (si/no):");
+	scanf("%s",ans);
 }
 		printf("%s \n", "");
 		printf("%s \n", "ciao");
