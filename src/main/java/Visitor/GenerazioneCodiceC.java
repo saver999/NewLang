@@ -9,7 +9,7 @@ import java.util.Collections;
 public class GenerazioneCodiceC implements Visitatore{
     String content;
     Env top;
-    ArrayList<VarDecl>
+    ArrayList<VarDecl> variabiliGlobali = new ArrayList<VarDecl>();
     @Override
     public String visit(ExprNode node) {
         this.content ="";
@@ -987,6 +987,24 @@ public class GenerazioneCodiceC implements Visitatore{
 
         this.content = "";
         this.content += "int main(){\n";
+
+        if(variabiliGlobali != null)
+        for(int i=0;i< variabiliGlobali.size();i++){
+            if(variabiliGlobali.get(i).typeNode.equalsIgnoreCase("VarDeclObb")){
+                for(int j=0; j< variabiliGlobali.get(i).idInitObb.size();j++){
+                    this.content += variabiliGlobali.get(i).idInitObb.get(j).accept(this);
+
+                }
+            }else{
+                for(int j=0; j< variabiliGlobali.get(i).listaID.size();j++){
+                    this.content += variabiliGlobali.get(i).listaID.get(j).accept(this);
+
+                }
+            }
+        }
+
+
+
         this.content += "int intero=0;\n";
         this.content += "char carattere=' ';\n";
         this.content += "float float1=0;\n";
@@ -1153,7 +1171,13 @@ public class GenerazioneCodiceC implements Visitatore{
 
                 if (classe == VarDecl.class) {
                     VarDecl nodo = (VarDecl) node.declist1.get(i);
+
                         this.content += nodo.accept(this);
+                        if(nodo.type != null) {
+                            if (nodo.type.equalsIgnoreCase("string"))
+                                variabiliGlobali.add(nodo);
+                        }
+
                 }
             }
         }
@@ -1166,6 +1190,11 @@ public class GenerazioneCodiceC implements Visitatore{
                 if (classe == VarDecl.class) {
                     VarDecl nodo = (VarDecl) node.declist2.get(i);
                     this.content += nodo.accept(this);
+
+                    if(nodo.type != null) {
+                        if (nodo.type.equalsIgnoreCase("string"))
+                            variabiliGlobali.add(nodo);
+                    }
                 }
             }
         }
