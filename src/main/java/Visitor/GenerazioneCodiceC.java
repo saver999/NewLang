@@ -504,7 +504,7 @@ public class GenerazioneCodiceC implements Visitatore{
             }
         }else{
             this.content += node.id.accept(this);
-            this.content += " = (char*) malloc(sizeof(char) * 100) ";
+            this.content += " = (char*) malloc(sizeof(char) * 100); ";
             if (node.expr != null) {
                 this.content += "strcpy(" + node.id.val + " , " + node.expr.accept(this) + ")";
             }

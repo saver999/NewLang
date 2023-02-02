@@ -1,11 +1,13 @@
 integer i<<30;
 var a<< true;
 var b<< false;
-var c<< "true";
+var c <<"a";
 var d<< 3;
 var f<< 4.8;
 start: def test(): void{
 
+    string c<<"c", d<<"cc";
+    var e<<"c", f<<"cc";
     for i<<8 to 7 loop {
     ("se vuoi fare la somma scrivi 1 ") -->!;
     }
