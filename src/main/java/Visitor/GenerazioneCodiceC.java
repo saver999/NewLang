@@ -615,8 +615,13 @@ public class GenerazioneCodiceC implements Visitatore{
 
                 this.content += supporto.get(i).accept(this);
 
-                if (i != supporto.size() - 1)
+                if (i != supporto.size() - 1 && !node.type.equals("STRING") )
                     this.content += ",";
+
+                if(node.type.equals("STRING")&& i != supporto.size() - 1){
+                    this.content += ";\n";
+                    this.content += "char ";
+                }
 
             }
 

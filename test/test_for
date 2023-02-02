@@ -1,7 +1,7 @@
 integer i<<30;
 var a<< true;
 var b<< false;
-var c <<"a";
+
 var d<< 3;
 var f<< 4.8;
 start: def test(): void{
