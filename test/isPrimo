@@ -1,0 +1,21 @@
+start: def test():void{
+    integer num, div_cor;
+    boolean e_primo;
+    num<--"Dare il numero da controllare e poi andare a capo";
+    div_cor<<2;
+    e_primo<< true;
+
+    if num<0 then{
+        ("il numero non è positivo!")-->!;
+    }else{
+        if num>1 then{
+            while div_cor < num and e_primo loop{
+
+            }
+        }
+    }
+
+
+
+
+}

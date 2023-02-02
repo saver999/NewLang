@@ -4,6 +4,21 @@ import nodi.*;
 
 import java.util.ArrayList;
 
+/*
+* Le operazioni effetteuate da questo visitor servono esclusivamente all'inserimento preliminare degli identificativi nel typeEnivroment
+* in modo da poter implementare la funzionalità di uso prima della dichiarazione.
+*
+* I costrutti del nostro linguaggio che individuano un nuovo scope sono: : il programma (per le variabili globali), la
+dichiarazione di funzione (per i parametri e le variabili locali), lato ‘then’ e lato ‘else’
+dell’istruzione ‘if’, il corpo dell’istruzione ‘while’, il ‘for’.
+*
+* dato che i costrutti: Fundecl, Forstat, WhileStat,IfStat,elseStat, condividono un unico body, si è scelto di avviare la creazione del nuovo scope proprio all'interno di questo body
+*
+*
+*Inoltre in questa classe viene anche gestita l'inferenza di tipo
+*
+* */
+
 public class ScopingVisitor implements Visitatore{
 
     Env top = null; //tabella dei simboli corrente
@@ -74,6 +89,7 @@ public class ScopingVisitor implements Visitatore{
     @Override
     public String visit(ParDecl parDecl) {
 
+        //il tipo degli id di un pardecl è unico per tutti gli id
         String type = parDecl.type;
 
 

@@ -2,6 +2,9 @@ package Visitor;
 
 import java.util.ArrayList;
 
+/*
+* In questa classe vengono implementate le regole fornite sugli operandi delle operazioni
+* */
 public class OpTypeTable {
     public ArrayList<OpType> listaOpType;
 

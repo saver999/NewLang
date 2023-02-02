@@ -5,6 +5,15 @@ import nodi.ParDecl;
 
 import java.util.ArrayList;
 
+/*
+* Questa classe rappresenta un determinato record di una tabella dei simboli contine informazioni come:
+* Nome: il nome dell'identificativo
+* Kind: il tipo "fun" se una funzione ,"var" se una variabile,"mainFunc" se si tratta del main
+* typeParametri: è un'arraylist contenente il tipo di ogni parametro
+* typeRitorno: nel caso di una funzione rappresenta il tipo di ritorno di quest'ultima, nel caso di una variabile contine il tipo
+* isout: ci dice se una funzione ha un parametro passato per riferimento
+* */
+
 public class RecordSymbolTable {
     public String nome;
     public String kind;

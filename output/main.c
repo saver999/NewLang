@@ -4,6 +4,12 @@
 #include <stdbool.h>
 #include <math.h>
 //prototipi funzioni
+void elaboraScelta(int operazione);
+void somma(float numA,float numB,float* result);
+void sottrazione(float numA,float numB,float* result);
+void divisione(float numA,float numB,float* result);
+void moltiplicazione(float numA,float numB,float* result);
+void mol(float numA,float numB,float* result);
 void test();
 
 
@@ -19,23 +25,73 @@ char * conversioneInt(int number){
   return buf;
 }char supporto[100];
 
-	int i=30;
-	bool  a = true;
-	bool  b = false;
-	char * c = (char*) malloc(sizeof(char) * 100);
-strcpy(c , "a");
-	int d = 3;
-	float f = 4.8;
-void test(){
-	char * f = (char*) malloc(sizeof(char) * 100);
-strcpy(f , "cc");
-char * e = (char*) malloc(sizeof(char) * 100);
-strcpy(e , "c");
-	char *d = (char*) malloc(sizeof(char) * 100) strcpy(d , "cc"),*c = (char*) malloc(sizeof(char) * 100) strcpy(c , "c");
-	for (int i = 8;i <= 7;i++){
-		printf("%s \n", "se vuoi fare la somma scrivi 1 ");
+	int operazione;
+	int prova1;
+	bool  ala = true;
+	int numC=0;
+void elaboraScelta(int operazione){
+	float numA,numB,result;
+	numA = 0;
+numB = 0;
+result = 0;
+	printf("inserisci il primo numero");
+	scanf("%f",&numA);
+	printf("inserisci il secondo numero");
+	scanf("%f",&numB);
+	if(operazione == 1){
+	somma(numA,numB,&result);
+		printf("%s \n", strcat(strcpy(supporto,"il risultato della somma  è :  "),conversioneFloat(result)));
 }
-		printf("%s %d \n", "fuori for ", i);
+	if(operazione == 2){
+	sottrazione(numA,numB,&result);
+		printf("%s \n", strcat(strcpy(supporto,"il risultato della sottrazione  è :  "),conversioneFloat(result)));
+}
+	if(operazione == 3){
+	moltiplicazione(numA,numB,&result);
+		printf("%s \n", strcat(strcpy(supporto,"il risultato della moltiplicazione  è :  "),conversioneFloat(result)));
+}
+	if(operazione == 4){
+	if(numB != 0){
+	divisione(numA,numB,&result);
+}
+else{
+		printf("%s \n", "Divisione impossibile, il denomitaore non può essere 0");
+}
+}
+}
+void somma(float numA,float numB,float* result){
+	float numC=0;
+	*result = numA + numB;
+}
+void sottrazione(float numA,float numB,float* result){
+	*result = numA - numB;
+}
+void divisione(float numA,float numB,float* result){
+	*result = numA / numB;
+}
+void moltiplicazione(float numA,float numB,float* result){
+	*result = numA * numB;
+}
+void mol(float numA,float numB,float* result){
+	*result = numA * numB;
+	}
+void test(){
+	int operazione,condizione=1;
+	int prova1=1;
+	   while (condizione == 1){
+		printf("%s \n", "quale operazione aritmetica vuoi scegliere?");
+		printf("%s \n", "se vuoi fare la somma scrivi 1 ");
+		printf("%s \n", "se vuoi fare la sottrazione scrivi 2 ");
+		printf("%s \n", "se vuoi fare la moltiplicazione scrivi 3 ");
+		printf("%s \n", "se vuoi fare la divisione  scrivi 4 ");
+	printf("inserisci la tua scelta qui (1,2,3,4)");
+	scanf("%d",&operazione);
+	if(operazione == 1 || operazione == 2 || operazione == 3 || operazione == 4){
+	elaboraScelta(operazione);
+}
+		printf("%s \n", "vuoi continuare? scrivi 1, vuoi stopparti scrivi 0");
+		scanf("%d",&condizione);
+}
 }
 int main(){
 int intero=0;

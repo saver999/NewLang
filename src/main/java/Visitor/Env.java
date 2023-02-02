@@ -1,7 +1,13 @@
 package Visitor;
 
 import java.util.*;
+/*
+*
+* La classe in questione rappresenta una singola tabella del typeEvniroment
+* prev punta alla tabella padre
+* */
 public class Env {
+
     private Hashtable<String, RecordSymbolTable> table;
     protected Env prev;
 
