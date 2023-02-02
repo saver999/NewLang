@@ -1,15 +1,11 @@
-integer i<<30;
-var a<< true;
-var b<< false;
 
-var d<< 3;
-var f<< 4.8;
+string c <<"ciao", a<<"cc";
+var d<<"ss",e <<"d";
 start: def test(): void{
 
-    string c<<"c", d<<"cc";
-    var e<<"c", f<<"cc";
+
     for i<<8 to 7 loop {
     ("se vuoi fare la somma scrivi 1 ") -->!;
     }
-    ("fuori for ",i) -->!;
+
 }

@@ -9,7 +9,7 @@ import java.util.Collections;
 public class GenerazioneCodiceC implements Visitatore{
     String content;
     Env top;
-
+    ArrayList<VarDecl>
     @Override
     public String visit(ExprNode node) {
         this.content ="";
@@ -534,7 +534,118 @@ public class GenerazioneCodiceC implements Visitatore{
     public String visit(VarDecl node) {
         this.content = "\t";
         ArrayList<IDInit> supporto =new ArrayList<>();
-        if(node.nomeNodo.equalsIgnoreCase("VarDeclObb")){
+        //per vedere se siamo in global e inizializzare le stringhe nel main perche le variabili globali di char danno problemi
+        if(top.prev==null){
+
+            if(node.nomeNodo.equalsIgnoreCase("VarDeclObb")){
+                for(int i=0; i<node.idInitObb.size(); i++){
+
+
+                    switch (node.idInitObb.get(i).cost.typeNode){
+                        case "STRING":
+                            this.content += "char * ";
+                            this.content += node.idInitObb.get(i).id.val;
+
+                            break;
+
+                        case "BOOL":
+                            this.content += node.idInitObb.get(i).cost.typeNode.toLowerCase();
+                            this.content += " ";
+                            this.content += node.idInitObb.get(i).accept(this);
+                            break;
+                        case "REAL":
+                            this.content += "float";
+                            this.content += node.idInitObb.get(i).accept(this);
+                            break;
+                        case "INTEGER":
+                            this.content += "int";
+                            this.content += node.idInitObb.get(i).accept(this);
+                            break;
+                        case "CHAR":
+                            this.content += node.idInitObb.get(i).cost.typeNode.toLowerCase();
+                            this.content += " ";
+                            this.content += node.idInitObb.get(i).accept(this);
+                            break;
+
+                    }
+
+
+
+                    if( i != node.idInitObb.size()-1)
+                        this.content += ";\n";
+
+
+
+                }
+                this.content += ";\n";
+
+            }else{
+                switch (node.type){
+                    case "STRING":
+                        this.content += "char ";
+
+                        break;
+
+                    case "BOOL":
+                        this.content += node.type.toLowerCase();
+                        this.content += " ";
+                        break;
+                    case "REAL":
+                        this.content += "float ";
+                        break;
+                    case "INTEGER":
+                        this.content += "int ";
+                        break;
+                    case "CHAR":
+                        this.content += node.type.toLowerCase();
+                        this.content += " ";
+                        break;
+
+                }
+
+                for(int i=0; i<node.listaID.size();i++) {
+                    if(node.listaID.get(i).expr==null){
+                        supporto.add(0,node.listaID.get(i));
+                    }
+
+                }
+                for(int i=0; i<node.listaID.size();i++) {
+                    if(node.listaID.get(i).expr!=null){
+                        supporto.add(node.listaID.get(i));
+                    }
+                }
+
+                for(int i=0; i<supporto.size();i++) {
+
+                    if (node.type.equals("STRING")) {
+                        this.content += "*";
+                        this.content += supporto.get(i).id.val;
+
+                        if (node.type.equals("STRING") && i != supporto.size() - 1) {
+                            this.content += ";\n";
+                            this.content += "char ";
+                        }
+
+                    } else {
+                        // node.listaID.get(i).expr.nomeNodo;
+
+                        this.content += supporto.get(i).accept(this);
+
+                        if (i != supporto.size() - 1 && !node.type.equals("STRING"))
+                            this.content += ",";
+
+
+
+                    }
+                }
+
+                this.content += ";\n";
+
+
+            }
+
+        }
+        else if(node.nomeNodo.equalsIgnoreCase("VarDeclObb")){
             for(int i=0; i<node.idInitObb.size(); i++){
 
 
@@ -1042,7 +1153,7 @@ public class GenerazioneCodiceC implements Visitatore{
 
                 if (classe == VarDecl.class) {
                     VarDecl nodo = (VarDecl) node.declist1.get(i);
-                    this.content += nodo.accept(this);
+                        this.content += nodo.accept(this);
                 }
             }
         }
