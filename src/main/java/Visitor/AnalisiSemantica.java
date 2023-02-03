@@ -85,7 +85,10 @@ public class AnalisiSemantica implements Visitatore{
             ExprNode nodo = (ExprNode)node.nodo1;
             nodo.accept(this);
             if(node.nodo2 == null) {
-                node.typeNode = opTypeTable.searchOp(node.nomeNodo, nodo.typeNode, ""); //controllo operazioni unarie
+                if(!node.nomeNodo.equalsIgnoreCase("InparOp"))
+                  node.typeNode = opTypeTable.searchOp(node.nomeNodo, nodo.typeNode, ""); //controllo operazioni unarie
+                else
+                    node.typeNode =nodo.typeNode;
             }
             typeFirstOperand = nodo.typeNode;
 

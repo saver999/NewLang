@@ -99,11 +99,11 @@ public class OpTypeTable {
 
         listaOpType.add(new OpType("NotOp", "BOOL", "", "BOOL"));
 
-        listaOpType.add(new OpType("InparOp", "BOOL", "", "BOOL"));
-        listaOpType.add(new OpType("InparOp", "INTEGER", "", "INTEGERE"));
-        listaOpType.add(new OpType("InparOp", "REAL", "", "REAL"));
-        listaOpType.add(new OpType("InparOp", "STRING", "", "STRING"));
-        listaOpType.add(new OpType("InparOp", "CHAR", "", "CHAR"));
+//        listaOpType.add(new OpType("InparOp", "BOOL", "", "BOOL"));
+//        listaOpType.add(new OpType("InparOp", "INTEGER", "", "INTEGER"));
+//        listaOpType.add(new OpType("InparOp", "REAL", "", "REAL"));
+//        listaOpType.add(new OpType("InparOp", "STRING", "", "STRING"));
+//        listaOpType.add(new OpType("InparOp", "CHAR", "", "CHAR"));
     }
 
     public String searchOp(String operation, String fOp, String sOp) {
