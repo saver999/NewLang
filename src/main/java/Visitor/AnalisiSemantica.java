@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * simboli relativa al suo scope, questo è stato possibile grazie al fatto che gli oggetti analizzati dai diversi visitor
  * sono condivisi tra loro. Quindi l'oggetto "top" di questa classe conterrà la tabella di simboli relativa allo scope che si sta analizzando in quel momento
  *
- * Inoltre in questa classe implementa l'inferenza di tipo e il type checking dove si andrà a dare un tipo ad ogni nodo
+ * Inoltre  questa classe implementa l'inferenza di tipo e il type checking dove si andrà a dare un tipo ad ogni nodo
  * dell'albero
  * */
 public class AnalisiSemantica implements Visitatore{
