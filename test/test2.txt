@@ -2,20 +2,31 @@
 start: def test(): void{
 
     integer condizione << 1, operazione ;
+    string aa1,bb2,result;
 
     while condizione = 1 loop {
 
-       ("quale operazione aritmetica vuoi scegliere?") -->!;
+       ("quale operazione vuoi effettuare?") -->!;
        ("se vuoi fare la somma scrivi 1 ") -->!;
        ("se vuoi fare la sottrazione scrivi 2 ") -->!;
        ("se vuoi fare la moltiplicazione scrivi 3 ") -->!;
        ("se vuoi fare la divisione  scrivi 4 ") -->!;
         ("se vuoi fare la potenza  scrivi 5 ") -->!;
-       operazione <-- "inserisci la tua scelta qui (1,2,3,4,5)";
+        ("se vuoi concatenare due stringhe  scrivi 6 ") -->!;
+       operazione <-- "inserisci la tua scelta qui (1,2,3,4,5,6)";
 
-       if operazione = 1 or operazione = 2 or operazione = 3 or operazione =  4 or operazione =  5 then {
+       if operazione = 1 or operazione = 2 or operazione = 3 or operazione =  4 or operazione =  5  then {
            elaboraScelta(operazione);
 
+       }else{
+
+            if operazione =  6 then{
+                 aa1 <-- "inserisci la prima stringa";
+                    bb2 <-- "inserisci la seconda stringa";
+                    concat(aa1,bb2,result);
+                    (result)-->!;
+
+            }
        }
 
        ("vuoi continuare? scrivi 1, vuoi stopparti scrivi 0") -->!;
@@ -78,6 +89,10 @@ def moltiplicazione( real numA, numB | out real result): void {
 }
 def potenza( real numA, numB | out real result): void {
      result << numA^numB;
+}
+
+def concat( string stringA, stringB | out string result): void {
+     result << stringA&stringB;
 }
 
 
