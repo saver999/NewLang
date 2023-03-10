@@ -4,13 +4,15 @@
 #include <stdbool.h>
 #include <math.h>
 //prototipi funzioni
-void elaboraScelta(int operazione);
-void somma(float numA,float numB,float* result);
-void sottrazione(float numA,float numB,float* result);
-void divisione(float numA,float numB,float* result);
-void moltiplicazione(float numA,float numB,float* result);
-void potenza(float numA,float numB,float* result);
-void test();
+float somma(float a,float b);
+float differenza(float a,float b);
+float prodotto(float a,float b);
+float divisione(float a,float b);
+float potenza(float a,float b);
+int succ_fibonacci(int i);
+int menu();
+float potenza(float a,float b);
+void esempio();
 
 
 char  *conversioneFloat(float number){
@@ -25,73 +27,114 @@ char * conversioneInt(int number){
   return buf;
 }char supporto[100];
 
-void elaboraScelta(int operazione){
-	float numA,numB,result;
-	numA = 0.0;
-numB = 0.0;
-result = 0.0;
-	printf("inserisci il primo numero");
-	scanf("%f",&numA);
-	printf("inserisci il secondo numero");
-	scanf("%f",&numB);
-	if(operazione == 1){
-	somma(numA,numB,&result);
-		printf("%s %f \n", "il risultato della somma  è :  ", result);
+float somma(float a,float b){
+	return a + b;
 }
-	if(operazione == 2){
-	sottrazione(numA,numB,&result);
-		printf("%s %f \n", "il risultato della sottrazione  è :  ", result);
+float differenza(float a,float b){
+	return a - b;
 }
-	if(operazione == 3){
-	moltiplicazione(numA,numB,&result);
-		printf("%s %f \n", "il risultato della moltiplicazione  è :  ", result);
+float prodotto(float a,float b){
+	return a * b;
 }
-	if(operazione == 4){
-	if(numB != 0){
-	divisione(numA,numB,&result);
-		printf("%s %f \n", "il risultato della divisione  è :  ", result);
+float divisione(float a,float b){
+	return a / b;
+}
+float potenza(float a,float b){
+	return pow(a,b);
+}
+int succ_fibonacci(int i){
+	if(i < 0){
+	return 0;
 }
 else{
-		printf("%s \n", "Divisione impossibile, il denomitaore non può essere 0");
+	if(i == 0){
+	return 0;
+}
+else{
+	if(i == 1){
+	return 1;
 }
 }
-	if(operazione == 5){
-	potenza(numA,numB,&result);
-		printf("%s %f \n", "il risultato della potenza  è :  ", result);
+}
+	return succ_fibonacci(i - 1) + succ_fibonacci(i - 2);
+}
+int menu(){
+	int op;
+		printf("%s \n", "--------Menu--------");
+		printf("%s \n", "2) Addizione");
+		printf("%s \n", "3) Sottrazione");
+		printf("%s \n", "4) Moltiplicazione");
+		printf("%s \n", "5) Divisione");
+		printf("%s \n", "6) Potenza");
+		printf("%s \n", "7) Fibonacci");
+	printf("Inserisci operazione:");
+	scanf("%d",&op);
+	   while (op < 2 || op > 7){
+	printf("Operazione non valida [2-7], inserisci operazione:");
+	scanf("%d",&op);
+}
+	return op;
+}
+float potenza(float a,float b){
+	return pow(a,b);
+}
+void esempio(){
+	int op,comando= -1;
+	float risultato,a,b;
+	int c,fibRes;
+	   while (comando != 0){
+		printf("%s \n", "1) Visualizza Menù");
+		printf("%s \n", "0) Termina");
+	printf("Inserisci comando:");
+	scanf("%d",&comando);
+	if(comando == 1){
+	op = menu();
+	if(op != 7){
+	printf("Inserisci il primo numero reale:");
+	scanf("%f",&a);
+	printf("Inserisci il secondo numero reale:");
+	scanf("%f",&b);
+}
+else{
+	printf("Inserisci un intero:");
+	scanf("%d",&c);
+}
+	if(op == 2){
+	risultato = somma(a,b);
+}
+else{
+	if(op == 3){
+	risultato = differenza(a,b);
+}
+else{
+	if(op == 4){
+	risultato = prodotto(a,b);
+}
+else{
+	if(op == 5){
+	risultato = divisione(a,b);
+}
+else{
+	if(op == 6){
+	risultato = potenza(a,b);
+}
+else{
+	fibRes = succ_fibonacci(c);
 }
 }
-void somma(float numA,float numB,float* result){
-	*result = numA + numB;
 }
-void sottrazione(float numA,float numB,float* result){
-	*result = numA - numB;
 }
-void divisione(float numA,float numB,float* result){
-	*result = numA / numB;
 }
-void moltiplicazione(float numA,float numB,float* result){
-	*result = numA * numB;
+	if(op != 7){
+		printf("%s %f \n", "Il risultato dell'operazione scelta è :", risultato);
 }
-void potenza(float numA,float numB,float* result){
-	*result = pow(numA,numB);
+else{
+		printf("%s %d \n", "Il risultato dell'operazione scelta è :", fibRes);
 }
-void test(){
-	int operazione,condizione=1;
-	   while (condizione == 1){
-		printf("%s \n", "quale operazione aritmetica vuoi scegliere?");
-		printf("%s \n", "se vuoi fare la somma scrivi 1 ");
-		printf("%s \n", "se vuoi fare la sottrazione scrivi 2 ");
-		printf("%s \n", "se vuoi fare la moltiplicazione scrivi 3 ");
-		printf("%s \n", "se vuoi fare la divisione  scrivi 4 ");
-		printf("%s \n", "se vuoi fare la potenza  scrivi 5 ");
-	printf("inserisci la tua scelta qui (1,2,3,4,5)");
-	scanf("%d",&operazione);
-	if(operazione == 1 || operazione == 2 || operazione == 3 || operazione == 4 || operazione == 5){
-	elaboraScelta(operazione);
 }
-		printf("%s \n", "vuoi continuare? scrivi 1, vuoi stopparti scrivi 0");
-		scanf("%d",&condizione);
 }
+		printf("%s ", "Ciao");
+	return ;
 }
 int main(){
 int intero=0;
@@ -99,6 +142,6 @@ char carattere=' ';
 float float1=0;
 char *stringa="";
 bool booleano=false;
-test();
+esempio();
 return 0;
 }

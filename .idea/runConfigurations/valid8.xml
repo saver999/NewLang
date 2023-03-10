@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="valid8" type="Application" factoryName="Application" folderName="test valid" activateToolWindowBeforeRun="false">
+    <option name="MAIN_CLASS_NAME" value="esercitazione5.Main" />
+    <module name="de-stefano-napolitano_es5" />
+    <option name="PROGRAM_PARAMETERS" value="tests/valid8/valid8.txt" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

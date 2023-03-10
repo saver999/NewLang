@@ -22,10 +22,10 @@ public class Main {
         }
         Path inputPath = Paths.get(args[0]);
         String inputFileName = inputPath.getFileName().toString();
-        if(inputFileName.contains("invalid")) {
-            System.err.println("il file " + inputPath + " contiene un errore");
-            System.exit(2);
-        }
+//        if(inputFileName.contains("invalid")) {
+//            System.err.println("il file " + inputPath + " contiene un errore");
+//            System.exit(2);
+//        }
         int dotIndex = inputFileName.lastIndexOf(".");
         String cFileName = (dotIndex == -1 ? inputFileName : inputFileName.substring(0, dotIndex)) + ".c";
         String coutdir = "test_files"+ File.separator+"c_out";
